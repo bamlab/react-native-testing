@@ -1,0 +1,90 @@
+e105b823eedc7b893f0de649b92e3538
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subscriber_1 = require("../Subscriber");
+
+function map(project, thisArg) {
+  return function mapOperation(source) {
+    if (typeof project !== 'function') {
+      throw new TypeError('argument is not a function. Are you looking for `mapTo()`?');
+    }
+
+    return source.lift(new MapOperator(project, thisArg));
+  };
+}
+
+exports.map = map;
+
+var MapOperator = function () {
+  function MapOperator(project, thisArg) {
+    this.project = project;
+    this.thisArg = thisArg;
+  }
+
+  MapOperator.prototype.call = function (subscriber, source) {
+    return source.subscribe(new MapSubscriber(subscriber, this.project, this.thisArg));
+  };
+
+  return MapOperator;
+}();
+
+exports.MapOperator = MapOperator;
+
+var MapSubscriber = function (_super) {
+  __extends(MapSubscriber, _super);
+
+  function MapSubscriber(destination, project, thisArg) {
+    var _this = _super.call(this, destination) || this;
+
+    _this.project = project;
+    _this.count = 0;
+    _this.thisArg = thisArg || _this;
+    return _this;
+  }
+
+  MapSubscriber.prototype._next = function (value) {
+    var result;
+
+    try {
+      result = this.project.call(this.thisArg, value, this.count++);
+    } catch (err) {
+      this.destination.error(err);
+      return;
+    }
+
+    this.destination.next(result);
+  };
+
+  return MapSubscriber;
+}(Subscriber_1.Subscriber);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvbWFwLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsSUFBQSxZQUFBLEdBQUEsT0FBQSxDQUFBLGVBQUEsQ0FBQTs7QUEyQ0EsU0FBZ0IsR0FBaEIsQ0FBMEIsT0FBMUIsRUFBbUUsT0FBbkUsRUFBZ0Y7QUFDOUUsU0FBTyxTQUFTLFlBQVQsQ0FBc0IsTUFBdEIsRUFBMkM7QUFDaEQsUUFBSSxPQUFPLE9BQVAsS0FBbUIsVUFBdkIsRUFBbUM7QUFDakMsWUFBTSxJQUFJLFNBQUosQ0FBYyw0REFBZCxDQUFOO0FBQ0Q7O0FBQ0QsV0FBTyxNQUFNLENBQUMsSUFBUCxDQUFZLElBQUksV0FBSixDQUFnQixPQUFoQixFQUF5QixPQUF6QixDQUFaLENBQVA7QUFDRCxHQUxEO0FBTUQ7O0FBUEQsT0FBQSxDQUFBLEdBQUEsR0FBQSxHQUFBOztBQVNBLElBQUEsV0FBQSxHQUFBLFlBQUE7QUFDRSxXQUFBLFdBQUEsQ0FBb0IsT0FBcEIsRUFBcUUsT0FBckUsRUFBaUY7QUFBN0QsU0FBQSxPQUFBLEdBQUEsT0FBQTtBQUFpRCxTQUFBLE9BQUEsR0FBQSxPQUFBO0FBQ3BFOztBQUVELEVBQUEsV0FBQSxDQUFBLFNBQUEsQ0FBQSxJQUFBLEdBQUEsVUFBSyxVQUFMLEVBQWdDLE1BQWhDLEVBQTJDO0FBQ3pDLFdBQU8sTUFBTSxDQUFDLFNBQVAsQ0FBaUIsSUFBSSxhQUFKLENBQWtCLFVBQWxCLEVBQThCLEtBQUssT0FBbkMsRUFBNEMsS0FBSyxPQUFqRCxDQUFqQixDQUFQO0FBQ0QsR0FGRDs7QUFHRixTQUFBLFdBQUE7QUFBQyxDQVBELEVBQUE7O0FBQWEsT0FBQSxDQUFBLFdBQUEsR0FBQSxXQUFBOztBQWNiLElBQUEsYUFBQSxHQUFBLFVBQUEsTUFBQSxFQUFBO0FBQWtDLEVBQUEsU0FBQSxDQUFBLGFBQUEsRUFBQSxNQUFBLENBQUE7O0FBSWhDLFdBQUEsYUFBQSxDQUFZLFdBQVosRUFDb0IsT0FEcEIsRUFFWSxPQUZaLEVBRXdCO0FBRnhCLFFBQUEsS0FBQSxHQUdFLE1BQUEsQ0FBQSxJQUFBLENBQUEsSUFBQSxFQUFNLFdBQU4sS0FBa0IsSUFIcEI7O0FBQ29CLElBQUEsS0FBQSxDQUFBLE9BQUEsR0FBQSxPQUFBO0FBSnBCLElBQUEsS0FBQSxDQUFBLEtBQUEsR0FBZ0IsQ0FBaEI7QUFPRSxJQUFBLEtBQUksQ0FBQyxPQUFMLEdBQWUsT0FBTyxJQUFJLEtBQTFCOztBQUNEOztBQUlTLEVBQUEsYUFBQSxDQUFBLFNBQUEsQ0FBQSxLQUFBLEdBQVYsVUFBZ0IsS0FBaEIsRUFBd0I7QUFDdEIsUUFBSSxNQUFKOztBQUNBLFFBQUk7QUFDRixNQUFBLE1BQU0sR0FBRyxLQUFLLE9BQUwsQ0FBYSxJQUFiLENBQWtCLEtBQUssT0FBdkIsRUFBZ0MsS0FBaEMsRUFBdUMsS0FBSyxLQUFMLEVBQXZDLENBQVQ7QUFDRCxLQUZELENBRUUsT0FBTyxHQUFQLEVBQVk7QUFDWixXQUFLLFdBQUwsQ0FBaUIsS0FBakIsQ0FBdUIsR0FBdkI7QUFDQTtBQUNEOztBQUNELFNBQUssV0FBTCxDQUFpQixJQUFqQixDQUFzQixNQUF0QjtBQUNELEdBVFM7O0FBVVosU0FBQSxhQUFBO0FBQUMsQ0F2QkQsQ0FBa0MsWUFBQSxDQUFBLFVBQWxDLENBQUEifQ==

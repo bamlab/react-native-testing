@@ -1,0 +1,19 @@
+af620b279a9bdc39f04618833b8fba8d
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var AsyncSubject_1 = require("../AsyncSubject");
+
+var multicast_1 = require("./multicast");
+
+function publishLast() {
+  return function (source) {
+    return multicast_1.multicast(new AsyncSubject_1.AsyncSubject())(source);
+  };
+}
+
+exports.publishLast = publishLast;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvcHVibGlzaExhc3QudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQSxjQUFBLEdBQUEsT0FBQSxDQUFBLGlCQUFBLENBQUE7O0FBQ0EsSUFBQSxXQUFBLEdBQUEsT0FBQSxDQUFBLGFBQUEsQ0FBQTs7QUE4REEsU0FBZ0IsV0FBaEIsR0FBMkI7QUFDekIsU0FBTyxVQUFDLE1BQUQsRUFBc0I7QUFBSyxXQUFBLFdBQUEsQ0FBQSxTQUFBLENBQVUsSUFBSSxjQUFBLENBQUEsWUFBSixFQUFWLEVBQUEsTUFBQSxDQUFBO0FBQXdDLEdBQTFFO0FBQ0Q7O0FBRkQsT0FBQSxDQUFBLFdBQUEsR0FBQSxXQUFBIn0=

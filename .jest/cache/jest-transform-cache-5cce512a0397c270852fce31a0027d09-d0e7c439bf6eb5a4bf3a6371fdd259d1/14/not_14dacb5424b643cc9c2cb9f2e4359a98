@@ -1,0 +1,19 @@
+ced7e3360494d2656ce1479de685ebb2
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function not(pred, thisArg) {
+  function notPred() {
+    return !notPred.pred.apply(notPred.thisArg, arguments);
+  }
+
+  notPred.pred = pred;
+  notPred.thisArg = thisArg;
+  return notPred;
+}
+
+exports.not = not;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL25vdC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxTQUFnQixHQUFoQixDQUFvQixJQUFwQixFQUFvQyxPQUFwQyxFQUFnRDtBQUM5QyxXQUFTLE9BQVQsR0FBZ0I7QUFDZCxXQUFPLENBQVMsT0FBUSxDQUFDLElBQVQsQ0FBYyxLQUFkLENBQTJCLE9BQVEsQ0FBQyxPQUFwQyxFQUE2QyxTQUE3QyxDQUFoQjtBQUNEOztBQUNNLEVBQUEsT0FBUSxDQUFDLElBQVQsR0FBZ0IsSUFBaEI7QUFDQSxFQUFBLE9BQVEsQ0FBQyxPQUFULEdBQW1CLE9BQW5CO0FBQ1AsU0FBTyxPQUFQO0FBQ0Q7O0FBUEQsT0FBQSxDQUFBLEdBQUEsR0FBQSxHQUFBIn0=

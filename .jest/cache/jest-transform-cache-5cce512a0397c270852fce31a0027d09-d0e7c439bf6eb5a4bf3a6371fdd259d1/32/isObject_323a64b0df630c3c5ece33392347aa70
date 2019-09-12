@@ -1,0 +1,13 @@
+e701aafda9e2b1c9bc9e9383a73e918d
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function isObject(x) {
+  return x !== null && typeof x === 'object';
+}
+
+exports.isObject = isObject;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzT2JqZWN0LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLFNBQWdCLFFBQWhCLENBQXlCLENBQXpCLEVBQStCO0FBQzdCLFNBQU8sQ0FBQyxLQUFLLElBQU4sSUFBYyxPQUFPLENBQVAsS0FBYSxRQUFsQztBQUNEOztBQUZELE9BQUEsQ0FBQSxRQUFBLEdBQUEsUUFBQSJ9

@@ -1,0 +1,25 @@
+dc03980a01e4daec8e0ba1754262bef9
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var async_1 = require("../scheduler/async");
+
+var TimeoutError_1 = require("../util/TimeoutError");
+
+var timeoutWith_1 = require("./timeoutWith");
+
+var throwError_1 = require("../observable/throwError");
+
+function timeout(due, scheduler) {
+  if (scheduler === void 0) {
+    scheduler = async_1.async;
+  }
+
+  return timeoutWith_1.timeoutWith(due, throwError_1.throwError(new TimeoutError_1.TimeoutError()), scheduler);
+}
+
+exports.timeout = timeout;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvdGltZW91dC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBLE9BQUEsR0FBQSxPQUFBLENBQUEsb0JBQUEsQ0FBQTs7QUFLQSxJQUFBLGNBQUEsR0FBQSxPQUFBLENBQUEsc0JBQUEsQ0FBQTs7QUFFQSxJQUFBLGFBQUEsR0FBQSxPQUFBLENBQUEsZUFBQSxDQUFBOztBQUNBLElBQUEsWUFBQSxHQUFBLE9BQUEsQ0FBQSwwQkFBQSxDQUFBOztBQWdGQSxTQUFnQixPQUFoQixDQUEyQixHQUEzQixFQUMyQixTQUQzQixFQUMyRDtBQUFoQyxNQUFBLFNBQUEsS0FBQSxLQUFBLENBQUEsRUFBQTtBQUFBLElBQUEsU0FBQSxHQUEyQixPQUFBLENBQUEsS0FBM0I7QUFBZ0M7O0FBQ3pELFNBQU8sYUFBQSxDQUFBLFdBQUEsQ0FBWSxHQUFaLEVBQWlCLFlBQUEsQ0FBQSxVQUFBLENBQVcsSUFBSSxjQUFBLENBQUEsWUFBSixFQUFYLENBQWpCLEVBQWlELFNBQWpELENBQVA7QUFDRDs7QUFIRCxPQUFBLENBQUEsT0FBQSxHQUFBLE9BQUEifQ==

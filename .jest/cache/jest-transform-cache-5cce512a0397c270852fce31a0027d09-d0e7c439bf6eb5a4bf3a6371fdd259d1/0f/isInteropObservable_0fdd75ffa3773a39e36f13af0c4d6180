@@ -1,0 +1,15 @@
+4c93ded06f6021c7c92edc0a6ed501d0
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var observable_1 = require("../symbol/observable");
+
+function isInteropObservable(input) {
+  return input && typeof input[observable_1.observable] === 'function';
+}
+
+exports.isInteropObservable = isInteropObservable;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzSW50ZXJvcE9ic2VydmFibGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQSxZQUFBLEdBQUEsT0FBQSxDQUFBLHNCQUFBLENBQUE7O0FBR0EsU0FBZ0IsbUJBQWhCLENBQW9DLEtBQXBDLEVBQThDO0FBQzVDLFNBQU8sS0FBSyxJQUFJLE9BQU8sS0FBSyxDQUFDLFlBQUEsQ0FBQSxVQUFELENBQVosS0FBb0MsVUFBcEQ7QUFDRDs7QUFGRCxPQUFBLENBQUEsbUJBQUEsR0FBQSxtQkFBQSJ9

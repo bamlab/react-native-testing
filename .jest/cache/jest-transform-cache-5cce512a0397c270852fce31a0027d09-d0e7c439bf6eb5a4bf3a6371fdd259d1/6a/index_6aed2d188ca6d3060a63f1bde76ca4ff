@@ -1,0 +1,125 @@
+48aa1ecaf795f1fe957f883b97d4a606
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+Object.defineProperty(exports, "handleTextInput", {
+  enumerable: true,
+  get: function get() {
+    return _handleTextInput.default;
+  }
+});
+Object.defineProperty(exports, "setFormikInitialValue", {
+  enumerable: true,
+  get: function get() {
+    return _setFormikInitialValue.default;
+  }
+});
+Object.defineProperty(exports, "withError", {
+  enumerable: true,
+  get: function get() {
+    return _withError.default;
+  }
+});
+Object.defineProperty(exports, "withErrorIfNeeded", {
+  enumerable: true,
+  get: function get() {
+    return _withErrorIfNeeded.default;
+  }
+});
+Object.defineProperty(exports, "withFocus", {
+  enumerable: true,
+  get: function get() {
+    return _withFocus.default;
+  }
+});
+Object.defineProperty(exports, "withFormik", {
+  enumerable: true,
+  get: function get() {
+    return _withFormik.default;
+  }
+});
+Object.defineProperty(exports, "withFormikControl", {
+  enumerable: true,
+  get: function get() {
+    return _withFormikControl.default;
+  }
+});
+Object.defineProperty(exports, "withInputTypeProps", {
+  enumerable: true,
+  get: function get() {
+    return _withInputTypeProps.default;
+  }
+});
+Object.defineProperty(exports, "withTouched", {
+  enumerable: true,
+  get: function get() {
+    return _withTouched.default;
+  }
+});
+Object.defineProperty(exports, "withPickerValues", {
+  enumerable: true,
+  get: function get() {
+    return _withPickerValues.default;
+  }
+});
+Object.defineProperty(exports, "KeyboardModal", {
+  enumerable: true,
+  get: function get() {
+    return _KeyboardModal.default;
+  }
+});
+Object.defineProperty(exports, "makeReactNativeField", {
+  enumerable: true,
+  get: function get() {
+    return _makeReactNativeField.default;
+  }
+});
+Object.defineProperty(exports, "withNextInputAutoFocusForm", {
+  enumerable: true,
+  get: function get() {
+    return _withNextInputAutoFocus.withNextInputAutoFocusForm;
+  }
+});
+Object.defineProperty(exports, "withNextInputAutoFocusInput", {
+  enumerable: true,
+  get: function get() {
+    return _withNextInputAutoFocus.withNextInputAutoFocusInput;
+  }
+});
+exports.makeInputsGreatAgain = exports.default = void 0;
+
+var _recompose = require("recompose");
+
+var _handleTextInput = _interopRequireDefault(require("./src/handleTextInput"));
+
+var _setFormikInitialValue = _interopRequireDefault(require("./src/setFormikInitialValue"));
+
+var _withError = _interopRequireDefault(require("./src/withError"));
+
+var _withErrorIfNeeded = _interopRequireDefault(require("./src/withErrorIfNeeded"));
+
+var _withFocus = _interopRequireDefault(require("./src/withFocus"));
+
+var _withFormik = _interopRequireDefault(require("./src/withFormik"));
+
+var _withFormikControl = _interopRequireDefault(require("./src/withFormikControl"));
+
+var _withInputTypeProps = _interopRequireDefault(require("./src/withInputTypeProps"));
+
+var _withTouched = _interopRequireDefault(require("./src/withTouched"));
+
+var _withPickerValues = _interopRequireDefault(require("./src/withPickerValues"));
+
+var _KeyboardModal = _interopRequireDefault(require("./src/withPickerValues/KeyboardModal"));
+
+var _makeReactNativeField = _interopRequireDefault(require("./src/makeReactNativeField"));
+
+var _withNextInputAutoFocus = require("./src/withNextInputAutoFocus");
+
+var makeInputsGreatAgain = (0, _recompose.compose)(_withInputTypeProps.default, _setFormikInitialValue.default, _withError.default, _withTouched.default, _makeReactNativeField.default);
+exports.makeInputsGreatAgain = makeInputsGreatAgain;
+var _default = makeInputsGreatAgain;
+exports.default = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbIm1ha2VJbnB1dHNHcmVhdEFnYWluIiwid2l0aElucHV0VHlwZVByb3BzIiwic2V0Rm9ybWlrSW5pdGlhbFZhbHVlIiwid2l0aEVycm9yIiwid2l0aFRvdWNoZWQiLCJtYWtlUmVhY3ROYXRpdmVGaWVsZCJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUFBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUNBOztBQUtBLElBQU1BLG9CQUFvQixHQUFHLHdCQUMzQkMsMkJBRDJCLEVBRTNCQyw4QkFGMkIsRUFHM0JDLGtCQUgyQixFQUkzQkMsb0JBSjJCLEVBSzNCQyw2QkFMMkIsQ0FBN0I7O2VBUWVMLG9CIiwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgY29tcG9zZSB9IGZyb20gXCJyZWNvbXBvc2VcIjtcbmltcG9ydCBoYW5kbGVUZXh0SW5wdXQgZnJvbSBcIi4vc3JjL2hhbmRsZVRleHRJbnB1dFwiO1xuaW1wb3J0IHNldEZvcm1pa0luaXRpYWxWYWx1ZSBmcm9tIFwiLi9zcmMvc2V0Rm9ybWlrSW5pdGlhbFZhbHVlXCI7XG5pbXBvcnQgd2l0aEVycm9yIGZyb20gXCIuL3NyYy93aXRoRXJyb3JcIjtcbmltcG9ydCB3aXRoRXJyb3JJZk5lZWRlZCBmcm9tIFwiLi9zcmMvd2l0aEVycm9ySWZOZWVkZWRcIjtcbmltcG9ydCB3aXRoRm9jdXMgZnJvbSBcIi4vc3JjL3dpdGhGb2N1c1wiO1xuaW1wb3J0IHdpdGhGb3JtaWsgZnJvbSBcIi4vc3JjL3dpdGhGb3JtaWtcIjtcbmltcG9ydCB3aXRoRm9ybWlrQ29udHJvbCBmcm9tIFwiLi9zcmMvd2l0aEZvcm1pa0NvbnRyb2xcIjtcbmltcG9ydCB3aXRoSW5wdXRUeXBlUHJvcHMgZnJvbSBcIi4vc3JjL3dpdGhJbnB1dFR5cGVQcm9wc1wiO1xuaW1wb3J0IHdpdGhUb3VjaGVkIGZyb20gXCIuL3NyYy93aXRoVG91Y2hlZFwiO1xuaW1wb3J0IHdpdGhQaWNrZXJWYWx1ZXMgZnJvbSBcIi4vc3JjL3dpdGhQaWNrZXJWYWx1ZXNcIjtcbmltcG9ydCBLZXlib2FyZE1vZGFsIGZyb20gXCIuL3NyYy93aXRoUGlja2VyVmFsdWVzL0tleWJvYXJkTW9kYWxcIjtcbmltcG9ydCBtYWtlUmVhY3ROYXRpdmVGaWVsZCBmcm9tIFwiLi9zcmMvbWFrZVJlYWN0TmF0aXZlRmllbGRcIjtcbmltcG9ydCB7XG4gIHdpdGhOZXh0SW5wdXRBdXRvRm9jdXNGb3JtLFxuICB3aXRoTmV4dElucHV0QXV0b0ZvY3VzSW5wdXRcbn0gZnJvbSBcIi4vc3JjL3dpdGhOZXh0SW5wdXRBdXRvRm9jdXNcIjtcblxuY29uc3QgbWFrZUlucHV0c0dyZWF0QWdhaW4gPSBjb21wb3NlKFxuICB3aXRoSW5wdXRUeXBlUHJvcHMsXG4gIHNldEZvcm1pa0luaXRpYWxWYWx1ZSxcbiAgd2l0aEVycm9yLFxuICB3aXRoVG91Y2hlZCxcbiAgbWFrZVJlYWN0TmF0aXZlRmllbGRcbik7XG5cbmV4cG9ydCBkZWZhdWx0IG1ha2VJbnB1dHNHcmVhdEFnYWluO1xuXG5leHBvcnQge1xuICBoYW5kbGVUZXh0SW5wdXQsXG4gIG1ha2VJbnB1dHNHcmVhdEFnYWluLFxuICBtYWtlUmVhY3ROYXRpdmVGaWVsZCxcbiAgc2V0Rm9ybWlrSW5pdGlhbFZhbHVlLFxuICB3aXRoRXJyb3IsXG4gIHdpdGhFcnJvcklmTmVlZGVkLFxuICB3aXRoRm9jdXMsXG4gIHdpdGhGb3JtaWssXG4gIHdpdGhGb3JtaWtDb250cm9sLFxuICB3aXRoSW5wdXRUeXBlUHJvcHMsXG4gIHdpdGhUb3VjaGVkLFxuICB3aXRoTmV4dElucHV0QXV0b0ZvY3VzRm9ybSxcbiAgd2l0aE5leHRJbnB1dEF1dG9Gb2N1c0lucHV0LFxuICB3aXRoUGlja2VyVmFsdWVzLFxuICBLZXlib2FyZE1vZGFsXG59O1xuIl19

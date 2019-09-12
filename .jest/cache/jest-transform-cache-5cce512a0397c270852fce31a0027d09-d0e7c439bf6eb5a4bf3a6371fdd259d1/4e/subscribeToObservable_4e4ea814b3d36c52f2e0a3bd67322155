@@ -1,0 +1,21 @@
+a152ee8586bef5a4b80c98bc0d5a0c29
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var observable_1 = require("../symbol/observable");
+
+exports.subscribeToObservable = function (obj) {
+  return function (subscriber) {
+    var obs = obj[observable_1.observable]();
+
+    if (typeof obs.subscribe !== 'function') {
+      throw new TypeError('Provided object does not correctly implement Symbol.observable');
+    } else {
+      return obs.subscribe(subscriber);
+    }
+  };
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL3N1YnNjcmliZVRvT2JzZXJ2YWJsZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDQSxJQUFBLFlBQUEsR0FBQSxPQUFBLENBQUEsc0JBQUEsQ0FBQTs7QUFPYSxPQUFBLENBQUEscUJBQUEsR0FBd0IsVUFBSSxHQUFKLEVBQVk7QUFBSyxTQUFBLFVBQUMsVUFBRCxFQUEwQjtBQUM5RSxRQUFNLEdBQUcsR0FBRyxHQUFHLENBQUMsWUFBQSxDQUFBLFVBQUQsQ0FBSCxFQUFaOztBQUNBLFFBQUksT0FBTyxHQUFHLENBQUMsU0FBWCxLQUF5QixVQUE3QixFQUF5QztBQUV2QyxZQUFNLElBQUksU0FBSixDQUFjLGdFQUFkLENBQU47QUFDRCxLQUhELE1BR087QUFDTCxhQUFPLEdBQUcsQ0FBQyxTQUFKLENBQWMsVUFBZCxDQUFQO0FBQ0Q7QUFQbUQsR0FBQTtBQVFyRCxDQVJZIn0=

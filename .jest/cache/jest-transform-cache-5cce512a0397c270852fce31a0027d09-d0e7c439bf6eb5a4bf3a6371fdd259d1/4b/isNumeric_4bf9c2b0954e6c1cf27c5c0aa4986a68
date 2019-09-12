@@ -1,0 +1,15 @@
+fb216be890a34a31bef4851531494891
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var isArray_1 = require("./isArray");
+
+function isNumeric(val) {
+  return !isArray_1.isArray(val) && val - parseFloat(val) + 1 >= 0;
+}
+
+exports.isNumeric = isNumeric;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzTnVtZXJpYy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBLFNBQUEsR0FBQSxPQUFBLENBQUEsV0FBQSxDQUFBOztBQUVBLFNBQWdCLFNBQWhCLENBQTBCLEdBQTFCLEVBQWtDO0FBS2hDLFNBQU8sQ0FBQyxTQUFBLENBQUEsT0FBQSxDQUFRLEdBQVIsQ0FBRCxJQUFrQixHQUFHLEdBQUcsVUFBVSxDQUFDLEdBQUQsQ0FBaEIsR0FBd0IsQ0FBekIsSUFBK0IsQ0FBdkQ7QUFDRDs7QUFORCxPQUFBLENBQUEsU0FBQSxHQUFBLFNBQUEifQ==

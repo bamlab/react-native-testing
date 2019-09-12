@@ -1,0 +1,15 @@
+664a5ab6a6c4d9c49cd9d02a5f362cf5
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var iterator_1 = require("../symbol/iterator");
+
+function isIterable(input) {
+  return input && typeof input[iterator_1.iterator] === 'function';
+}
+
+exports.isIterable = isIterable;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzSXRlcmFibGUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsSUFBQSxVQUFBLEdBQUEsT0FBQSxDQUFBLG9CQUFBLENBQUE7O0FBR0EsU0FBZ0IsVUFBaEIsQ0FBMkIsS0FBM0IsRUFBcUM7QUFDbkMsU0FBTyxLQUFLLElBQUksT0FBTyxLQUFLLENBQUMsVUFBQSxDQUFBLFFBQUQsQ0FBWixLQUFrQyxVQUFsRDtBQUNEOztBQUZELE9BQUEsQ0FBQSxVQUFBLEdBQUEsVUFBQSJ9

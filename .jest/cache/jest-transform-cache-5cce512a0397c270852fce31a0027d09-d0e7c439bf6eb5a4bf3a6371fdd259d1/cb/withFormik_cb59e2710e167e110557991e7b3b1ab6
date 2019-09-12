@@ -1,0 +1,11 @@
+d72c0b25010d684f30eaa106ea8b4cae
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _formik = require("formik");
+
+var _default = _formik.connect;
+exports.default = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndpdGhGb3JtaWsuanMiXSwibmFtZXMiOlsiY29ubmVjdCJdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQTs7ZUFFZUEsZSIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IGNvbm5lY3QgfSBmcm9tIFwiZm9ybWlrXCI7XG5cbmV4cG9ydCBkZWZhdWx0IGNvbm5lY3Q7XG4iXX0=

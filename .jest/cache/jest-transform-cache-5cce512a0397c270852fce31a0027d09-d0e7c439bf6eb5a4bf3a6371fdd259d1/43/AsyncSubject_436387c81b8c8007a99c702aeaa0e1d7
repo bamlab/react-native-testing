@@ -1,0 +1,90 @@
+66ba66314a9dcd77149189228de008c8
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subject_1 = require("./Subject");
+
+var Subscription_1 = require("./Subscription");
+
+var AsyncSubject = function (_super) {
+  __extends(AsyncSubject, _super);
+
+  function AsyncSubject() {
+    var _this = _super !== null && _super.apply(this, arguments) || this;
+
+    _this.value = null;
+    _this.hasNext = false;
+    _this.hasCompleted = false;
+    return _this;
+  }
+
+  AsyncSubject.prototype._subscribe = function (subscriber) {
+    if (this.hasError) {
+      subscriber.error(this.thrownError);
+      return Subscription_1.Subscription.EMPTY;
+    } else if (this.hasCompleted && this.hasNext) {
+      subscriber.next(this.value);
+      subscriber.complete();
+      return Subscription_1.Subscription.EMPTY;
+    }
+
+    return _super.prototype._subscribe.call(this, subscriber);
+  };
+
+  AsyncSubject.prototype.next = function (value) {
+    if (!this.hasCompleted) {
+      this.value = value;
+      this.hasNext = true;
+    }
+  };
+
+  AsyncSubject.prototype.error = function (error) {
+    if (!this.hasCompleted) {
+      _super.prototype.error.call(this, error);
+    }
+  };
+
+  AsyncSubject.prototype.complete = function () {
+    this.hasCompleted = true;
+
+    if (this.hasNext) {
+      _super.prototype.next.call(this, this.value);
+    }
+
+    _super.prototype.complete.call(this);
+  };
+
+  return AsyncSubject;
+}(Subject_1.Subject);
+
+exports.AsyncSubject = AsyncSubject;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbnRlcm5hbC9Bc3luY1N1YmplY3QudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFBLFNBQUEsR0FBQSxPQUFBLENBQUEsV0FBQSxDQUFBOztBQUVBLElBQUEsY0FBQSxHQUFBLE9BQUEsQ0FBQSxnQkFBQSxDQUFBOztBQVFBLElBQUEsWUFBQSxHQUFBLFVBQUEsTUFBQSxFQUFBO0FBQXFDLEVBQUEsU0FBQSxDQUFBLFlBQUEsRUFBQSxNQUFBLENBQUE7O0FBQXJDLFdBQUEsWUFBQSxHQUFBO0FBQUEsUUFBQSxLQUFBLEdBQUEsTUFBQSxLQUFBLElBQUEsSUFBQSxNQUFBLENBQUEsS0FBQSxDQUFBLElBQUEsRUFBQSxTQUFBLENBQUEsSUFBQSxJQUFBOztBQUNVLElBQUEsS0FBQSxDQUFBLEtBQUEsR0FBVyxJQUFYO0FBQ0EsSUFBQSxLQUFBLENBQUEsT0FBQSxHQUFtQixLQUFuQjtBQUNBLElBQUEsS0FBQSxDQUFBLFlBQUEsR0FBd0IsS0FBeEI7O0FBbUNUOztBQWhDQyxFQUFBLFlBQUEsQ0FBQSxTQUFBLENBQUEsVUFBQSxHQUFBLFVBQVcsVUFBWCxFQUFzQztBQUNwQyxRQUFJLEtBQUssUUFBVCxFQUFtQjtBQUNqQixNQUFBLFVBQVUsQ0FBQyxLQUFYLENBQWlCLEtBQUssV0FBdEI7QUFDQSxhQUFPLGNBQUEsQ0FBQSxZQUFBLENBQWEsS0FBcEI7QUFDRCxLQUhELE1BR08sSUFBSSxLQUFLLFlBQUwsSUFBcUIsS0FBSyxPQUE5QixFQUF1QztBQUM1QyxNQUFBLFVBQVUsQ0FBQyxJQUFYLENBQWdCLEtBQUssS0FBckI7QUFDQSxNQUFBLFVBQVUsQ0FBQyxRQUFYO0FBQ0EsYUFBTyxjQUFBLENBQUEsWUFBQSxDQUFhLEtBQXBCO0FBQ0Q7O0FBQ0QsV0FBTyxNQUFBLENBQUEsU0FBQSxDQUFNLFVBQU4sQ0FBZ0IsSUFBaEIsQ0FBZ0IsSUFBaEIsRUFBaUIsVUFBakIsQ0FBUDtBQUNELEdBVkQ7O0FBWUEsRUFBQSxZQUFBLENBQUEsU0FBQSxDQUFBLElBQUEsR0FBQSxVQUFLLEtBQUwsRUFBYTtBQUNYLFFBQUksQ0FBQyxLQUFLLFlBQVYsRUFBd0I7QUFDdEIsV0FBSyxLQUFMLEdBQWEsS0FBYjtBQUNBLFdBQUssT0FBTCxHQUFlLElBQWY7QUFDRDtBQUNGLEdBTEQ7O0FBT0EsRUFBQSxZQUFBLENBQUEsU0FBQSxDQUFBLEtBQUEsR0FBQSxVQUFNLEtBQU4sRUFBZ0I7QUFDZCxRQUFJLENBQUMsS0FBSyxZQUFWLEVBQXdCO0FBQ3RCLE1BQUEsTUFBQSxDQUFBLFNBQUEsQ0FBTSxLQUFOLENBQVcsSUFBWCxDQUFXLElBQVgsRUFBWSxLQUFaO0FBQ0Q7QUFDRixHQUpEOztBQU1BLEVBQUEsWUFBQSxDQUFBLFNBQUEsQ0FBQSxRQUFBLEdBQUEsWUFBQTtBQUNFLFNBQUssWUFBTCxHQUFvQixJQUFwQjs7QUFDQSxRQUFJLEtBQUssT0FBVCxFQUFrQjtBQUNoQixNQUFBLE1BQUEsQ0FBQSxTQUFBLENBQU0sSUFBTixDQUFVLElBQVYsQ0FBVSxJQUFWLEVBQVcsS0FBSyxLQUFoQjtBQUNEOztBQUNELElBQUEsTUFBQSxDQUFBLFNBQUEsQ0FBTSxRQUFOLENBQWMsSUFBZCxDQUFjLElBQWQ7QUFDRCxHQU5EOztBQU9GLFNBQUEsWUFBQTtBQUFDLENBdENELENBQXFDLFNBQUEsQ0FBQSxPQUFyQyxDQUFBOztBQUFhLE9BQUEsQ0FBQSxZQUFBLEdBQUEsWUFBQSJ9

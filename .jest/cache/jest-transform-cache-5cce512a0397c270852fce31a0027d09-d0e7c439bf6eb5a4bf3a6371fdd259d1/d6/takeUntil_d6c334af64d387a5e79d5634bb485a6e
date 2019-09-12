@@ -1,0 +1,85 @@
+f839b14606e4bfc55b9016ff1df3a6de
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var OuterSubscriber_1 = require("../OuterSubscriber");
+
+var subscribeToResult_1 = require("../util/subscribeToResult");
+
+function takeUntil(notifier) {
+  return function (source) {
+    return source.lift(new TakeUntilOperator(notifier));
+  };
+}
+
+exports.takeUntil = takeUntil;
+
+var TakeUntilOperator = function () {
+  function TakeUntilOperator(notifier) {
+    this.notifier = notifier;
+  }
+
+  TakeUntilOperator.prototype.call = function (subscriber, source) {
+    var takeUntilSubscriber = new TakeUntilSubscriber(subscriber);
+    var notifierSubscription = subscribeToResult_1.subscribeToResult(takeUntilSubscriber, this.notifier);
+
+    if (notifierSubscription && !takeUntilSubscriber.seenValue) {
+      takeUntilSubscriber.add(notifierSubscription);
+      return source.subscribe(takeUntilSubscriber);
+    }
+
+    return takeUntilSubscriber;
+  };
+
+  return TakeUntilOperator;
+}();
+
+var TakeUntilSubscriber = function (_super) {
+  __extends(TakeUntilSubscriber, _super);
+
+  function TakeUntilSubscriber(destination) {
+    var _this = _super.call(this, destination) || this;
+
+    _this.seenValue = false;
+    return _this;
+  }
+
+  TakeUntilSubscriber.prototype.notifyNext = function (outerValue, innerValue, outerIndex, innerIndex, innerSub) {
+    this.seenValue = true;
+    this.complete();
+  };
+
+  TakeUntilSubscriber.prototype.notifyComplete = function () {};
+
+  return TakeUntilSubscriber;
+}(OuterSubscriber_1.OuterSubscriber);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvdGFrZVVudGlsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBSUEsSUFBQSxpQkFBQSxHQUFBLE9BQUEsQ0FBQSxvQkFBQSxDQUFBOztBQUVBLElBQUEsbUJBQUEsR0FBQSxPQUFBLENBQUEsMkJBQUEsQ0FBQTs7QUE0Q0EsU0FBZ0IsU0FBaEIsQ0FBNkIsUUFBN0IsRUFBc0Q7QUFDcEQsU0FBTyxVQUFDLE1BQUQsRUFBc0I7QUFBSyxXQUFBLE1BQU0sQ0FBQyxJQUFQLENBQVksSUFBSSxpQkFBSixDQUFaLFFBQVksQ0FBWixDQUFBO0FBQTRDLEdBQTlFO0FBQ0Q7O0FBRkQsT0FBQSxDQUFBLFNBQUEsR0FBQSxTQUFBOztBQUlBLElBQUEsaUJBQUEsR0FBQSxZQUFBO0FBQ0UsV0FBQSxpQkFBQSxDQUFvQixRQUFwQixFQUE2QztBQUF6QixTQUFBLFFBQUEsR0FBQSxRQUFBO0FBQ25COztBQUVELEVBQUEsaUJBQUEsQ0FBQSxTQUFBLENBQUEsSUFBQSxHQUFBLFVBQUssVUFBTCxFQUFnQyxNQUFoQyxFQUEyQztBQUN6QyxRQUFNLG1CQUFtQixHQUFHLElBQUksbUJBQUosQ0FBd0IsVUFBeEIsQ0FBNUI7QUFDQSxRQUFNLG9CQUFvQixHQUFHLG1CQUFBLENBQUEsaUJBQUEsQ0FBa0IsbUJBQWxCLEVBQXVDLEtBQUssUUFBNUMsQ0FBN0I7O0FBQ0EsUUFBSSxvQkFBb0IsSUFBSSxDQUFDLG1CQUFtQixDQUFDLFNBQWpELEVBQTREO0FBQzFELE1BQUEsbUJBQW1CLENBQUMsR0FBcEIsQ0FBd0Isb0JBQXhCO0FBQ0EsYUFBTyxNQUFNLENBQUMsU0FBUCxDQUFpQixtQkFBakIsQ0FBUDtBQUNEOztBQUNELFdBQU8sbUJBQVA7QUFDRCxHQVJEOztBQVNGLFNBQUEsaUJBQUE7QUFBQyxDQWJELEVBQUE7O0FBb0JBLElBQUEsbUJBQUEsR0FBQSxVQUFBLE1BQUEsRUFBQTtBQUF3QyxFQUFBLFNBQUEsQ0FBQSxtQkFBQSxFQUFBLE1BQUEsQ0FBQTs7QUFHdEMsV0FBQSxtQkFBQSxDQUFZLFdBQVosRUFBd0M7QUFBeEMsUUFBQSxLQUFBLEdBQ0UsTUFBQSxDQUFBLElBQUEsQ0FBQSxJQUFBLEVBQU0sV0FBTixLQUFrQixJQURwQjs7QUFGQSxJQUFBLEtBQUEsQ0FBQSxTQUFBLEdBQVksS0FBWjs7QUFJQzs7QUFFRCxFQUFBLG1CQUFBLENBQUEsU0FBQSxDQUFBLFVBQUEsR0FBQSxVQUFXLFVBQVgsRUFBMEIsVUFBMUIsRUFDVyxVQURYLEVBQytCLFVBRC9CLEVBRVcsUUFGWCxFQUUwQztBQUN4QyxTQUFLLFNBQUwsR0FBaUIsSUFBakI7QUFDQSxTQUFLLFFBQUw7QUFDRCxHQUxEOztBQU9BLEVBQUEsbUJBQUEsQ0FBQSxTQUFBLENBQUEsY0FBQSxHQUFBLFlBQUEsQ0FFQyxDQUZEOztBQUdGLFNBQUEsbUJBQUE7QUFBQyxDQWpCRCxDQUF3QyxpQkFBQSxDQUFBLGVBQXhDLENBQUEifQ==

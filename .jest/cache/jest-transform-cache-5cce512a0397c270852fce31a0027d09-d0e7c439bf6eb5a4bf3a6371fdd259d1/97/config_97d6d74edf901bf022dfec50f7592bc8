@@ -1,0 +1,27 @@
+372f4ed207bf7c206fb8076c4d332b97
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var _enable_super_gross_mode_that_will_cause_bad_things = false;
+exports.config = {
+  Promise: undefined,
+
+  set useDeprecatedSynchronousErrorHandling(value) {
+    if (value) {
+      var error = new Error();
+      console.warn('DEPRECATED! RxJS was set to use deprecated synchronous error handling behavior by code at: \n' + error.stack);
+    } else if (_enable_super_gross_mode_that_will_cause_bad_things) {
+      console.log('RxJS: Back to a better error behavior. Thank you. <3');
+    }
+
+    _enable_super_gross_mode_that_will_cause_bad_things = value;
+  },
+
+  get useDeprecatedSynchronousErrorHandling() {
+    return _enable_super_gross_mode_that_will_cause_bad_things;
+  }
+
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbnRlcm5hbC9jb25maWcudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7QUFBQSxJQUFJLG1EQUFtRCxHQUFHLEtBQTFEO0FBTWEsT0FBQSxDQUFBLE1BQUEsR0FBUztBQUtwQixFQUFBLE9BQU8sRUFBRSxTQUxXOztBQWVwQixNQUFJLHFDQUFKLENBQTBDLEtBQTFDLEVBQXdEO0FBQ3RELFFBQUksS0FBSixFQUFXO0FBQ1QsVUFBTSxLQUFLLEdBQUcsSUFBSSxLQUFKLEVBQWQ7QUFDQSxNQUFBLE9BQU8sQ0FBQyxJQUFSLENBQWEsa0dBQWtHLEtBQUssQ0FBQyxLQUFySDtBQUNELEtBSEQsTUFHTyxJQUFJLG1EQUFKLEVBQXlEO0FBQzlELE1BQUEsT0FBTyxDQUFDLEdBQVIsQ0FBWSxzREFBWjtBQUNEOztBQUNELElBQUEsbURBQW1ELEdBQUcsS0FBdEQ7QUFDRCxHQXZCbUI7O0FBeUJwQixNQUFJLHFDQUFKLEdBQXlDO0FBQ3ZDLFdBQU8sbURBQVA7QUFDRDs7QUEzQm1CLENBQVQifQ==

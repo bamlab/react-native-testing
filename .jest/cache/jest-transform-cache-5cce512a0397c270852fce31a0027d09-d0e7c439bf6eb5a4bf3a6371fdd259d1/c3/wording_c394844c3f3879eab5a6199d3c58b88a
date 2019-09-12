@@ -1,0 +1,13 @@
+50b2ae9a03e139f0a460f771a28fa8a3
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.wording = {
+    subscribe: 'Subscribe to our newsletter !',
+    emailPlaceholder: 'Email',
+    validateEmail: 'Validate',
+    subscriptionSuccessful: 'Subscription successful !',
+    basicError: 'Ooops something went wrong...',
+    about: 'About',
+    aboutTitle: 'About this newsletter',
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL21hdHRoaWV1L3Byb2plY3RzL1Rlc3RFeGFtcGxlcy9zcmMvdXRpbHMvd29yZGluZy50cyIsIm1hcHBpbmdzIjoiOztBQUFhLFFBQUEsT0FBTyxHQUFHO0lBQ3JCLFNBQVMsRUFBRSwrQkFBK0I7SUFDMUMsZ0JBQWdCLEVBQUUsT0FBTztJQUN6QixhQUFhLEVBQUUsVUFBVTtJQUN6QixzQkFBc0IsRUFBRSwyQkFBMkI7SUFDbkQsVUFBVSxFQUFFLCtCQUErQjtJQUMzQyxLQUFLLEVBQUUsT0FBTztJQUNkLFVBQVUsRUFBRSx1QkFBdUI7Q0FDcEMsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvVXNlcnMvbWF0dGhpZXUvcHJvamVjdHMvVGVzdEV4YW1wbGVzL3NyYy91dGlscy93b3JkaW5nLnRzIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCB3b3JkaW5nID0ge1xuICBzdWJzY3JpYmU6ICdTdWJzY3JpYmUgdG8gb3VyIG5ld3NsZXR0ZXIgIScsXG4gIGVtYWlsUGxhY2Vob2xkZXI6ICdFbWFpbCcsXG4gIHZhbGlkYXRlRW1haWw6ICdWYWxpZGF0ZScsXG4gIHN1YnNjcmlwdGlvblN1Y2Nlc3NmdWw6ICdTdWJzY3JpcHRpb24gc3VjY2Vzc2Z1bCAhJyxcbiAgYmFzaWNFcnJvcjogJ09vb3BzIHNvbWV0aGluZyB3ZW50IHdyb25nLi4uJyxcbiAgYWJvdXQ6ICdBYm91dCcsXG4gIGFib3V0VGl0bGU6ICdBYm91dCB0aGlzIG5ld3NsZXR0ZXInLFxufTtcbiJdLCJ2ZXJzaW9uIjozfQ==

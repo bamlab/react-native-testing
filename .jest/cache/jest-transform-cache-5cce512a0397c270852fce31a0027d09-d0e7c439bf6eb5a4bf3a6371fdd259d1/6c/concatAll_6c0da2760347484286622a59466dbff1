@@ -1,0 +1,15 @@
+ab9540b48e2e1f2e309a72bfe2cfbc24
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var mergeAll_1 = require("./mergeAll");
+
+function concatAll() {
+  return mergeAll_1.mergeAll(1);
+}
+
+exports.concatAll = concatAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvY29uY2F0QWxsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUEsVUFBQSxHQUFBLE9BQUEsQ0FBQSxZQUFBLENBQUE7O0FBZ0VBLFNBQWdCLFNBQWhCLEdBQXlCO0FBQ3ZCLFNBQU8sVUFBQSxDQUFBLFFBQUEsQ0FBWSxDQUFaLENBQVA7QUFDRDs7QUFGRCxPQUFBLENBQUEsU0FBQSxHQUFBLFNBQUEifQ==

@@ -1,0 +1,13 @@
+38f9334bbd28730a6dc78b06b862cf60
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function isDate(value) {
+  return value instanceof Date && !isNaN(+value);
+}
+
+exports.isDate = isDate;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzRGF0ZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxTQUFnQixNQUFoQixDQUF1QixLQUF2QixFQUFpQztBQUMvQixTQUFPLEtBQUssWUFBWSxJQUFqQixJQUF5QixDQUFDLEtBQUssQ0FBQyxDQUFDLEtBQUYsQ0FBdEM7QUFDRDs7QUFGRCxPQUFBLENBQUEsTUFBQSxHQUFBLE1BQUEifQ==

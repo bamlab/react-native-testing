@@ -1,0 +1,82 @@
+46863a368434528710433acbe50d85bb
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var AsyncAction_1 = require("./AsyncAction");
+
+var QueueAction = function (_super) {
+  __extends(QueueAction, _super);
+
+  function QueueAction(scheduler, work) {
+    var _this = _super.call(this, scheduler, work) || this;
+
+    _this.scheduler = scheduler;
+    _this.work = work;
+    return _this;
+  }
+
+  QueueAction.prototype.schedule = function (state, delay) {
+    if (delay === void 0) {
+      delay = 0;
+    }
+
+    if (delay > 0) {
+      return _super.prototype.schedule.call(this, state, delay);
+    }
+
+    this.delay = delay;
+    this.state = state;
+    this.scheduler.flush(this);
+    return this;
+  };
+
+  QueueAction.prototype.execute = function (state, delay) {
+    return delay > 0 || this.closed ? _super.prototype.execute.call(this, state, delay) : this._execute(state, delay);
+  };
+
+  QueueAction.prototype.requestAsyncId = function (scheduler, id, delay) {
+    if (delay === void 0) {
+      delay = 0;
+    }
+
+    if (delay !== null && delay > 0 || delay === null && this.delay > 0) {
+      return _super.prototype.requestAsyncId.call(this, scheduler, id, delay);
+    }
+
+    return scheduler.flush(this);
+  };
+
+  return QueueAction;
+}(AsyncAction_1.AsyncAction);
+
+exports.QueueAction = QueueAction;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9zY2hlZHVsZXIvUXVldWVBY3Rpb24udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFBLGFBQUEsR0FBQSxPQUFBLENBQUEsZUFBQSxDQUFBOztBQVVBLElBQUEsV0FBQSxHQUFBLFVBQUEsTUFBQSxFQUFBO0FBQW9DLEVBQUEsU0FBQSxDQUFBLFdBQUEsRUFBQSxNQUFBLENBQUE7O0FBRWxDLFdBQUEsV0FBQSxDQUFzQixTQUF0QixFQUNzQixJQUR0QixFQUN5RTtBQUR6RSxRQUFBLEtBQUEsR0FFRSxNQUFBLENBQUEsSUFBQSxDQUFBLElBQUEsRUFBTSxTQUFOLEVBQWlCLElBQWpCLEtBQXNCLElBRnhCOztBQUFzQixJQUFBLEtBQUEsQ0FBQSxTQUFBLEdBQUEsU0FBQTtBQUNBLElBQUEsS0FBQSxDQUFBLElBQUEsR0FBQSxJQUFBOztBQUVyQjs7QUFFTSxFQUFBLFdBQUEsQ0FBQSxTQUFBLENBQUEsUUFBQSxHQUFQLFVBQWdCLEtBQWhCLEVBQTJCLEtBQTNCLEVBQTRDO0FBQWpCLFFBQUEsS0FBQSxLQUFBLEtBQUEsQ0FBQSxFQUFBO0FBQUEsTUFBQSxLQUFBLEdBQUEsQ0FBQTtBQUFpQjs7QUFDMUMsUUFBSSxLQUFLLEdBQUcsQ0FBWixFQUFlO0FBQ2IsYUFBTyxNQUFBLENBQUEsU0FBQSxDQUFNLFFBQU4sQ0FBYyxJQUFkLENBQWMsSUFBZCxFQUFlLEtBQWYsRUFBc0IsS0FBdEIsQ0FBUDtBQUNEOztBQUNELFNBQUssS0FBTCxHQUFhLEtBQWI7QUFDQSxTQUFLLEtBQUwsR0FBYSxLQUFiO0FBQ0EsU0FBSyxTQUFMLENBQWUsS0FBZixDQUFxQixJQUFyQjtBQUNBLFdBQU8sSUFBUDtBQUNELEdBUk07O0FBVUEsRUFBQSxXQUFBLENBQUEsU0FBQSxDQUFBLE9BQUEsR0FBUCxVQUFlLEtBQWYsRUFBeUIsS0FBekIsRUFBc0M7QUFDcEMsV0FBUSxLQUFLLEdBQUcsQ0FBUixJQUFhLEtBQUssTUFBbkIsR0FDTCxNQUFBLENBQUEsU0FBQSxDQUFNLE9BQU4sQ0FBYSxJQUFiLENBQWEsSUFBYixFQUFjLEtBQWQsRUFBcUIsS0FBckIsQ0FESyxHQUVMLEtBQUssUUFBTCxDQUFjLEtBQWQsRUFBcUIsS0FBckIsQ0FGRjtBQUdELEdBSk07O0FBTUcsRUFBQSxXQUFBLENBQUEsU0FBQSxDQUFBLGNBQUEsR0FBVixVQUF5QixTQUF6QixFQUFvRCxFQUFwRCxFQUE4RCxLQUE5RCxFQUErRTtBQUFqQixRQUFBLEtBQUEsS0FBQSxLQUFBLENBQUEsRUFBQTtBQUFBLE1BQUEsS0FBQSxHQUFBLENBQUE7QUFBaUI7O0FBSTdFLFFBQUssS0FBSyxLQUFLLElBQVYsSUFBa0IsS0FBSyxHQUFHLENBQTNCLElBQWtDLEtBQUssS0FBSyxJQUFWLElBQWtCLEtBQUssS0FBTCxHQUFhLENBQXJFLEVBQXlFO0FBQ3ZFLGFBQU8sTUFBQSxDQUFBLFNBQUEsQ0FBTSxjQUFOLENBQW9CLElBQXBCLENBQW9CLElBQXBCLEVBQXFCLFNBQXJCLEVBQWdDLEVBQWhDLEVBQW9DLEtBQXBDLENBQVA7QUFDRDs7QUFFRCxXQUFPLFNBQVMsQ0FBQyxLQUFWLENBQWdCLElBQWhCLENBQVA7QUFDRCxHQVRTOztBQVVaLFNBQUEsV0FBQTtBQUFDLENBakNELENBQW9DLGFBQUEsQ0FBQSxXQUFwQyxDQUFBOztBQUFhLE9BQUEsQ0FBQSxXQUFBLEdBQUEsV0FBQSJ9

@@ -1,0 +1,19 @@
+69bcacff49c83e8440fb6f52a25baacf
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var switchMap_1 = require("./switchMap");
+
+function switchMapTo(innerObservable, resultSelector) {
+  return resultSelector ? switchMap_1.switchMap(function () {
+    return innerObservable;
+  }, resultSelector) : switchMap_1.switchMap(function () {
+    return innerObservable;
+  });
+}
+
+exports.switchMapTo = switchMapTo;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvc3dpdGNoTWFwVG8udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBUUEsSUFBQSxXQUFBLEdBQUEsT0FBQSxDQUFBLGFBQUEsQ0FBQTs7QUFrREEsU0FBZ0IsV0FBaEIsQ0FDRSxlQURGLEVBRUUsY0FGRixFQUU4RjtBQUU1RixTQUFPLGNBQWMsR0FBRyxXQUFBLENBQUEsU0FBQSxDQUFVLFlBQUE7QUFBTSxXQUFBLGVBQUE7QUFBZSxHQUEvQixFQUFpQyxjQUFqQyxDQUFILEdBQXNELFdBQUEsQ0FBQSxTQUFBLENBQVUsWUFBQTtBQUFNLFdBQUEsZUFBQTtBQUFlLEdBQS9CLENBQTNFO0FBQ0Q7O0FBTEQsT0FBQSxDQUFBLFdBQUEsR0FBQSxXQUFBIn0=

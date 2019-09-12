@@ -1,0 +1,81 @@
+d280fc6b2535c3457c5f5c9bbe29865b
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subscriber_1 = require("../Subscriber");
+
+var Notification_1 = require("../Notification");
+
+function materialize() {
+  return function materializeOperatorFunction(source) {
+    return source.lift(new MaterializeOperator());
+  };
+}
+
+exports.materialize = materialize;
+
+var MaterializeOperator = function () {
+  function MaterializeOperator() {}
+
+  MaterializeOperator.prototype.call = function (subscriber, source) {
+    return source.subscribe(new MaterializeSubscriber(subscriber));
+  };
+
+  return MaterializeOperator;
+}();
+
+var MaterializeSubscriber = function (_super) {
+  __extends(MaterializeSubscriber, _super);
+
+  function MaterializeSubscriber(destination) {
+    return _super.call(this, destination) || this;
+  }
+
+  MaterializeSubscriber.prototype._next = function (value) {
+    this.destination.next(Notification_1.Notification.createNext(value));
+  };
+
+  MaterializeSubscriber.prototype._error = function (err) {
+    var destination = this.destination;
+    destination.next(Notification_1.Notification.createError(err));
+    destination.complete();
+  };
+
+  MaterializeSubscriber.prototype._complete = function () {
+    var destination = this.destination;
+    destination.next(Notification_1.Notification.createComplete());
+    destination.complete();
+  };
+
+  return MaterializeSubscriber;
+}(Subscriber_1.Subscriber);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvbWF0ZXJpYWxpemUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFFQSxJQUFBLFlBQUEsR0FBQSxPQUFBLENBQUEsZUFBQSxDQUFBOztBQUNBLElBQUEsY0FBQSxHQUFBLE9BQUEsQ0FBQSxpQkFBQSxDQUFBOztBQXFEQSxTQUFnQixXQUFoQixHQUEyQjtBQUN6QixTQUFPLFNBQVMsMkJBQVQsQ0FBcUMsTUFBckMsRUFBMEQ7QUFDL0QsV0FBTyxNQUFNLENBQUMsSUFBUCxDQUFZLElBQUksbUJBQUosRUFBWixDQUFQO0FBQ0QsR0FGRDtBQUdEOztBQUpELE9BQUEsQ0FBQSxXQUFBLEdBQUEsV0FBQTs7QUFNQSxJQUFBLG1CQUFBLEdBQUEsWUFBQTtBQUFBLFdBQUEsbUJBQUEsR0FBQSxDQUlDOztBQUhDLEVBQUEsbUJBQUEsQ0FBQSxTQUFBLENBQUEsSUFBQSxHQUFBLFVBQUssVUFBTCxFQUE4QyxNQUE5QyxFQUF5RDtBQUN2RCxXQUFPLE1BQU0sQ0FBQyxTQUFQLENBQWlCLElBQUkscUJBQUosQ0FBMEIsVUFBMUIsQ0FBakIsQ0FBUDtBQUNELEdBRkQ7O0FBR0YsU0FBQSxtQkFBQTtBQUFDLENBSkQsRUFBQTs7QUFXQSxJQUFBLHFCQUFBLEdBQUEsVUFBQSxNQUFBLEVBQUE7QUFBdUMsRUFBQSxTQUFBLENBQUEscUJBQUEsRUFBQSxNQUFBLENBQUE7O0FBQ3JDLFdBQUEscUJBQUEsQ0FBWSxXQUFaLEVBQW9EO1dBQ2xELE1BQUEsQ0FBQSxJQUFBLENBQUEsSUFBQSxFQUFNLFdBQU4sS0FBa0IsSTtBQUNuQjs7QUFFUyxFQUFBLHFCQUFBLENBQUEsU0FBQSxDQUFBLEtBQUEsR0FBVixVQUFnQixLQUFoQixFQUF3QjtBQUN0QixTQUFLLFdBQUwsQ0FBaUIsSUFBakIsQ0FBc0IsY0FBQSxDQUFBLFlBQUEsQ0FBYSxVQUFiLENBQXdCLEtBQXhCLENBQXRCO0FBQ0QsR0FGUzs7QUFJQSxFQUFBLHFCQUFBLENBQUEsU0FBQSxDQUFBLE1BQUEsR0FBVixVQUFpQixHQUFqQixFQUF5QjtBQUN2QixRQUFNLFdBQVcsR0FBRyxLQUFLLFdBQXpCO0FBQ0EsSUFBQSxXQUFXLENBQUMsSUFBWixDQUFpQixjQUFBLENBQUEsWUFBQSxDQUFhLFdBQWIsQ0FBeUIsR0FBekIsQ0FBakI7QUFDQSxJQUFBLFdBQVcsQ0FBQyxRQUFaO0FBQ0QsR0FKUzs7QUFNQSxFQUFBLHFCQUFBLENBQUEsU0FBQSxDQUFBLFNBQUEsR0FBVixZQUFBO0FBQ0UsUUFBTSxXQUFXLEdBQUcsS0FBSyxXQUF6QjtBQUNBLElBQUEsV0FBVyxDQUFDLElBQVosQ0FBaUIsY0FBQSxDQUFBLFlBQUEsQ0FBYSxjQUFiLEVBQWpCO0FBQ0EsSUFBQSxXQUFXLENBQUMsUUFBWjtBQUNELEdBSlM7O0FBS1osU0FBQSxxQkFBQTtBQUFDLENBcEJELENBQXVDLFlBQUEsQ0FBQSxVQUF2QyxDQUFBIn0=

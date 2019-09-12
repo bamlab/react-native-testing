@@ -1,0 +1,84 @@
+a1d8ca9aac02202dbd7188f1bc0930b1
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subject_1 = require("./Subject");
+
+var ObjectUnsubscribedError_1 = require("./util/ObjectUnsubscribedError");
+
+var BehaviorSubject = function (_super) {
+  __extends(BehaviorSubject, _super);
+
+  function BehaviorSubject(_value) {
+    var _this = _super.call(this) || this;
+
+    _this._value = _value;
+    return _this;
+  }
+
+  Object.defineProperty(BehaviorSubject.prototype, "value", {
+    get: function get() {
+      return this.getValue();
+    },
+    enumerable: true,
+    configurable: true
+  });
+
+  BehaviorSubject.prototype._subscribe = function (subscriber) {
+    var subscription = _super.prototype._subscribe.call(this, subscriber);
+
+    if (subscription && !subscription.closed) {
+      subscriber.next(this._value);
+    }
+
+    return subscription;
+  };
+
+  BehaviorSubject.prototype.getValue = function () {
+    if (this.hasError) {
+      throw this.thrownError;
+    } else if (this.closed) {
+      throw new ObjectUnsubscribedError_1.ObjectUnsubscribedError();
+    } else {
+      return this._value;
+    }
+  };
+
+  BehaviorSubject.prototype.next = function (value) {
+    _super.prototype.next.call(this, this._value = value);
+  };
+
+  return BehaviorSubject;
+}(Subject_1.Subject);
+
+exports.BehaviorSubject = BehaviorSubject;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9pbnRlcm5hbC9CZWhhdmlvclN1YmplY3QudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFBLFNBQUEsR0FBQSxPQUFBLENBQUEsV0FBQSxDQUFBOztBQUlBLElBQUEseUJBQUEsR0FBQSxPQUFBLENBQUEsZ0NBQUEsQ0FBQTs7QUFRQSxJQUFBLGVBQUEsR0FBQSxVQUFBLE1BQUEsRUFBQTtBQUF3QyxFQUFBLFNBQUEsQ0FBQSxlQUFBLEVBQUEsTUFBQSxDQUFBOztBQUV0QyxXQUFBLGVBQUEsQ0FBb0IsTUFBcEIsRUFBNkI7QUFBN0IsUUFBQSxLQUFBLEdBQ0UsTUFBQSxDQUFBLElBQUEsQ0FBQSxJQUFBLEtBQU8sSUFEVDs7QUFBb0IsSUFBQSxLQUFBLENBQUEsTUFBQSxHQUFBLE1BQUE7O0FBRW5COztBQUVELEVBQUEsTUFBQSxDQUFBLGNBQUEsQ0FBSSxlQUFBLENBQUEsU0FBSixFQUFJLE9BQUosRUFBUztTQUFULGVBQUE7QUFDRSxhQUFPLEtBQUssUUFBTCxFQUFQO0FBQ0QsS0FGUTtvQkFBQTs7QUFBQSxHQUFUOztBQUtBLEVBQUEsZUFBQSxDQUFBLFNBQUEsQ0FBQSxVQUFBLEdBQUEsVUFBVyxVQUFYLEVBQW9DO0FBQ2xDLFFBQU0sWUFBWSxHQUFHLE1BQUEsQ0FBQSxTQUFBLENBQU0sVUFBTixDQUFnQixJQUFoQixDQUFnQixJQUFoQixFQUFpQixVQUFqQixDQUFyQjs7QUFDQSxRQUFJLFlBQVksSUFBSSxDQUFvQixZQUFhLENBQUMsTUFBdEQsRUFBOEQ7QUFDNUQsTUFBQSxVQUFVLENBQUMsSUFBWCxDQUFnQixLQUFLLE1BQXJCO0FBQ0Q7O0FBQ0QsV0FBTyxZQUFQO0FBQ0QsR0FORDs7QUFRQSxFQUFBLGVBQUEsQ0FBQSxTQUFBLENBQUEsUUFBQSxHQUFBLFlBQUE7QUFDRSxRQUFJLEtBQUssUUFBVCxFQUFtQjtBQUNqQixZQUFNLEtBQUssV0FBWDtBQUNELEtBRkQsTUFFTyxJQUFJLEtBQUssTUFBVCxFQUFpQjtBQUN0QixZQUFNLElBQUkseUJBQUEsQ0FBQSx1QkFBSixFQUFOO0FBQ0QsS0FGTSxNQUVBO0FBQ0wsYUFBTyxLQUFLLE1BQVo7QUFDRDtBQUNGLEdBUkQ7O0FBVUEsRUFBQSxlQUFBLENBQUEsU0FBQSxDQUFBLElBQUEsR0FBQSxVQUFLLEtBQUwsRUFBYTtBQUNYLElBQUEsTUFBQSxDQUFBLFNBQUEsQ0FBTSxJQUFOLENBQVUsSUFBVixDQUFVLElBQVYsRUFBVyxLQUFLLE1BQUwsR0FBYyxLQUF6QjtBQUNELEdBRkQ7O0FBR0YsU0FBQSxlQUFBO0FBQUMsQ0FoQ0QsQ0FBd0MsU0FBQSxDQUFBLE9BQXhDLENBQUE7O0FBQWEsT0FBQSxDQUFBLGVBQUEsR0FBQSxlQUFBIn0=

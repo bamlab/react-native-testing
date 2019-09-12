@@ -1,0 +1,25 @@
+5989d9fb869d15bc0237a181c7955750
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var multicast_1 = require("./multicast");
+
+var refCount_1 = require("./refCount");
+
+var Subject_1 = require("../Subject");
+
+function shareSubjectFactory() {
+  return new Subject_1.Subject();
+}
+
+function share() {
+  return function (source) {
+    return refCount_1.refCount()(multicast_1.multicast(shareSubjectFactory)(source));
+  };
+}
+
+exports.share = share;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvc2hhcmUudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQSxXQUFBLEdBQUEsT0FBQSxDQUFBLGFBQUEsQ0FBQTs7QUFDQSxJQUFBLFVBQUEsR0FBQSxPQUFBLENBQUEsWUFBQSxDQUFBOztBQUNBLElBQUEsU0FBQSxHQUFBLE9BQUEsQ0FBQSxZQUFBLENBQUE7O0FBSUEsU0FBUyxtQkFBVCxHQUE0QjtBQUMxQixTQUFPLElBQUksU0FBQSxDQUFBLE9BQUosRUFBUDtBQUNEOztBQWNELFNBQWdCLEtBQWhCLEdBQXFCO0FBQ25CLFNBQU8sVUFBQyxNQUFELEVBQXNCO0FBQUssV0FBQSxVQUFBLENBQUEsUUFBQSxHQUFXLFdBQUEsQ0FBQSxTQUFBLENBQVUsbUJBQVYsRUFBWCxNQUFXLENBQVgsQ0FBQTtBQUFtRSxHQUFyRztBQUNEOztBQUZELE9BQUEsQ0FBQSxLQUFBLEdBQUEsS0FBQSJ9

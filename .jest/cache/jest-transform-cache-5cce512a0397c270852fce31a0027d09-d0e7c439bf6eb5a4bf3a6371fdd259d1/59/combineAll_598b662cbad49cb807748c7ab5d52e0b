@@ -1,0 +1,17 @@
+f9a0fd6d42b418ab95a8b489bd5d56c3
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var combineLatest_1 = require("../observable/combineLatest");
+
+function combineAll(project) {
+  return function (source) {
+    return source.lift(new combineLatest_1.CombineLatestOperator(project));
+  };
+}
+
+exports.combineAll = combineAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvY29tYmluZUFsbC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFBQSxJQUFBLGVBQUEsR0FBQSxPQUFBLENBQUEsNkJBQUEsQ0FBQTs7QUFzREEsU0FBZ0IsVUFBaEIsQ0FBaUMsT0FBakMsRUFBdUU7QUFDckUsU0FBTyxVQUFDLE1BQUQsRUFBc0I7QUFBSyxXQUFBLE1BQU0sQ0FBQyxJQUFQLENBQVksSUFBSSxlQUFBLENBQUEscUJBQUosQ0FBWixPQUFZLENBQVosQ0FBQTtBQUErQyxHQUFqRjtBQUNEOztBQUZELE9BQUEsQ0FBQSxVQUFBLEdBQUEsVUFBQSJ9

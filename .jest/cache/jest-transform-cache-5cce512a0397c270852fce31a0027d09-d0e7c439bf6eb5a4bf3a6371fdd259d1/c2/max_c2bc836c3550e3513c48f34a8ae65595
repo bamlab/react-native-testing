@@ -1,0 +1,20 @@
+8f8665f612a7cd89ead0641bb69549cd
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var reduce_1 = require("./reduce");
+
+function max(comparer) {
+  var max = typeof comparer === 'function' ? function (x, y) {
+    return comparer(x, y) > 0 ? x : y;
+  } : function (x, y) {
+    return x > y ? x : y;
+  };
+  return reduce_1.reduce(max);
+}
+
+exports.max = max;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvbWF4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUEsUUFBQSxHQUFBLE9BQUEsQ0FBQSxVQUFBLENBQUE7O0FBZ0RBLFNBQWdCLEdBQWhCLENBQXVCLFFBQXZCLEVBQXdEO0FBQ3RELE1BQU0sR0FBRyxHQUF1QixPQUFPLFFBQVAsS0FBb0IsVUFBckIsR0FDM0IsVUFBQyxDQUFELEVBQUksQ0FBSixFQUFLO0FBQUssV0FBQSxRQUFRLENBQUMsQ0FBRCxFQUFJLENBQUosQ0FBUixHQUFpQixDQUFqQixHQUFxQixDQUFyQixHQUFBLENBQUE7QUFBMEIsR0FEVCxHQUUzQixVQUFDLENBQUQsRUFBSSxDQUFKLEVBQUs7QUFBSyxXQUFBLENBQUMsR0FBRyxDQUFKLEdBQVEsQ0FBUixHQUFBLENBQUE7QUFBYSxHQUYzQjtBQUlBLFNBQU8sUUFBQSxDQUFBLE1BQUEsQ0FBTyxHQUFQLENBQVA7QUFDRDs7QUFORCxPQUFBLENBQUEsR0FBQSxHQUFBLEdBQUEifQ==

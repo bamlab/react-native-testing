@@ -1,0 +1,86 @@
+76849ef9700e3bcc879766f7c790e552
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subscriber_1 = require("../Subscriber");
+
+function filter(predicate, thisArg) {
+  return function filterOperatorFunction(source) {
+    return source.lift(new FilterOperator(predicate, thisArg));
+  };
+}
+
+exports.filter = filter;
+
+var FilterOperator = function () {
+  function FilterOperator(predicate, thisArg) {
+    this.predicate = predicate;
+    this.thisArg = thisArg;
+  }
+
+  FilterOperator.prototype.call = function (subscriber, source) {
+    return source.subscribe(new FilterSubscriber(subscriber, this.predicate, this.thisArg));
+  };
+
+  return FilterOperator;
+}();
+
+var FilterSubscriber = function (_super) {
+  __extends(FilterSubscriber, _super);
+
+  function FilterSubscriber(destination, predicate, thisArg) {
+    var _this = _super.call(this, destination) || this;
+
+    _this.predicate = predicate;
+    _this.thisArg = thisArg;
+    _this.count = 0;
+    return _this;
+  }
+
+  FilterSubscriber.prototype._next = function (value) {
+    var result;
+
+    try {
+      result = this.predicate.call(this.thisArg, value, this.count++);
+    } catch (err) {
+      this.destination.error(err);
+      return;
+    }
+
+    if (result) {
+      this.destination.next(value);
+    }
+  };
+
+  return FilterSubscriber;
+}(Subscriber_1.Subscriber);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvZmlsdGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBQ0EsSUFBQSxZQUFBLEdBQUEsT0FBQSxDQUFBLGVBQUEsQ0FBQTs7QUF3REEsU0FBZ0IsTUFBaEIsQ0FBMEIsU0FBMUIsRUFDMEIsT0FEMUIsRUFDdUM7QUFDckMsU0FBTyxTQUFTLHNCQUFULENBQWdDLE1BQWhDLEVBQXFEO0FBQzFELFdBQU8sTUFBTSxDQUFDLElBQVAsQ0FBWSxJQUFJLGNBQUosQ0FBbUIsU0FBbkIsRUFBOEIsT0FBOUIsQ0FBWixDQUFQO0FBQ0QsR0FGRDtBQUdEOztBQUxELE9BQUEsQ0FBQSxNQUFBLEdBQUEsTUFBQTs7QUFPQSxJQUFBLGNBQUEsR0FBQSxZQUFBO0FBQ0UsV0FBQSxjQUFBLENBQW9CLFNBQXBCLEVBQ29CLE9BRHBCLEVBQ2lDO0FBRGIsU0FBQSxTQUFBLEdBQUEsU0FBQTtBQUNBLFNBQUEsT0FBQSxHQUFBLE9BQUE7QUFDbkI7O0FBRUQsRUFBQSxjQUFBLENBQUEsU0FBQSxDQUFBLElBQUEsR0FBQSxVQUFLLFVBQUwsRUFBZ0MsTUFBaEMsRUFBMkM7QUFDekMsV0FBTyxNQUFNLENBQUMsU0FBUCxDQUFpQixJQUFJLGdCQUFKLENBQXFCLFVBQXJCLEVBQWlDLEtBQUssU0FBdEMsRUFBaUQsS0FBSyxPQUF0RCxDQUFqQixDQUFQO0FBQ0QsR0FGRDs7QUFHRixTQUFBLGNBQUE7QUFBQyxDQVJELEVBQUE7O0FBZUEsSUFBQSxnQkFBQSxHQUFBLFVBQUEsTUFBQSxFQUFBO0FBQWtDLEVBQUEsU0FBQSxDQUFBLGdCQUFBLEVBQUEsTUFBQSxDQUFBOztBQUloQyxXQUFBLGdCQUFBLENBQVksV0FBWixFQUNvQixTQURwQixFQUVvQixPQUZwQixFQUVnQztBQUZoQyxRQUFBLEtBQUEsR0FHRSxNQUFBLENBQUEsSUFBQSxDQUFBLElBQUEsRUFBTSxXQUFOLEtBQWtCLElBSHBCOztBQUNvQixJQUFBLEtBQUEsQ0FBQSxTQUFBLEdBQUEsU0FBQTtBQUNBLElBQUEsS0FBQSxDQUFBLE9BQUEsR0FBQSxPQUFBO0FBSnBCLElBQUEsS0FBQSxDQUFBLEtBQUEsR0FBZ0IsQ0FBaEI7O0FBTUM7O0FBSVMsRUFBQSxnQkFBQSxDQUFBLFNBQUEsQ0FBQSxLQUFBLEdBQVYsVUFBZ0IsS0FBaEIsRUFBd0I7QUFDdEIsUUFBSSxNQUFKOztBQUNBLFFBQUk7QUFDRixNQUFBLE1BQU0sR0FBRyxLQUFLLFNBQUwsQ0FBZSxJQUFmLENBQW9CLEtBQUssT0FBekIsRUFBa0MsS0FBbEMsRUFBeUMsS0FBSyxLQUFMLEVBQXpDLENBQVQ7QUFDRCxLQUZELENBRUUsT0FBTyxHQUFQLEVBQVk7QUFDWixXQUFLLFdBQUwsQ0FBaUIsS0FBakIsQ0FBdUIsR0FBdkI7QUFDQTtBQUNEOztBQUNELFFBQUksTUFBSixFQUFZO0FBQ1YsV0FBSyxXQUFMLENBQWlCLElBQWpCLENBQXNCLEtBQXRCO0FBQ0Q7QUFDRixHQVhTOztBQVlaLFNBQUEsZ0JBQUE7QUFBQyxDQXhCRCxDQUFrQyxZQUFBLENBQUEsVUFBbEMsQ0FBQSJ9

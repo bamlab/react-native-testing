@@ -1,0 +1,45 @@
+26ea8652475c52b61464ebe65dd28101
+'use strict';
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf2 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var React = require('react');
+
+var requireNativeComponent = require('../../../ReactNative/requireNativeComponent');
+
+var RCTRefreshControl = requireNativeComponent('RCTRefreshControl');
+
+var RefreshControlMock = function (_React$Component) {
+  (0, _inherits2.default)(RefreshControlMock, _React$Component);
+
+  function RefreshControlMock() {
+    (0, _classCallCheck2.default)(this, RefreshControlMock);
+    return (0, _possibleConstructorReturn2.default)(this, (0, _getPrototypeOf2.default)(RefreshControlMock).apply(this, arguments));
+  }
+
+  (0, _createClass2.default)(RefreshControlMock, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      RefreshControlMock.latestRef = this;
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return React.createElement(RCTRefreshControl, null);
+    }
+  }]);
+  return RefreshControlMock;
+}(React.Component);
+
+module.exports = RefreshControlMock;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIlJlZnJlc2hDb250cm9sTW9jay5qcyJdLCJuYW1lcyI6WyJSZWFjdCIsInJlcXVpcmUiLCJyZXF1aXJlTmF0aXZlQ29tcG9uZW50IiwiUkNUUmVmcmVzaENvbnRyb2wiLCJSZWZyZXNoQ29udHJvbE1vY2siLCJsYXRlc3RSZWYiLCJDb21wb25lbnQiLCJtb2R1bGUiLCJleHBvcnRzIl0sIm1hcHBpbmdzIjoiQUFVQTs7Ozs7Ozs7Ozs7Ozs7QUFFQSxJQUFNQSxLQUFLLEdBQUdDLE9BQU8sQ0FBQyxPQUFELENBQXJCOztBQUVBLElBQU1DLHNCQUFzQixHQUFHRCxPQUFPLENBQUMsNkNBQUQsQ0FBdEM7O0FBRUEsSUFBTUUsaUJBQWlCLEdBQUdELHNCQUFzQixDQUFDLG1CQUFELENBQWhEOztJQUVNRSxrQjs7Ozs7Ozs7Ozt3Q0FFZ0I7QUFDbEJBLE1BQUFBLGtCQUFrQixDQUFDQyxTQUFuQixHQUErQixJQUEvQjtBQUNEOzs7NkJBQ1E7QUFDUCxhQUFPLG9CQUFDLGlCQUFELE9BQVA7QUFDRDs7O0VBUDhCTCxLQUFLLENBQUNNLFM7O0FBVXZDQyxNQUFNLENBQUNDLE9BQVAsR0FBaUJKLGtCQUFqQiIsInNvdXJjZXNDb250ZW50IjpbIi8qKlxuICogQ29weXJpZ2h0IChjKSBGYWNlYm9vaywgSW5jLiBhbmQgaXRzIGFmZmlsaWF0ZXMuXG4gKlxuICogVGhpcyBzb3VyY2UgY29kZSBpcyBsaWNlbnNlZCB1bmRlciB0aGUgTUlUIGxpY2Vuc2UgZm91bmQgaW4gdGhlXG4gKiBMSUNFTlNFIGZpbGUgaW4gdGhlIHJvb3QgZGlyZWN0b3J5IG9mIHRoaXMgc291cmNlIHRyZWUuXG4gKlxuICogQGZvcm1hdFxuICogQGZsb3cgc3RyaWN0LWxvY2FsXG4gKi9cblxuJ3VzZSBzdHJpY3QnO1xuXG5jb25zdCBSZWFjdCA9IHJlcXVpcmUoJ3JlYWN0Jyk7XG5cbmNvbnN0IHJlcXVpcmVOYXRpdmVDb21wb25lbnQgPSByZXF1aXJlKCcuLi8uLi8uLi9SZWFjdE5hdGl2ZS9yZXF1aXJlTmF0aXZlQ29tcG9uZW50Jyk7XG5cbmNvbnN0IFJDVFJlZnJlc2hDb250cm9sID0gcmVxdWlyZU5hdGl2ZUNvbXBvbmVudCgnUkNUUmVmcmVzaENvbnRyb2wnKTtcblxuY2xhc3MgUmVmcmVzaENvbnRyb2xNb2NrIGV4dGVuZHMgUmVhY3QuQ29tcG9uZW50PHt9PiB7XG4gIHN0YXRpYyBsYXRlc3RSZWY6ID9SZWZyZXNoQ29udHJvbE1vY2s7XG4gIGNvbXBvbmVudERpZE1vdW50KCkge1xuICAgIFJlZnJlc2hDb250cm9sTW9jay5sYXRlc3RSZWYgPSB0aGlzO1xuICB9XG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gPFJDVFJlZnJlc2hDb250cm9sIC8+O1xuICB9XG59XG5cbm1vZHVsZS5leHBvcnRzID0gUmVmcmVzaENvbnRyb2xNb2NrO1xuIl19

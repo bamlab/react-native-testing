@@ -1,0 +1,17 @@
+34f8f61448d09ce2c98b8c680ca3c898
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var find_1 = require("../operators/find");
+
+function findIndex(predicate, thisArg) {
+  return function (source) {
+    return source.lift(new find_1.FindValueOperator(predicate, source, true, thisArg));
+  };
+}
+
+exports.findIndex = findIndex;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvZmluZEluZGV4LnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUEsTUFBQSxHQUFBLE9BQUEsQ0FBQSxtQkFBQSxDQUFBOztBQTBDQSxTQUFnQixTQUFoQixDQUE2QixTQUE3QixFQUM2QixPQUQ3QixFQUMwQztBQUN4QyxTQUFPLFVBQUMsTUFBRCxFQUFzQjtBQUFLLFdBQUEsTUFBTSxDQUFDLElBQVAsQ0FBWSxJQUFJLE1BQUEsQ0FBQSxpQkFBSixDQUFzQixTQUF0QixFQUFpQyxNQUFqQyxFQUF5QyxJQUF6QyxFQUFaLE9BQVksQ0FBWixDQUFBO0FBQXVGLEdBQXpIO0FBQ0Q7O0FBSEQsT0FBQSxDQUFBLFNBQUEsR0FBQSxTQUFBIn0=

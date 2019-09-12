@@ -1,0 +1,53 @@
+585907e28002619f7a059a0c41fe2e0e
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _recompose = require("recompose");
+
+var _formik = require("formik");
+
+var _lodash = require("lodash");
+
+var _withErrorIfNeeded = _interopRequireDefault(require("./withErrorIfNeeded"));
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var withFormikControl = (0, _recompose.compose)(_withErrorIfNeeded.default, _formik.connect, (0, _recompose.mapProps)(function (_ref) {
+  var _ref$formik = _ref.formik,
+      values = _ref$formik.values,
+      _setFieldValue = _ref$formik.setFieldValue,
+      _setFieldTouched = _ref$formik.setFieldTouched,
+      name = _ref.name,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["formik", "name"]);
+  return _objectSpread({
+    value: (0, _lodash.get)(values, name),
+    setFieldValue: function setFieldValue(value) {
+      for (var _len = arguments.length, args = new Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+        args[_key - 1] = arguments[_key];
+      }
+
+      return _setFieldValue.apply(void 0, [name, value].concat(args));
+    },
+    setFieldTouched: function setFieldTouched(value) {
+      for (var _len2 = arguments.length, args = new Array(_len2 > 1 ? _len2 - 1 : 0), _key2 = 1; _key2 < _len2; _key2++) {
+        args[_key2 - 1] = arguments[_key2];
+      }
+
+      return _setFieldTouched.apply(void 0, [name, value].concat(args));
+    },
+    name: name
+  }, props);
+}));
+var _default = withFormikControl;
+exports.default = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndpdGhGb3JtaWtDb250cm9sLmpzIl0sIm5hbWVzIjpbIndpdGhGb3JtaWtDb250cm9sIiwid2l0aEVycm9ySWZOZWVkZWQiLCJjb25uZWN0IiwiZm9ybWlrIiwidmFsdWVzIiwic2V0RmllbGRWYWx1ZSIsInNldEZpZWxkVG91Y2hlZCIsIm5hbWUiLCJwcm9wcyIsInZhbHVlIiwiYXJncyJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7QUFBQTs7QUFDQTs7QUFDQTs7QUFDQTs7Ozs7O0FBRUEsSUFBTUEsaUJBQWlCLEdBQUcsd0JBQ3hCQywwQkFEd0IsRUFFeEJDLGVBRndCLEVBR3hCLHlCQUNFO0FBQUEseUJBQ0VDLE1BREY7QUFBQSxNQUNZQyxNQURaLGVBQ1lBLE1BRFo7QUFBQSxNQUNvQkMsY0FEcEIsZUFDb0JBLGFBRHBCO0FBQUEsTUFDbUNDLGdCQURuQyxlQUNtQ0EsZUFEbkM7QUFBQSxNQUVFQyxJQUZGLFFBRUVBLElBRkY7QUFBQSxNQUdLQyxLQUhMO0FBQUE7QUFLRUMsSUFBQUEsS0FBSyxFQUFFLGlCQUFJTCxNQUFKLEVBQVlHLElBQVosQ0FMVDtBQU1FRixJQUFBQSxhQUFhLEVBQUUsdUJBQUNJLEtBQUQ7QUFBQSx3Q0FBV0MsSUFBWDtBQUFXQSxRQUFBQSxJQUFYO0FBQUE7O0FBQUEsYUFBb0JMLGNBQWEsTUFBYixVQUFjRSxJQUFkLEVBQW9CRSxLQUFwQixTQUE4QkMsSUFBOUIsRUFBcEI7QUFBQSxLQU5qQjtBQU9FSixJQUFBQSxlQUFlLEVBQUUseUJBQUNHLEtBQUQ7QUFBQSx5Q0FBV0MsSUFBWDtBQUFXQSxRQUFBQSxJQUFYO0FBQUE7O0FBQUEsYUFDZkosZ0JBQWUsTUFBZixVQUFnQkMsSUFBaEIsRUFBc0JFLEtBQXRCLFNBQWdDQyxJQUFoQyxFQURlO0FBQUEsS0FQbkI7QUFTRUgsSUFBQUEsSUFBSSxFQUFKQTtBQVRGLEtBVUtDLEtBVkw7QUFBQSxDQURGLENBSHdCLENBQTFCO2VBbUJlUixpQiIsInNvdXJjZXNDb250ZW50IjpbImltcG9ydCB7IG1hcFByb3BzLCBjb21wb3NlIH0gZnJvbSBcInJlY29tcG9zZVwiO1xuaW1wb3J0IHsgY29ubmVjdCB9IGZyb20gXCJmb3JtaWtcIjtcbmltcG9ydCB7IGdldCB9IGZyb20gXCJsb2Rhc2hcIjtcbmltcG9ydCB3aXRoRXJyb3JJZk5lZWRlZCBmcm9tIFwiLi93aXRoRXJyb3JJZk5lZWRlZFwiO1xuXG5jb25zdCB3aXRoRm9ybWlrQ29udHJvbCA9IGNvbXBvc2UoXG4gIHdpdGhFcnJvcklmTmVlZGVkLFxuICBjb25uZWN0LFxuICBtYXBQcm9wcyhcbiAgICAoe1xuICAgICAgZm9ybWlrOiB7IHZhbHVlcywgc2V0RmllbGRWYWx1ZSwgc2V0RmllbGRUb3VjaGVkIH0sXG4gICAgICBuYW1lLFxuICAgICAgLi4ucHJvcHNcbiAgICB9KSA9PiAoe1xuICAgICAgdmFsdWU6IGdldCh2YWx1ZXMsIG5hbWUpLFxuICAgICAgc2V0RmllbGRWYWx1ZTogKHZhbHVlLCAuLi5hcmdzKSA9PiBzZXRGaWVsZFZhbHVlKG5hbWUsIHZhbHVlLCAuLi5hcmdzKSxcbiAgICAgIHNldEZpZWxkVG91Y2hlZDogKHZhbHVlLCAuLi5hcmdzKSA9PlxuICAgICAgICBzZXRGaWVsZFRvdWNoZWQobmFtZSwgdmFsdWUsIC4uLmFyZ3MpLFxuICAgICAgbmFtZSxcbiAgICAgIC4uLnByb3BzXG4gICAgfSlcbiAgKVxuKTtcblxuZXhwb3J0IGRlZmF1bHQgd2l0aEZvcm1pa0NvbnRyb2w7XG4iXX0=

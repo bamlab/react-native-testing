@@ -1,0 +1,91 @@
+6a60a400cb7526f3870e411ddda52f4c
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subscriber_1 = require("../Subscriber");
+
+function skipWhile(predicate) {
+  return function (source) {
+    return source.lift(new SkipWhileOperator(predicate));
+  };
+}
+
+exports.skipWhile = skipWhile;
+
+var SkipWhileOperator = function () {
+  function SkipWhileOperator(predicate) {
+    this.predicate = predicate;
+  }
+
+  SkipWhileOperator.prototype.call = function (subscriber, source) {
+    return source.subscribe(new SkipWhileSubscriber(subscriber, this.predicate));
+  };
+
+  return SkipWhileOperator;
+}();
+
+var SkipWhileSubscriber = function (_super) {
+  __extends(SkipWhileSubscriber, _super);
+
+  function SkipWhileSubscriber(destination, predicate) {
+    var _this = _super.call(this, destination) || this;
+
+    _this.predicate = predicate;
+    _this.skipping = true;
+    _this.index = 0;
+    return _this;
+  }
+
+  SkipWhileSubscriber.prototype._next = function (value) {
+    var destination = this.destination;
+
+    if (this.skipping) {
+      this.tryCallPredicate(value);
+    }
+
+    if (!this.skipping) {
+      destination.next(value);
+    }
+  };
+
+  SkipWhileSubscriber.prototype.tryCallPredicate = function (value) {
+    try {
+      var result = this.predicate(value, this.index++);
+      this.skipping = Boolean(result);
+    } catch (err) {
+      this.destination.error(err);
+    }
+  };
+
+  return SkipWhileSubscriber;
+}(Subscriber_1.Subscriber);
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvc2tpcFdoaWxlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBRUEsSUFBQSxZQUFBLEdBQUEsT0FBQSxDQUFBLGVBQUEsQ0FBQTs7QUFlQSxTQUFnQixTQUFoQixDQUE2QixTQUE3QixFQUE0RTtBQUMxRSxTQUFPLFVBQUMsTUFBRCxFQUFzQjtBQUFLLFdBQUEsTUFBTSxDQUFDLElBQVAsQ0FBWSxJQUFJLGlCQUFKLENBQVosU0FBWSxDQUFaLENBQUE7QUFBNkMsR0FBL0U7QUFDRDs7QUFGRCxPQUFBLENBQUEsU0FBQSxHQUFBLFNBQUE7O0FBSUEsSUFBQSxpQkFBQSxHQUFBLFlBQUE7QUFDRSxXQUFBLGlCQUFBLENBQW9CLFNBQXBCLEVBQW1FO0FBQS9DLFNBQUEsU0FBQSxHQUFBLFNBQUE7QUFDbkI7O0FBRUQsRUFBQSxpQkFBQSxDQUFBLFNBQUEsQ0FBQSxJQUFBLEdBQUEsVUFBSyxVQUFMLEVBQWdDLE1BQWhDLEVBQTJDO0FBQ3pDLFdBQU8sTUFBTSxDQUFDLFNBQVAsQ0FBaUIsSUFBSSxtQkFBSixDQUF3QixVQUF4QixFQUFvQyxLQUFLLFNBQXpDLENBQWpCLENBQVA7QUFDRCxHQUZEOztBQUdGLFNBQUEsaUJBQUE7QUFBQyxDQVBELEVBQUE7O0FBY0EsSUFBQSxtQkFBQSxHQUFBLFVBQUEsTUFBQSxFQUFBO0FBQXFDLEVBQUEsU0FBQSxDQUFBLG1CQUFBLEVBQUEsTUFBQSxDQUFBOztBQUluQyxXQUFBLG1CQUFBLENBQVksV0FBWixFQUNvQixTQURwQixFQUNtRTtBQURuRSxRQUFBLEtBQUEsR0FFRSxNQUFBLENBQUEsSUFBQSxDQUFBLElBQUEsRUFBTSxXQUFOLEtBQWtCLElBRnBCOztBQUNvQixJQUFBLEtBQUEsQ0FBQSxTQUFBLEdBQUEsU0FBQTtBQUpaLElBQUEsS0FBQSxDQUFBLFFBQUEsR0FBb0IsSUFBcEI7QUFDQSxJQUFBLEtBQUEsQ0FBQSxLQUFBLEdBQWdCLENBQWhCOztBQUtQOztBQUVTLEVBQUEsbUJBQUEsQ0FBQSxTQUFBLENBQUEsS0FBQSxHQUFWLFVBQWdCLEtBQWhCLEVBQXdCO0FBQ3RCLFFBQU0sV0FBVyxHQUFHLEtBQUssV0FBekI7O0FBQ0EsUUFBSSxLQUFLLFFBQVQsRUFBbUI7QUFDakIsV0FBSyxnQkFBTCxDQUFzQixLQUF0QjtBQUNEOztBQUVELFFBQUksQ0FBQyxLQUFLLFFBQVYsRUFBb0I7QUFDbEIsTUFBQSxXQUFXLENBQUMsSUFBWixDQUFpQixLQUFqQjtBQUNEO0FBQ0YsR0FUUzs7QUFXRixFQUFBLG1CQUFBLENBQUEsU0FBQSxDQUFBLGdCQUFBLEdBQVIsVUFBeUIsS0FBekIsRUFBaUM7QUFDL0IsUUFBSTtBQUNGLFVBQU0sTUFBTSxHQUFHLEtBQUssU0FBTCxDQUFlLEtBQWYsRUFBc0IsS0FBSyxLQUFMLEVBQXRCLENBQWY7QUFDQSxXQUFLLFFBQUwsR0FBZ0IsT0FBTyxDQUFDLE1BQUQsQ0FBdkI7QUFDRCxLQUhELENBR0UsT0FBTyxHQUFQLEVBQVk7QUFDWixXQUFLLFdBQUwsQ0FBaUIsS0FBakIsQ0FBdUIsR0FBdkI7QUFDRDtBQUNGLEdBUE87O0FBUVYsU0FBQSxtQkFBQTtBQUFDLENBNUJELENBQXFDLFlBQUEsQ0FBQSxVQUFyQyxDQUFBIn0=

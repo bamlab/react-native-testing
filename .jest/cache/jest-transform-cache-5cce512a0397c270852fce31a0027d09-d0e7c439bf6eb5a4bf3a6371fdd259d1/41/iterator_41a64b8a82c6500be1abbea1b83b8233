@@ -1,0 +1,19 @@
+a5bc55c9f61c4a49921273eff6f32a65
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function getSymbolIterator() {
+  if (typeof Symbol !== 'function' || !(typeof Symbol === "function" ? Symbol.iterator : "@@iterator")) {
+    return '@@iterator';
+  }
+
+  return typeof Symbol === "function" ? Symbol.iterator : "@@iterator";
+}
+
+exports.getSymbolIterator = getSymbolIterator;
+exports.iterator = getSymbolIterator();
+exports.$$iterator = exports.iterator;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9zeW1ib2wvaXRlcmF0b3IudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsU0FBZ0IsaUJBQWhCLEdBQWlDO0FBQy9CLE1BQUksT0FBTyxNQUFQLEtBQWtCLFVBQWxCLElBQWdDLGlDQUFDLE1BQU0sQ0FBQyxRQUFSLGdCQUFwQyxFQUFzRDtBQUNwRCxXQUFPLFlBQVA7QUFDRDs7QUFFRCx3Q0FBTyxNQUFNLENBQUMsUUFBZDtBQUNEOztBQU5ELE9BQUEsQ0FBQSxpQkFBQSxHQUFBLGlCQUFBO0FBUWEsT0FBQSxDQUFBLFFBQUEsR0FBVyxpQkFBaUIsRUFBNUI7QUFLQSxPQUFBLENBQUEsVUFBQSxHQUFhLE9BQUEsQ0FBQSxRQUFiIn0=

@@ -1,0 +1,17 @@
+804a20ddede4020a7bafb17c832ee1c9
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function EmptyErrorImpl() {
+  Error.call(this);
+  this.message = 'no elements in sequence';
+  this.name = 'EmptyError';
+  return this;
+}
+
+EmptyErrorImpl.prototype = Object.create(Error.prototype);
+exports.EmptyError = EmptyErrorImpl;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL0VtcHR5RXJyb3IudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBT0EsU0FBUyxjQUFULEdBQXVCO0FBQ3JCLEVBQUEsS0FBSyxDQUFDLElBQU4sQ0FBVyxJQUFYO0FBQ0EsT0FBSyxPQUFMLEdBQWUseUJBQWY7QUFDQSxPQUFLLElBQUwsR0FBWSxZQUFaO0FBQ0EsU0FBTyxJQUFQO0FBQ0Q7O0FBRUQsY0FBYyxDQUFDLFNBQWYsR0FBMkIsTUFBTSxDQUFDLE1BQVAsQ0FBYyxLQUFLLENBQUMsU0FBcEIsQ0FBM0I7QUFZYSxPQUFBLENBQUEsVUFBQSxHQUE2QixjQUE3QiJ9

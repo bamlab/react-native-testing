@@ -1,0 +1,13 @@
+2f6f7869e3d2684f3fb2497202aa1e16
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function isPromise(value) {
+  return !!value && typeof value.subscribe !== 'function' && typeof value.then === 'function';
+}
+
+exports.isPromise = isPromise;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzUHJvbWlzZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFLQSxTQUFnQixTQUFoQixDQUEwQixLQUExQixFQUFvQztBQUNsQyxTQUFPLENBQUMsQ0FBQyxLQUFGLElBQVcsT0FBYSxLQUFNLENBQUMsU0FBcEIsS0FBa0MsVUFBN0MsSUFBMkQsT0FBUSxLQUFhLENBQUMsSUFBdEIsS0FBK0IsVUFBakc7QUFDRDs7QUFGRCxPQUFBLENBQUEsU0FBQSxHQUFBLFNBQUEifQ==

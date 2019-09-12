@@ -1,0 +1,17 @@
+b40c0bfb790af07541099820b3f68f7f
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var zip_1 = require("../observable/zip");
+
+function zipAll(project) {
+  return function (source) {
+    return source.lift(new zip_1.ZipOperator(project));
+  };
+}
+
+exports.zipAll = zipAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvemlwQWxsLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUFBLElBQUEsS0FBQSxHQUFBLE9BQUEsQ0FBQSxtQkFBQSxDQUFBOztBQVNBLFNBQWdCLE1BQWhCLENBQTZCLE9BQTdCLEVBQW1FO0FBQ2pFLFNBQU8sVUFBQyxNQUFELEVBQXNCO0FBQUssV0FBQSxNQUFNLENBQUMsSUFBUCxDQUFZLElBQUksS0FBQSxDQUFBLFdBQUosQ0FBWixPQUFZLENBQVosQ0FBQTtBQUFxQyxHQUF2RTtBQUNEOztBQUZELE9BQUEsQ0FBQSxNQUFBLEdBQUEsTUFBQSJ9

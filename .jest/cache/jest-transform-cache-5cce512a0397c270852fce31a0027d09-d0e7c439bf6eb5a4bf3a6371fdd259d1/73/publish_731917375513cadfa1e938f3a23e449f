@@ -1,0 +1,19 @@
+d2cb388006261dfb3711703784f0b5db
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subject_1 = require("../Subject");
+
+var multicast_1 = require("./multicast");
+
+function publish(selector) {
+  return selector ? multicast_1.multicast(function () {
+    return new Subject_1.Subject();
+  }, selector) : multicast_1.multicast(new Subject_1.Subject());
+}
+
+exports.publish = publish;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvcHVibGlzaC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFDQSxJQUFBLFNBQUEsR0FBQSxPQUFBLENBQUEsWUFBQSxDQUFBOztBQUNBLElBQUEsV0FBQSxHQUFBLE9BQUEsQ0FBQSxhQUFBLENBQUE7O0FBNERBLFNBQWdCLE9BQWhCLENBQThCLFFBQTlCLEVBQStEO0FBQzdELFNBQU8sUUFBUSxHQUNiLFdBQUEsQ0FBQSxTQUFBLENBQVUsWUFBQTtBQUFNLFdBQUEsSUFBSSxTQUFBLENBQUosT0FBQSxFQUFBO0FBQWdCLEdBQWhDLEVBQWtDLFFBQWxDLENBRGEsR0FFYixXQUFBLENBQUEsU0FBQSxDQUFVLElBQUksU0FBQSxDQUFBLE9BQUosRUFBVixDQUZGO0FBR0Q7O0FBSkQsT0FBQSxDQUFBLE9BQUEsR0FBQSxPQUFBIn0=

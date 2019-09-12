@@ -1,0 +1,19 @@
+909cd12591aea3dd72e4193496457922
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var BehaviorSubject_1 = require("../BehaviorSubject");
+
+var multicast_1 = require("./multicast");
+
+function publishBehavior(value) {
+  return function (source) {
+    return multicast_1.multicast(new BehaviorSubject_1.BehaviorSubject(value))(source);
+  };
+}
+
+exports.publishBehavior = publishBehavior;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvcHVibGlzaEJlaGF2aW9yLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUEsaUJBQUEsR0FBQSxPQUFBLENBQUEsb0JBQUEsQ0FBQTs7QUFDQSxJQUFBLFdBQUEsR0FBQSxPQUFBLENBQUEsYUFBQSxDQUFBOztBQVVBLFNBQWdCLGVBQWhCLENBQW1DLEtBQW5DLEVBQTJDO0FBQ3pDLFNBQU8sVUFBQyxNQUFELEVBQXNCO0FBQUssV0FBQSxXQUFBLENBQUEsU0FBQSxDQUFVLElBQUksaUJBQUEsQ0FBQSxlQUFKLENBQXVCLEtBQXZCLENBQVYsRUFBQSxNQUFBLENBQUE7QUFBNEUsR0FBOUc7QUFDRDs7QUFGRCxPQUFBLENBQUEsZUFBQSxHQUFBLGVBQUEifQ==

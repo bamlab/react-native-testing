@@ -1,0 +1,17 @@
+84576400a894ba5a78b7f29dcb1e2033
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function TimeoutErrorImpl() {
+  Error.call(this);
+  this.message = 'Timeout has occurred';
+  this.name = 'TimeoutError';
+  return this;
+}
+
+TimeoutErrorImpl.prototype = Object.create(Error.prototype);
+exports.TimeoutError = TimeoutErrorImpl;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL1RpbWVvdXRFcnJvci50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7QUFPQSxTQUFTLGdCQUFULEdBQXlCO0FBQ3ZCLEVBQUEsS0FBSyxDQUFDLElBQU4sQ0FBVyxJQUFYO0FBQ0EsT0FBSyxPQUFMLEdBQWUsc0JBQWY7QUFDQSxPQUFLLElBQUwsR0FBWSxjQUFaO0FBQ0EsU0FBTyxJQUFQO0FBQ0Q7O0FBRUQsZ0JBQWdCLENBQUMsU0FBakIsR0FBNkIsTUFBTSxDQUFDLE1BQVAsQ0FBYyxLQUFLLENBQUMsU0FBcEIsQ0FBN0I7QUFTYSxPQUFBLENBQUEsWUFBQSxHQUFpQyxnQkFBakMifQ==

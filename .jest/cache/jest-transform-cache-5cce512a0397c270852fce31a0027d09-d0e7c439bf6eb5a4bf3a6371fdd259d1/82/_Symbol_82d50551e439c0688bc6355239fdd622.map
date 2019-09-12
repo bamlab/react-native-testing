@@ -1,0 +1,1 @@
+{"version":3,"sources":["_Symbol.js"],"names":["root","require","Symbol","module","exports"],"mappings":"AAAA,IAAIA,IAAI,GAAGC,OAAO,CAAC,SAAD,CAAlB;;AAGA,IAAIC,MAAM,GAAGF,IAAI,CAACE,MAAlB;AAEAC,MAAM,CAACC,OAAP,GAAiBF,MAAjB","sourcesContent":["var root = require('./_root');\n\n/** Built-in value references. */\nvar Symbol = root.Symbol;\n\nmodule.exports = Symbol;\n"]}

@@ -1,0 +1,9 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const effects_1 = require("redux-saga/effects");
+const sagas_1 = require("./signup/sagas");
+function* watchAll() {
+    yield effects_1.all([sagas_1.subscribeNewsletterWatcher()]);
+}
+exports.default = watchAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL21hdHRoaWV1L3Byb2plY3RzL1Rlc3RFeGFtcGxlcy9zcmMvbW9kdWxlcy9zYWdhLnRzIiwibWFwcGluZ3MiOiI7O0FBQUEsZ0RBQXlDO0FBRXpDLDBDQUE0RDtBQUU1RCxRQUFRLENBQUMsQ0FBQyxRQUFRO0lBQ2hCLE1BQU0sYUFBRyxDQUFDLENBQUMsa0NBQTBCLEVBQUUsQ0FBQyxDQUFDLENBQUM7QUFDNUMsQ0FBQztBQUVELGtCQUFlLFFBQVEsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvVXNlcnMvbWF0dGhpZXUvcHJvamVjdHMvVGVzdEV4YW1wbGVzL3NyYy9tb2R1bGVzL3NhZ2EudHMiXSwic291cmNlc0NvbnRlbnQiOlsiaW1wb3J0IHsgYWxsIH0gZnJvbSAncmVkdXgtc2FnYS9lZmZlY3RzJztcblxuaW1wb3J0IHsgc3Vic2NyaWJlTmV3c2xldHRlcldhdGNoZXIgfSBmcm9tICcuL3NpZ251cC9zYWdhcyc7XG5cbmZ1bmN0aW9uKiB3YXRjaEFsbCgpIHtcbiAgeWllbGQgYWxsKFtzdWJzY3JpYmVOZXdzbGV0dGVyV2F0Y2hlcigpXSk7XG59XG5cbmV4cG9ydCBkZWZhdWx0IHdhdGNoQWxsO1xuIl0sInZlcnNpb24iOjN9

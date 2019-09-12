@@ -1,0 +1,112 @@
+21bf660ea7918a2302f357fbb856df58
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var Subscriber_1 = require("../Subscriber");
+
+function find(predicate, thisArg) {
+  if (typeof predicate !== 'function') {
+    throw new TypeError('predicate is not a function');
+  }
+
+  return function (source) {
+    return source.lift(new FindValueOperator(predicate, source, false, thisArg));
+  };
+}
+
+exports.find = find;
+
+var FindValueOperator = function () {
+  function FindValueOperator(predicate, source, yieldIndex, thisArg) {
+    this.predicate = predicate;
+    this.source = source;
+    this.yieldIndex = yieldIndex;
+    this.thisArg = thisArg;
+  }
+
+  FindValueOperator.prototype.call = function (observer, source) {
+    return source.subscribe(new FindValueSubscriber(observer, this.predicate, this.source, this.yieldIndex, this.thisArg));
+  };
+
+  return FindValueOperator;
+}();
+
+exports.FindValueOperator = FindValueOperator;
+
+var FindValueSubscriber = function (_super) {
+  __extends(FindValueSubscriber, _super);
+
+  function FindValueSubscriber(destination, predicate, source, yieldIndex, thisArg) {
+    var _this = _super.call(this, destination) || this;
+
+    _this.predicate = predicate;
+    _this.source = source;
+    _this.yieldIndex = yieldIndex;
+    _this.thisArg = thisArg;
+    _this.index = 0;
+    return _this;
+  }
+
+  FindValueSubscriber.prototype.notifyComplete = function (value) {
+    var destination = this.destination;
+    destination.next(value);
+    destination.complete();
+    this.unsubscribe();
+  };
+
+  FindValueSubscriber.prototype._next = function (value) {
+    var _a = this,
+        predicate = _a.predicate,
+        thisArg = _a.thisArg;
+
+    var index = this.index++;
+
+    try {
+      var result = predicate.call(thisArg || this, value, index, this.source);
+
+      if (result) {
+        this.notifyComplete(this.yieldIndex ? index : value);
+      }
+    } catch (err) {
+      this.destination.error(err);
+    }
+  };
+
+  FindValueSubscriber.prototype._complete = function () {
+    this.notifyComplete(this.yieldIndex ? -1 : undefined);
+  };
+
+  return FindValueSubscriber;
+}(Subscriber_1.Subscriber);
+
+exports.FindValueSubscriber = FindValueSubscriber;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvZmluZC50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQUVBLElBQUEsWUFBQSxHQUFBLE9BQUEsQ0FBQSxlQUFBLENBQUE7O0FBOENBLFNBQWdCLElBQWhCLENBQXdCLFNBQXhCLEVBQ3dCLE9BRHhCLEVBQ3FDO0FBQ25DLE1BQUksT0FBTyxTQUFQLEtBQXFCLFVBQXpCLEVBQXFDO0FBQ25DLFVBQU0sSUFBSSxTQUFKLENBQWMsNkJBQWQsQ0FBTjtBQUNEOztBQUNELFNBQU8sVUFBQyxNQUFELEVBQXNCO0FBQUssV0FBQSxNQUFNLENBQUMsSUFBUCxDQUFZLElBQUksaUJBQUosQ0FBc0IsU0FBdEIsRUFBaUMsTUFBakMsRUFBeUMsS0FBekMsRUFBWixPQUFZLENBQVosQ0FBQTtBQUFrRyxHQUFwSTtBQUNEOztBQU5ELE9BQUEsQ0FBQSxJQUFBLEdBQUEsSUFBQTs7QUFRQSxJQUFBLGlCQUFBLEdBQUEsWUFBQTtBQUNFLFdBQUEsaUJBQUEsQ0FBb0IsU0FBcEIsRUFDb0IsTUFEcEIsRUFFb0IsVUFGcEIsRUFHb0IsT0FIcEIsRUFHaUM7QUFIYixTQUFBLFNBQUEsR0FBQSxTQUFBO0FBQ0EsU0FBQSxNQUFBLEdBQUEsTUFBQTtBQUNBLFNBQUEsVUFBQSxHQUFBLFVBQUE7QUFDQSxTQUFBLE9BQUEsR0FBQSxPQUFBO0FBQ25COztBQUVELEVBQUEsaUJBQUEsQ0FBQSxTQUFBLENBQUEsSUFBQSxHQUFBLFVBQUssUUFBTCxFQUE4QixNQUE5QixFQUF5QztBQUN2QyxXQUFPLE1BQU0sQ0FBQyxTQUFQLENBQWlCLElBQUksbUJBQUosQ0FBd0IsUUFBeEIsRUFBa0MsS0FBSyxTQUF2QyxFQUFrRCxLQUFLLE1BQXZELEVBQStELEtBQUssVUFBcEUsRUFBZ0YsS0FBSyxPQUFyRixDQUFqQixDQUFQO0FBQ0QsR0FGRDs7QUFHRixTQUFBLGlCQUFBO0FBQUMsQ0FWRCxFQUFBOztBQUFhLE9BQUEsQ0FBQSxpQkFBQSxHQUFBLGlCQUFBOztBQWlCYixJQUFBLG1CQUFBLEdBQUEsVUFBQSxNQUFBLEVBQUE7QUFBNEMsRUFBQSxTQUFBLENBQUEsbUJBQUEsRUFBQSxNQUFBLENBQUE7O0FBRzFDLFdBQUEsbUJBQUEsQ0FBWSxXQUFaLEVBQ29CLFNBRHBCLEVBRW9CLE1BRnBCLEVBR29CLFVBSHBCLEVBSW9CLE9BSnBCLEVBSWlDO0FBSmpDLFFBQUEsS0FBQSxHQUtFLE1BQUEsQ0FBQSxJQUFBLENBQUEsSUFBQSxFQUFNLFdBQU4sS0FBa0IsSUFMcEI7O0FBQ29CLElBQUEsS0FBQSxDQUFBLFNBQUEsR0FBQSxTQUFBO0FBQ0EsSUFBQSxLQUFBLENBQUEsTUFBQSxHQUFBLE1BQUE7QUFDQSxJQUFBLEtBQUEsQ0FBQSxVQUFBLEdBQUEsVUFBQTtBQUNBLElBQUEsS0FBQSxDQUFBLE9BQUEsR0FBQSxPQUFBO0FBTlosSUFBQSxLQUFBLENBQUEsS0FBQSxHQUFnQixDQUFoQjs7QUFRUDs7QUFFTyxFQUFBLG1CQUFBLENBQUEsU0FBQSxDQUFBLGNBQUEsR0FBUixVQUF1QixLQUF2QixFQUFpQztBQUMvQixRQUFNLFdBQVcsR0FBRyxLQUFLLFdBQXpCO0FBRUEsSUFBQSxXQUFXLENBQUMsSUFBWixDQUFpQixLQUFqQjtBQUNBLElBQUEsV0FBVyxDQUFDLFFBQVo7QUFDQSxTQUFLLFdBQUw7QUFDRCxHQU5POztBQVFFLEVBQUEsbUJBQUEsQ0FBQSxTQUFBLENBQUEsS0FBQSxHQUFWLFVBQWdCLEtBQWhCLEVBQXdCO0FBQ2hCLFFBQUEsRUFBQSxHQUFBLElBQUE7QUFBQSxRQUFDLFNBQUEsR0FBQSxFQUFBLENBQUEsU0FBRDtBQUFBLFFBQVksT0FBQSxHQUFBLEVBQUEsQ0FBQSxPQUFaOztBQUNOLFFBQU0sS0FBSyxHQUFHLEtBQUssS0FBTCxFQUFkOztBQUNBLFFBQUk7QUFDRixVQUFNLE1BQU0sR0FBRyxTQUFTLENBQUMsSUFBVixDQUFlLE9BQU8sSUFBSSxJQUExQixFQUFnQyxLQUFoQyxFQUF1QyxLQUF2QyxFQUE4QyxLQUFLLE1BQW5ELENBQWY7O0FBQ0EsVUFBSSxNQUFKLEVBQVk7QUFDVixhQUFLLGNBQUwsQ0FBb0IsS0FBSyxVQUFMLEdBQWtCLEtBQWxCLEdBQTBCLEtBQTlDO0FBQ0Q7QUFDRixLQUxELENBS0UsT0FBTyxHQUFQLEVBQVk7QUFDWixXQUFLLFdBQUwsQ0FBaUIsS0FBakIsQ0FBdUIsR0FBdkI7QUFDRDtBQUNGLEdBWFM7O0FBYUEsRUFBQSxtQkFBQSxDQUFBLFNBQUEsQ0FBQSxTQUFBLEdBQVYsWUFBQTtBQUNFLFNBQUssY0FBTCxDQUFvQixLQUFLLFVBQUwsR0FBa0IsQ0FBQyxDQUFuQixHQUF1QixTQUEzQztBQUNELEdBRlM7O0FBR1osU0FBQSxtQkFBQTtBQUFDLENBbkNELENBQTRDLFlBQUEsQ0FBQSxVQUE1QyxDQUFBOztBQUFhLE9BQUEsQ0FBQSxtQkFBQSxHQUFBLG1CQUFBIn0=

@@ -1,0 +1,14 @@
+05cb6aea9752d0614ed1a4cc62bcda17
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const types_1 = require("./types");
+const initialState = null;
+exports.toasterReducer = (state = initialState, action) => {
+    switch (action.type) {
+        case types_1.ToasterActionTypes.ADD_TOAST:
+            return action.payload;
+        default:
+            return state;
+    }
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJmaWxlIjoiL1VzZXJzL21hdHRoaWV1L3Byb2plY3RzL1Rlc3RFeGFtcGxlcy9zcmMvbW9kdWxlcy90b2FzdGVyL3JlZHVjZXIudHMiLCJtYXBwaW5ncyI6Ijs7QUFDQSxtQ0FBNEQ7QUFHNUQsTUFBTSxZQUFZLEdBQUcsSUFBSSxDQUFDO0FBRWIsUUFBQSxjQUFjLEdBQTZELENBQ3RGLEtBQUssR0FBRyxZQUFZLEVBQ3BCLE1BQU0sRUFDTixFQUFFO0lBQ0YsUUFBUSxNQUFNLENBQUMsSUFBSSxFQUFFO1FBQ25CLEtBQUssMEJBQWtCLENBQUMsU0FBUztZQUMvQixPQUFPLE1BQU0sQ0FBQyxPQUFPLENBQUM7UUFDeEI7WUFDRSxPQUFPLEtBQUssQ0FBQztLQUNoQjtBQUNILENBQUMsQ0FBQyIsIm5hbWVzIjpbXSwic291cmNlcyI6WyIvVXNlcnMvbWF0dGhpZXUvcHJvamVjdHMvVGVzdEV4YW1wbGVzL3NyYy9tb2R1bGVzL3RvYXN0ZXIvcmVkdWNlci50cyJdLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBSZWR1Y2VyIH0gZnJvbSAncmVkdXgnO1xuaW1wb3J0IHsgSVRvYXN0ZXJTdGF0ZSwgVG9hc3RlckFjdGlvblR5cGVzIH0gZnJvbSAnLi90eXBlcyc7XG5pbXBvcnQgeyBUVG9hc3RlckFjdGlvbk9iamVjdFR5cGVzIH0gZnJvbSAnLi9hY3Rpb25zJztcblxuY29uc3QgaW5pdGlhbFN0YXRlID0gbnVsbDtcblxuZXhwb3J0IGNvbnN0IHRvYXN0ZXJSZWR1Y2VyOiBSZWR1Y2VyPElUb2FzdGVyU3RhdGUgfCBudWxsLCBUVG9hc3RlckFjdGlvbk9iamVjdFR5cGVzPiA9IChcbiAgc3RhdGUgPSBpbml0aWFsU3RhdGUsXG4gIGFjdGlvblxuKSA9PiB7XG4gIHN3aXRjaCAoYWN0aW9uLnR5cGUpIHtcbiAgICBjYXNlIFRvYXN0ZXJBY3Rpb25UeXBlcy5BRERfVE9BU1Q6XG4gICAgICByZXR1cm4gYWN0aW9uLnBheWxvYWQ7XG4gICAgZGVmYXVsdDpcbiAgICAgIHJldHVybiBzdGF0ZTtcbiAgfVxufTtcbiJdLCJ2ZXJzaW9uIjozfQ==

@@ -1,0 +1,1961 @@
+553b511bd48782d0bdbc51c3eec5d08a
+'use strict';
+
+Object.defineProperty(exports, '__esModule', {
+  value: true
+});
+
+function _interopDefault(ex) {
+  return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex;
+}
+
+var Stylis = _interopDefault(require('stylis/stylis.min'));
+
+var _insertRulePlugin = _interopDefault(require('stylis-rule-sheet'));
+
+var React = require('react');
+
+var React__default = _interopDefault(React);
+
+var unitless = _interopDefault(require('@emotion/unitless'));
+
+var reactIs = require('react-is');
+
+var memoize = _interopDefault(require('memoize-one'));
+
+var stream = _interopDefault(require('stream'));
+
+var PropTypes = _interopDefault(require('prop-types'));
+
+var validAttr = _interopDefault(require('@emotion/is-prop-valid'));
+
+var merge = _interopDefault(require('merge-anything'));
+
+var interleave = function interleave(strings, interpolations) {
+  var result = [strings[0]];
+
+  for (var i = 0, len = interpolations.length; i < len; i += 1) {
+    result.push(interpolations[i], strings[i + 1]);
+  }
+
+  return result;
+};
+
+var _typeof = typeof Symbol === "function" && typeof (typeof Symbol === "function" ? Symbol.iterator : "@@iterator") === "symbol" ? function (obj) {
+  return typeof obj;
+} : function (obj) {
+  return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== (typeof Symbol === "function" ? Symbol.prototype : "@@prototype") ? "symbol" : typeof obj;
+};
+
+var classCallCheck = function classCallCheck(instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var _extends = Object.assign || function (target) {
+  for (var i = 1; i < arguments.length; i++) {
+    var source = arguments[i];
+
+    for (var key in source) {
+      if (Object.prototype.hasOwnProperty.call(source, key)) {
+        target[key] = source[key];
+      }
+    }
+  }
+
+  return target;
+};
+
+var inherits = function inherits(subClass, superClass) {
+  if (typeof superClass !== "function" && superClass !== null) {
+    throw new TypeError("Super expression must either be null or a function, not " + typeof superClass);
+  }
+
+  subClass.prototype = Object.create(superClass && superClass.prototype, {
+    constructor: {
+      value: subClass,
+      enumerable: false,
+      writable: true,
+      configurable: true
+    }
+  });
+  if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass;
+};
+
+var objectWithoutProperties = function objectWithoutProperties(obj, keys) {
+  var target = {};
+
+  for (var i in obj) {
+    if (keys.indexOf(i) >= 0) continue;
+    if (!Object.prototype.hasOwnProperty.call(obj, i)) continue;
+    target[i] = obj[i];
+  }
+
+  return target;
+};
+
+var possibleConstructorReturn = function possibleConstructorReturn(self, call) {
+  if (!self) {
+    throw new ReferenceError("this hasn't been initialised - super() hasn't been called");
+  }
+
+  return call && (typeof call === "object" || typeof call === "function") ? call : self;
+};
+
+var isPlainObject = function isPlainObject(x) {
+  return (typeof x === 'undefined' ? 'undefined' : _typeof(x)) === 'object' && x.constructor === Object;
+};
+
+var EMPTY_ARRAY = Object.freeze([]);
+var EMPTY_OBJECT = Object.freeze({});
+
+function isFunction(test) {
+  return typeof test === 'function';
+}
+
+function getComponentName(target) {
+  return (process.env.NODE_ENV !== 'production' ? typeof target === 'string' && target : false) || target.displayName || target.name || 'Component';
+}
+
+function isStatelessFunction(test) {
+  return typeof test === 'function' && !(test.prototype && test.prototype.isReactComponent);
+}
+
+function isStyledComponent(target) {
+  return target && typeof target.styledComponentId === 'string';
+}
+
+var SC_ATTR = typeof process !== 'undefined' && (process.env.REACT_APP_SC_ATTR || process.env.SC_ATTR) || 'data-styled';
+var SC_VERSION_ATTR = 'data-styled-version';
+var SC_STREAM_ATTR = 'data-styled-streamed';
+var IS_BROWSER = typeof window !== 'undefined' && 'HTMLElement' in window;
+var DISABLE_SPEEDY = typeof SC_DISABLE_SPEEDY === 'boolean' && SC_DISABLE_SPEEDY || typeof process !== 'undefined' && (process.env.REACT_APP_SC_DISABLE_SPEEDY || process.env.SC_DISABLE_SPEEDY) || process.env.NODE_ENV !== 'production';
+var STATIC_EXECUTION_CONTEXT = {};
+var ERRORS = process.env.NODE_ENV !== 'production' ? {
+  "1": "Cannot create styled-component for component: %s.\n\n",
+  "2": "Can't collect styles once you've consumed a `ServerStyleSheet`'s styles! `ServerStyleSheet` is a one off instance for each server-side render cycle.\n\n- Are you trying to reuse it across renders?\n- Are you accidentally calling collectStyles twice?\n\n",
+  "3": "Streaming SSR is only supported in a Node.js environment; Please do not try to call this method in the browser.\n\n",
+  "4": "The `StyleSheetManager` expects a valid target or sheet prop!\n\n- Does this error occur on the client and is your target falsy?\n- Does this error occur on the server and is the sheet falsy?\n\n",
+  "5": "The clone method cannot be used on the client!\n\n- Are you running in a client-like environment on the server?\n- Are you trying to run SSR on the client?\n\n",
+  "6": "Trying to insert a new style tag, but the given Node is unmounted!\n\n- Are you using a custom target that isn't mounted?\n- Does your document not have a valid head element?\n- Have you accidentally removed a style tag manually?\n\n",
+  "7": "ThemeProvider: Please return an object from your \"theme\" prop function, e.g.\n\n```js\ntheme={() => ({})}\n```\n\n",
+  "8": "ThemeProvider: Please make your \"theme\" prop an object.\n\n",
+  "9": "Missing document `<head>`\n\n",
+  "10": "Cannot find a StyleSheet instance. Usually this happens if there are multiple copies of styled-components loaded at once. Check out this issue for how to troubleshoot and fix the common cases where this situation can happen: https://github.com/styled-components/styled-components/issues/1941#issuecomment-417862021\n\n",
+  "11": "_This error was replaced with a dev-time warning, it will be deleted for v4 final._ [createGlobalStyle] received children which will not be rendered. Please use the component without passing children elements.\n\n",
+  "12": "It seems you are interpolating a keyframe declaration (%s) into an untagged string. This was supported in styled-components v3, but is not longer supported in v4 as keyframes are now injected on-demand. Please wrap your string in the css\\`\\` helper (see https://www.styled-components.com/docs/api#css), which ensures the styles are injected correctly.\n\n",
+  "13": "%s is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details.\n"
+} : {};
+
+function format() {
+  var a = arguments.length <= 0 ? undefined : arguments[0];
+  var b = [];
+
+  for (var c = 1, len = arguments.length; c < len; c += 1) {
+    b.push(arguments.length <= c ? undefined : arguments[c]);
+  }
+
+  b.forEach(function (d) {
+    a = a.replace(/%[a-z]/, d);
+  });
+  return a;
+}
+
+var StyledComponentsError = function (_Error) {
+  inherits(StyledComponentsError, _Error);
+
+  function StyledComponentsError(code) {
+    classCallCheck(this, StyledComponentsError);
+
+    for (var _len = arguments.length, interpolations = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+      interpolations[_key - 1] = arguments[_key];
+    }
+
+    if (process.env.NODE_ENV === 'production') {
+      var _this = possibleConstructorReturn(this, _Error.call(this, 'An error occurred. See https://github.com/styled-components/styled-components/blob/master/packages/styled-components/src/utils/errors.md#' + code + ' for more information.' + (interpolations.length > 0 ? ' Additional arguments: ' + interpolations.join(', ') : '')));
+    } else {
+      var _this = possibleConstructorReturn(this, _Error.call(this, format.apply(undefined, [ERRORS[code]].concat(interpolations)).trim()));
+    }
+
+    return possibleConstructorReturn(_this);
+  }
+
+  return StyledComponentsError;
+}(Error);
+
+var SC_COMPONENT_ID = /^[^\S\n]*?\/\* sc-component-id:\s*(\S+)\s+\*\//gm;
+
+var extractComps = function extractComps(maybeCSS) {
+  var css = '' + (maybeCSS || '');
+  var existingComponents = [];
+  css.replace(SC_COMPONENT_ID, function (match, componentId, matchIndex) {
+    existingComponents.push({
+      componentId: componentId,
+      matchIndex: matchIndex
+    });
+    return match;
+  });
+  return existingComponents.map(function (_ref, i) {
+    var componentId = _ref.componentId,
+        matchIndex = _ref.matchIndex;
+    var nextComp = existingComponents[i + 1];
+    var cssFromDOM = nextComp ? css.slice(matchIndex, nextComp.matchIndex) : css.slice(matchIndex);
+    return {
+      componentId: componentId,
+      cssFromDOM: cssFromDOM
+    };
+  });
+};
+
+var COMMENT_REGEX = /^\s*\/\/.*$/gm;
+var stylisSplitter = new Stylis({
+  global: false,
+  cascade: true,
+  keyframe: false,
+  prefix: false,
+  compress: false,
+  semicolon: true
+});
+var stylis = new Stylis({
+  global: false,
+  cascade: true,
+  keyframe: false,
+  prefix: true,
+  compress: false,
+  semicolon: false
+});
+var parsingRules = [];
+
+var returnRulesPlugin = function returnRulesPlugin(context) {
+  if (context === -2) {
+    var parsedRules = parsingRules;
+    parsingRules = [];
+    return parsedRules;
+  }
+};
+
+var parseRulesPlugin = _insertRulePlugin(function (rule) {
+  parsingRules.push(rule);
+});
+
+var _componentId = void 0;
+
+var _selector = void 0;
+
+var _selectorRegexp = void 0;
+
+var selfReferenceReplacer = function selfReferenceReplacer(match, offset, string) {
+  if (offset > 0 && string.slice(0, offset).indexOf(_selector) !== -1 && string.slice(offset - _selector.length, offset) !== _selector) {
+    return '.' + _componentId;
+  }
+
+  return match;
+};
+
+var selfReferenceReplacementPlugin = function selfReferenceReplacementPlugin(context, _, selectors) {
+  if (context === 2 && selectors.length && selectors[0].lastIndexOf(_selector) > 0) {
+    selectors[0] = selectors[0].replace(_selectorRegexp, selfReferenceReplacer);
+  }
+};
+
+stylis.use([selfReferenceReplacementPlugin, parseRulesPlugin, returnRulesPlugin]);
+stylisSplitter.use([parseRulesPlugin, returnRulesPlugin]);
+
+var splitByRules = function splitByRules(css) {
+  return stylisSplitter('', css);
+};
+
+function stringifyRules(rules, selector, prefix) {
+  var componentId = arguments.length > 3 && arguments[3] !== undefined ? arguments[3] : '&';
+  var flatCSS = rules.join('').replace(COMMENT_REGEX, '');
+  var cssStr = selector && prefix ? prefix + ' ' + selector + ' { ' + flatCSS + ' }' : flatCSS;
+  _componentId = componentId;
+  _selector = selector;
+  _selectorRegexp = new RegExp('\\' + _selector + '\\b', 'g');
+  return stylis(prefix || !selector ? '' : selector, cssStr);
+}
+
+var getNonce = function getNonce() {
+  return typeof __webpack_nonce__ !== 'undefined' ? __webpack_nonce__ : null;
+};
+
+var addNameForId = function addNameForId(names, id, name) {
+  if (name) {
+    var namesForId = names[id] || (names[id] = Object.create(null));
+    namesForId[name] = true;
+  }
+};
+
+var resetIdNames = function resetIdNames(names, id) {
+  names[id] = Object.create(null);
+};
+
+var hasNameForId = function hasNameForId(names) {
+  return function (id, name) {
+    return names[id] !== undefined && names[id][name];
+  };
+};
+
+var stringifyNames = function stringifyNames(names) {
+  var str = '';
+
+  for (var id in names) {
+    str += Object.keys(names[id]).join(' ') + ' ';
+  }
+
+  return str.trim();
+};
+
+var cloneNames = function cloneNames(names) {
+  var clone = Object.create(null);
+
+  for (var id in names) {
+    clone[id] = _extends({}, names[id]);
+  }
+
+  return clone;
+};
+
+var sheetForTag = function sheetForTag(tag) {
+  if (tag.sheet) return tag.sheet;
+  var size = document.styleSheets.length;
+
+  for (var i = 0; i < size; i += 1) {
+    var sheet = document.styleSheets[i];
+    if (sheet.ownerNode === tag) return sheet;
+  }
+
+  throw new StyledComponentsError(10);
+};
+
+var safeInsertRule = function safeInsertRule(sheet, cssRule, index) {
+  if (!cssRule) return false;
+  var maxIndex = sheet.cssRules.length;
+
+  try {
+    sheet.insertRule(cssRule, index <= maxIndex ? index : maxIndex);
+  } catch (err) {
+    return false;
+  }
+
+  return true;
+};
+
+var deleteRules = function deleteRules(sheet, removalIndex, size) {
+  var lowerBound = removalIndex - size;
+
+  for (var i = removalIndex; i > lowerBound; i -= 1) {
+    sheet.deleteRule(i);
+  }
+};
+
+var makeTextMarker = function makeTextMarker(id) {
+  return '\n/* sc-component-id: ' + id + ' */\n';
+};
+
+var addUpUntilIndex = function addUpUntilIndex(sizes, index) {
+  var totalUpToIndex = 0;
+
+  for (var i = 0; i <= index; i += 1) {
+    totalUpToIndex += sizes[i];
+  }
+
+  return totalUpToIndex;
+};
+
+var makeStyleTag = function makeStyleTag(target, tagEl, insertBefore) {
+  var el = document.createElement('style');
+  el.setAttribute(SC_ATTR, '');
+  el.setAttribute(SC_VERSION_ATTR, "4.3.2");
+  var nonce = getNonce();
+
+  if (nonce) {
+    el.setAttribute('nonce', nonce);
+  }
+
+  el.appendChild(document.createTextNode(''));
+
+  if (target && !tagEl) {
+    target.appendChild(el);
+  } else {
+    if (!tagEl || !target || !tagEl.parentNode) {
+      throw new StyledComponentsError(6);
+    }
+
+    tagEl.parentNode.insertBefore(el, insertBefore ? tagEl : tagEl.nextSibling);
+  }
+
+  return el;
+};
+
+var wrapAsHtmlTag = function wrapAsHtmlTag(css, names) {
+  return function (additionalAttrs) {
+    var nonce = getNonce();
+    var attrs = [nonce && 'nonce="' + nonce + '"', SC_ATTR + '="' + stringifyNames(names) + '"', SC_VERSION_ATTR + '="' + "4.3.2" + '"', additionalAttrs];
+    var htmlAttr = attrs.filter(Boolean).join(' ');
+    return '<style ' + htmlAttr + '>' + css() + '</style>';
+  };
+};
+
+var wrapAsElement = function wrapAsElement(css, names) {
+  return function () {
+    var _props;
+
+    var props = (_props = {}, _props[SC_ATTR] = stringifyNames(names), _props[SC_VERSION_ATTR] = "4.3.2", _props);
+    var nonce = getNonce();
+
+    if (nonce) {
+      props.nonce = nonce;
+    }
+
+    return React__default.createElement('style', _extends({}, props, {
+      dangerouslySetInnerHTML: {
+        __html: css()
+      }
+    }));
+  };
+};
+
+var getIdsFromMarkersFactory = function getIdsFromMarkersFactory(markers) {
+  return function () {
+    return Object.keys(markers);
+  };
+};
+
+var makeSpeedyTag = function makeSpeedyTag(el, getImportRuleTag) {
+  var names = Object.create(null);
+  var markers = Object.create(null);
+  var sizes = [];
+  var extractImport = getImportRuleTag !== undefined;
+  var usedImportRuleTag = false;
+
+  var insertMarker = function insertMarker(id) {
+    var prev = markers[id];
+
+    if (prev !== undefined) {
+      return prev;
+    }
+
+    markers[id] = sizes.length;
+    sizes.push(0);
+    resetIdNames(names, id);
+    return markers[id];
+  };
+
+  var insertRules = function insertRules(id, cssRules, name) {
+    var marker = insertMarker(id);
+    var sheet = sheetForTag(el);
+    var insertIndex = addUpUntilIndex(sizes, marker);
+    var injectedRules = 0;
+    var importRules = [];
+    var cssRulesSize = cssRules.length;
+
+    for (var i = 0; i < cssRulesSize; i += 1) {
+      var cssRule = cssRules[i];
+      var mayHaveImport = extractImport;
+
+      if (mayHaveImport && cssRule.indexOf('@import') !== -1) {
+        importRules.push(cssRule);
+      } else if (safeInsertRule(sheet, cssRule, insertIndex + injectedRules)) {
+        mayHaveImport = false;
+        injectedRules += 1;
+      }
+    }
+
+    if (extractImport && importRules.length > 0) {
+      usedImportRuleTag = true;
+      getImportRuleTag().insertRules(id + '-import', importRules);
+    }
+
+    sizes[marker] += injectedRules;
+    addNameForId(names, id, name);
+  };
+
+  var removeRules = function removeRules(id) {
+    var marker = markers[id];
+    if (marker === undefined) return;
+    var size = sizes[marker];
+    var sheet = sheetForTag(el);
+    var removalIndex = addUpUntilIndex(sizes, marker) - 1;
+    deleteRules(sheet, removalIndex, size);
+    sizes[marker] = 0;
+    resetIdNames(names, id);
+
+    if (extractImport && usedImportRuleTag) {
+      getImportRuleTag().removeRules(id + '-import');
+    }
+  };
+
+  var css = function css() {
+    var _sheetForTag = sheetForTag(el),
+        cssRules = _sheetForTag.cssRules;
+
+    var str = '';
+
+    for (var id in markers) {
+      str += makeTextMarker(id);
+      var marker = markers[id];
+      var end = addUpUntilIndex(sizes, marker);
+      var size = sizes[marker];
+
+      for (var i = end - size; i < end; i += 1) {
+        var rule = cssRules[i];
+
+        if (rule !== undefined) {
+          str += rule.cssText;
+        }
+      }
+    }
+
+    return str;
+  };
+
+  return {
+    clone: function clone() {
+      throw new StyledComponentsError(5);
+    },
+    css: css,
+    getIds: getIdsFromMarkersFactory(markers),
+    hasNameForId: hasNameForId(names),
+    insertMarker: insertMarker,
+    insertRules: insertRules,
+    removeRules: removeRules,
+    sealed: false,
+    styleTag: el,
+    toElement: wrapAsElement(css, names),
+    toHTML: wrapAsHtmlTag(css, names)
+  };
+};
+
+var makeTextNode = function makeTextNode(id) {
+  return document.createTextNode(makeTextMarker(id));
+};
+
+var makeBrowserTag = function makeBrowserTag(el, getImportRuleTag) {
+  var names = Object.create(null);
+  var markers = Object.create(null);
+  var extractImport = getImportRuleTag !== undefined;
+  var usedImportRuleTag = false;
+
+  var insertMarker = function insertMarker(id) {
+    var prev = markers[id];
+
+    if (prev !== undefined) {
+      return prev;
+    }
+
+    markers[id] = makeTextNode(id);
+    el.appendChild(markers[id]);
+    names[id] = Object.create(null);
+    return markers[id];
+  };
+
+  var insertRules = function insertRules(id, cssRules, name) {
+    var marker = insertMarker(id);
+    var importRules = [];
+    var cssRulesSize = cssRules.length;
+
+    for (var i = 0; i < cssRulesSize; i += 1) {
+      var rule = cssRules[i];
+      var mayHaveImport = extractImport;
+
+      if (mayHaveImport && rule.indexOf('@import') !== -1) {
+        importRules.push(rule);
+      } else {
+        mayHaveImport = false;
+        var separator = i === cssRulesSize - 1 ? '' : ' ';
+        marker.appendData('' + rule + separator);
+      }
+    }
+
+    addNameForId(names, id, name);
+
+    if (extractImport && importRules.length > 0) {
+      usedImportRuleTag = true;
+      getImportRuleTag().insertRules(id + '-import', importRules);
+    }
+  };
+
+  var removeRules = function removeRules(id) {
+    var marker = markers[id];
+    if (marker === undefined) return;
+    var newMarker = makeTextNode(id);
+    el.replaceChild(newMarker, marker);
+    markers[id] = newMarker;
+    resetIdNames(names, id);
+
+    if (extractImport && usedImportRuleTag) {
+      getImportRuleTag().removeRules(id + '-import');
+    }
+  };
+
+  var css = function css() {
+    var str = '';
+
+    for (var id in markers) {
+      str += markers[id].data;
+    }
+
+    return str;
+  };
+
+  return {
+    clone: function clone() {
+      throw new StyledComponentsError(5);
+    },
+    css: css,
+    getIds: getIdsFromMarkersFactory(markers),
+    hasNameForId: hasNameForId(names),
+    insertMarker: insertMarker,
+    insertRules: insertRules,
+    removeRules: removeRules,
+    sealed: false,
+    styleTag: el,
+    toElement: wrapAsElement(css, names),
+    toHTML: wrapAsHtmlTag(css, names)
+  };
+};
+
+var makeServerTag = function makeServerTag(namesArg, markersArg) {
+  var names = namesArg === undefined ? Object.create(null) : namesArg;
+  var markers = markersArg === undefined ? Object.create(null) : markersArg;
+
+  var insertMarker = function insertMarker(id) {
+    var prev = markers[id];
+
+    if (prev !== undefined) {
+      return prev;
+    }
+
+    return markers[id] = [''];
+  };
+
+  var insertRules = function insertRules(id, cssRules, name) {
+    var marker = insertMarker(id);
+    marker[0] += cssRules.join(' ');
+    addNameForId(names, id, name);
+  };
+
+  var removeRules = function removeRules(id) {
+    var marker = markers[id];
+    if (marker === undefined) return;
+    marker[0] = '';
+    resetIdNames(names, id);
+  };
+
+  var css = function css() {
+    var str = '';
+
+    for (var id in markers) {
+      var cssForId = markers[id][0];
+
+      if (cssForId) {
+        str += makeTextMarker(id) + cssForId;
+      }
+    }
+
+    return str;
+  };
+
+  var clone = function clone() {
+    var namesClone = cloneNames(names);
+    var markersClone = Object.create(null);
+
+    for (var id in markers) {
+      markersClone[id] = [markers[id][0]];
+    }
+
+    return makeServerTag(namesClone, markersClone);
+  };
+
+  var tag = {
+    clone: clone,
+    css: css,
+    getIds: getIdsFromMarkersFactory(markers),
+    hasNameForId: hasNameForId(names),
+    insertMarker: insertMarker,
+    insertRules: insertRules,
+    removeRules: removeRules,
+    sealed: false,
+    styleTag: null,
+    toElement: wrapAsElement(css, names),
+    toHTML: wrapAsHtmlTag(css, names)
+  };
+  return tag;
+};
+
+var makeTag = function makeTag(target, tagEl, forceServer, insertBefore, getImportRuleTag) {
+  if (IS_BROWSER && !forceServer) {
+    var el = makeStyleTag(target, tagEl, insertBefore);
+
+    if (DISABLE_SPEEDY) {
+      return makeBrowserTag(el, getImportRuleTag);
+    } else {
+      return makeSpeedyTag(el, getImportRuleTag);
+    }
+  }
+
+  return makeServerTag();
+};
+
+var rehydrate = function rehydrate(tag, els, extracted) {
+  for (var i = 0, len = extracted.length; i < len; i += 1) {
+    var _extracted$i = extracted[i],
+        componentId = _extracted$i.componentId,
+        cssFromDOM = _extracted$i.cssFromDOM;
+    var cssRules = splitByRules(cssFromDOM);
+    tag.insertRules(componentId, cssRules);
+  }
+
+  for (var _i = 0, _len = els.length; _i < _len; _i += 1) {
+    var el = els[_i];
+
+    if (el.parentNode) {
+      el.parentNode.removeChild(el);
+    }
+  }
+};
+
+var SPLIT_REGEX = /\s+/;
+var MAX_SIZE = void 0;
+
+if (IS_BROWSER) {
+  MAX_SIZE = DISABLE_SPEEDY ? 40 : 1000;
+} else {
+  MAX_SIZE = -1;
+}
+
+var sheetRunningId = 0;
+var master = void 0;
+
+var StyleSheet = function () {
+  function StyleSheet() {
+    var _this = this;
+
+    var target = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : IS_BROWSER ? document.head : null;
+    var forceServer = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : false;
+    classCallCheck(this, StyleSheet);
+
+    this.getImportRuleTag = function () {
+      var importRuleTag = _this.importRuleTag;
+
+      if (importRuleTag !== undefined) {
+        return importRuleTag;
+      }
+
+      var firstTag = _this.tags[0];
+      var insertBefore = true;
+      return _this.importRuleTag = makeTag(_this.target, firstTag ? firstTag.styleTag : null, _this.forceServer, insertBefore);
+    };
+
+    sheetRunningId += 1;
+    this.id = sheetRunningId;
+    this.forceServer = forceServer;
+    this.target = forceServer ? null : target;
+    this.tagMap = {};
+    this.deferred = {};
+    this.rehydratedNames = {};
+    this.ignoreRehydratedNames = {};
+    this.tags = [];
+    this.capacity = 1;
+    this.clones = [];
+  }
+
+  StyleSheet.prototype.rehydrate = function rehydrate$$1() {
+    if (!IS_BROWSER || this.forceServer) return this;
+    var els = [];
+    var extracted = [];
+    var isStreamed = false;
+    var nodes = document.querySelectorAll('style[' + SC_ATTR + '][' + SC_VERSION_ATTR + '="' + "4.3.2" + '"]');
+    var nodesSize = nodes.length;
+    if (!nodesSize) return this;
+
+    for (var i = 0; i < nodesSize; i += 1) {
+      var el = nodes[i];
+      if (!isStreamed) isStreamed = !!el.getAttribute(SC_STREAM_ATTR);
+      var elNames = (el.getAttribute(SC_ATTR) || '').trim().split(SPLIT_REGEX);
+      var elNamesSize = elNames.length;
+
+      for (var j = 0, name; j < elNamesSize; j += 1) {
+        name = elNames[j];
+        this.rehydratedNames[name] = true;
+      }
+
+      extracted.push.apply(extracted, extractComps(el.textContent));
+      els.push(el);
+    }
+
+    var extractedSize = extracted.length;
+    if (!extractedSize) return this;
+    var tag = this.makeTag(null);
+    rehydrate(tag, els, extracted);
+    this.capacity = Math.max(1, MAX_SIZE - extractedSize);
+    this.tags.push(tag);
+
+    for (var _j = 0; _j < extractedSize; _j += 1) {
+      this.tagMap[extracted[_j].componentId] = tag;
+    }
+
+    return this;
+  };
+
+  StyleSheet.reset = function reset() {
+    var forceServer = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+    master = new StyleSheet(undefined, forceServer).rehydrate();
+  };
+
+  StyleSheet.prototype.clone = function clone() {
+    var sheet = new StyleSheet(this.target, this.forceServer);
+    this.clones.push(sheet);
+    sheet.tags = this.tags.map(function (tag) {
+      var ids = tag.getIds();
+      var newTag = tag.clone();
+
+      for (var i = 0; i < ids.length; i += 1) {
+        sheet.tagMap[ids[i]] = newTag;
+      }
+
+      return newTag;
+    });
+    sheet.rehydratedNames = _extends({}, this.rehydratedNames);
+    sheet.deferred = _extends({}, this.deferred);
+    return sheet;
+  };
+
+  StyleSheet.prototype.sealAllTags = function sealAllTags() {
+    this.capacity = 1;
+    this.tags.forEach(function (tag) {
+      tag.sealed = true;
+    });
+  };
+
+  StyleSheet.prototype.makeTag = function makeTag$$1(tag) {
+    var lastEl = tag ? tag.styleTag : null;
+    var insertBefore = false;
+    return makeTag(this.target, lastEl, this.forceServer, insertBefore, this.getImportRuleTag);
+  };
+
+  StyleSheet.prototype.getTagForId = function getTagForId(id) {
+    var prev = this.tagMap[id];
+
+    if (prev !== undefined && !prev.sealed) {
+      return prev;
+    }
+
+    var tag = this.tags[this.tags.length - 1];
+    this.capacity -= 1;
+
+    if (this.capacity === 0) {
+      this.capacity = MAX_SIZE;
+      tag = this.makeTag(tag);
+      this.tags.push(tag);
+    }
+
+    return this.tagMap[id] = tag;
+  };
+
+  StyleSheet.prototype.hasId = function hasId(id) {
+    return this.tagMap[id] !== undefined;
+  };
+
+  StyleSheet.prototype.hasNameForId = function hasNameForId(id, name) {
+    if (this.ignoreRehydratedNames[id] === undefined && this.rehydratedNames[name]) {
+      return true;
+    }
+
+    var tag = this.tagMap[id];
+    return tag !== undefined && tag.hasNameForId(id, name);
+  };
+
+  StyleSheet.prototype.deferredInject = function deferredInject(id, cssRules) {
+    if (this.tagMap[id] !== undefined) return;
+    var clones = this.clones;
+
+    for (var i = 0; i < clones.length; i += 1) {
+      clones[i].deferredInject(id, cssRules);
+    }
+
+    this.getTagForId(id).insertMarker(id);
+    this.deferred[id] = cssRules;
+  };
+
+  StyleSheet.prototype.inject = function inject(id, cssRules, name) {
+    var clones = this.clones;
+
+    for (var i = 0; i < clones.length; i += 1) {
+      clones[i].inject(id, cssRules, name);
+    }
+
+    var tag = this.getTagForId(id);
+
+    if (this.deferred[id] !== undefined) {
+      var rules = this.deferred[id].concat(cssRules);
+      tag.insertRules(id, rules, name);
+      this.deferred[id] = undefined;
+    } else {
+      tag.insertRules(id, cssRules, name);
+    }
+  };
+
+  StyleSheet.prototype.remove = function remove(id) {
+    var tag = this.tagMap[id];
+    if (tag === undefined) return;
+    var clones = this.clones;
+
+    for (var i = 0; i < clones.length; i += 1) {
+      clones[i].remove(id);
+    }
+
+    tag.removeRules(id);
+    this.ignoreRehydratedNames[id] = true;
+    this.deferred[id] = undefined;
+  };
+
+  StyleSheet.prototype.toHTML = function toHTML() {
+    return this.tags.map(function (tag) {
+      return tag.toHTML();
+    }).join('');
+  };
+
+  StyleSheet.prototype.toReactElements = function toReactElements() {
+    var id = this.id;
+    return this.tags.map(function (tag, i) {
+      var key = 'sc-' + id + '-' + i;
+      return React.cloneElement(tag.toElement(), {
+        key: key
+      });
+    });
+  };
+
+  createClass(StyleSheet, null, [{
+    key: 'master',
+    get: function get$$1() {
+      return master || (master = new StyleSheet().rehydrate());
+    }
+  }, {
+    key: 'instance',
+    get: function get$$1() {
+      return StyleSheet.master;
+    }
+  }]);
+  return StyleSheet;
+}();
+
+var Keyframes = function () {
+  function Keyframes(name, rules) {
+    var _this = this;
+
+    classCallCheck(this, Keyframes);
+
+    this.inject = function (styleSheet) {
+      if (!styleSheet.hasNameForId(_this.id, _this.name)) {
+        styleSheet.inject(_this.id, _this.rules, _this.name);
+      }
+    };
+
+    this.toString = function () {
+      throw new StyledComponentsError(12, String(_this.name));
+    };
+
+    this.name = name;
+    this.rules = rules;
+    this.id = 'sc-keyframes-' + name;
+  }
+
+  Keyframes.prototype.getName = function getName() {
+    return this.name;
+  };
+
+  return Keyframes;
+}();
+
+var uppercasePattern = /([A-Z])/g;
+var msPattern = /^ms-/;
+
+function hyphenateStyleName(string) {
+  return string.replace(uppercasePattern, '-$1').toLowerCase().replace(msPattern, '-ms-');
+}
+
+function addUnitIfNeeded(name, value) {
+  if (value == null || typeof value === 'boolean' || value === '') {
+    return '';
+  }
+
+  if (typeof value === 'number' && value !== 0 && !(name in unitless)) {
+    return value + 'px';
+  }
+
+  return String(value).trim();
+}
+
+var isFalsish = function isFalsish(chunk) {
+  return chunk === undefined || chunk === null || chunk === false || chunk === '';
+};
+
+var objToCssArray = function objToCssArray(obj, prevKey) {
+  var rules = [];
+  var keys = Object.keys(obj);
+  keys.forEach(function (key) {
+    if (!isFalsish(obj[key])) {
+      if (isPlainObject(obj[key])) {
+        rules.push.apply(rules, objToCssArray(obj[key], key));
+        return rules;
+      } else if (isFunction(obj[key])) {
+        rules.push(hyphenateStyleName(key) + ':', obj[key], ';');
+        return rules;
+      }
+
+      rules.push(hyphenateStyleName(key) + ': ' + addUnitIfNeeded(key, obj[key]) + ';');
+    }
+
+    return rules;
+  });
+  return prevKey ? [prevKey + ' {'].concat(rules, ['}']) : rules;
+};
+
+function flatten(chunk, executionContext, styleSheet) {
+  if (Array.isArray(chunk)) {
+    var ruleSet = [];
+
+    for (var i = 0, len = chunk.length, result; i < len; i += 1) {
+      result = flatten(chunk[i], executionContext, styleSheet);
+      if (result === null) continue;else if (Array.isArray(result)) ruleSet.push.apply(ruleSet, result);else ruleSet.push(result);
+    }
+
+    return ruleSet;
+  }
+
+  if (isFalsish(chunk)) {
+    return null;
+  }
+
+  if (isStyledComponent(chunk)) {
+    return '.' + chunk.styledComponentId;
+  }
+
+  if (isFunction(chunk)) {
+    if (isStatelessFunction(chunk) && executionContext) {
+      var _result = chunk(executionContext);
+
+      if (process.env.NODE_ENV !== 'production' && reactIs.isElement(_result)) {
+        console.warn(getComponentName(chunk) + ' is not a styled component and cannot be referred to via component selector. See https://www.styled-components.com/docs/advanced#referring-to-other-components for more details.');
+      }
+
+      return flatten(_result, executionContext, styleSheet);
+    } else return chunk;
+  }
+
+  if (chunk instanceof Keyframes) {
+    if (styleSheet) {
+      chunk.inject(styleSheet);
+      return chunk.getName();
+    } else return chunk;
+  }
+
+  return isPlainObject(chunk) ? objToCssArray(chunk) : chunk.toString();
+}
+
+function css(styles) {
+  for (var _len = arguments.length, interpolations = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    interpolations[_key - 1] = arguments[_key];
+  }
+
+  if (isFunction(styles) || isPlainObject(styles)) {
+    return flatten(interleave(EMPTY_ARRAY, [styles].concat(interpolations)));
+  }
+
+  return flatten(interleave(styles, interpolations));
+}
+
+function constructWithOptions(componentConstructor, tag) {
+  var options = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : EMPTY_OBJECT;
+
+  if (!reactIs.isValidElementType(tag)) {
+    throw new StyledComponentsError(1, String(tag));
+  }
+
+  var templateFunction = function templateFunction() {
+    return componentConstructor(tag, options, css.apply(undefined, arguments));
+  };
+
+  templateFunction.withConfig = function (config) {
+    return constructWithOptions(componentConstructor, tag, _extends({}, options, config));
+  };
+
+  templateFunction.attrs = function (attrs) {
+    return constructWithOptions(componentConstructor, tag, _extends({}, options, {
+      attrs: Array.prototype.concat(options.attrs, attrs).filter(Boolean)
+    }));
+  };
+
+  return templateFunction;
+}
+
+function murmurhash(c) {
+  for (var e = c.length | 0, a = e | 0, d = 0, b; e >= 4;) {
+    b = c.charCodeAt(d) & 255 | (c.charCodeAt(++d) & 255) << 8 | (c.charCodeAt(++d) & 255) << 16 | (c.charCodeAt(++d) & 255) << 24, b = 1540483477 * (b & 65535) + ((1540483477 * (b >>> 16) & 65535) << 16), b ^= b >>> 24, b = 1540483477 * (b & 65535) + ((1540483477 * (b >>> 16) & 65535) << 16), a = 1540483477 * (a & 65535) + ((1540483477 * (a >>> 16) & 65535) << 16) ^ b, e -= 4, ++d;
+  }
+
+  switch (e) {
+    case 3:
+      a ^= (c.charCodeAt(d + 2) & 255) << 16;
+
+    case 2:
+      a ^= (c.charCodeAt(d + 1) & 255) << 8;
+
+    case 1:
+      a ^= c.charCodeAt(d) & 255, a = 1540483477 * (a & 65535) + ((1540483477 * (a >>> 16) & 65535) << 16);
+  }
+
+  a ^= a >>> 13;
+  a = 1540483477 * (a & 65535) + ((1540483477 * (a >>> 16) & 65535) << 16);
+  return (a ^ a >>> 15) >>> 0;
+}
+
+var charsLength = 52;
+
+var getAlphabeticChar = function getAlphabeticChar(code) {
+  return String.fromCharCode(code + (code > 25 ? 39 : 97));
+};
+
+function generateAlphabeticName(code) {
+  var name = '';
+  var x = void 0;
+
+  for (x = code; x > charsLength; x = Math.floor(x / charsLength)) {
+    name = getAlphabeticChar(x % charsLength) + name;
+  }
+
+  return getAlphabeticChar(x % charsLength) + name;
+}
+
+function hasFunctionObjectKey(obj) {
+  for (var key in obj) {
+    if (isFunction(obj[key])) {
+      return true;
+    }
+  }
+
+  return false;
+}
+
+function isStaticRules(rules, attrs) {
+  for (var i = 0; i < rules.length; i += 1) {
+    var rule = rules[i];
+
+    if (Array.isArray(rule) && !isStaticRules(rule, attrs)) {
+      return false;
+    } else if (isFunction(rule) && !isStyledComponent(rule)) {
+      return false;
+    }
+  }
+
+  if (attrs.some(function (x) {
+    return isFunction(x) || hasFunctionObjectKey(x);
+  })) return false;
+  return true;
+}
+
+var isHMREnabled = process.env.NODE_ENV !== 'production' && typeof module !== 'undefined' && module.hot;
+
+var hasher = function hasher(str) {
+  return generateAlphabeticName(murmurhash(str));
+};
+
+var ComponentStyle = function () {
+  function ComponentStyle(rules, attrs, componentId) {
+    classCallCheck(this, ComponentStyle);
+    this.rules = rules;
+    this.isStatic = !isHMREnabled && isStaticRules(rules, attrs);
+    this.componentId = componentId;
+
+    if (!StyleSheet.master.hasId(componentId)) {
+      StyleSheet.master.deferredInject(componentId, []);
+    }
+  }
+
+  ComponentStyle.prototype.generateAndInjectStyles = function generateAndInjectStyles(executionContext, styleSheet) {
+    var isStatic = this.isStatic,
+        componentId = this.componentId,
+        lastClassName = this.lastClassName;
+
+    if (IS_BROWSER && isStatic && typeof lastClassName === 'string' && styleSheet.hasNameForId(componentId, lastClassName)) {
+      return lastClassName;
+    }
+
+    var flatCSS = flatten(this.rules, executionContext, styleSheet);
+    var name = hasher(this.componentId + flatCSS.join(''));
+
+    if (!styleSheet.hasNameForId(componentId, name)) {
+      styleSheet.inject(this.componentId, stringifyRules(flatCSS, '.' + name, undefined, componentId), name);
+    }
+
+    this.lastClassName = name;
+    return name;
+  };
+
+  ComponentStyle.generateName = function generateName(str) {
+    return hasher(str);
+  };
+
+  return ComponentStyle;
+}();
+
+var LIMIT = 200;
+
+var createWarnTooManyClasses = function createWarnTooManyClasses(displayName) {
+  var generatedClasses = {};
+  var warningSeen = false;
+  return function (className) {
+    if (!warningSeen) {
+      generatedClasses[className] = true;
+
+      if (Object.keys(generatedClasses).length >= LIMIT) {
+        console.warn('Over ' + LIMIT + ' classes were generated for component ' + displayName + '. \n' + 'Consider using the attrs method, together with a style object for frequently changed styles.\n' + 'Example:\n' + '  const Component = styled.div.attrs({\n' + '    style: ({ background }) => ({\n' + '      background,\n' + '    }),\n' + '  })`width: 100%;`\n\n' + '  <Component />');
+        warningSeen = true;
+        generatedClasses = {};
+      }
+    }
+  };
+};
+
+var determineTheme = function determineTheme(props, fallbackTheme) {
+  var defaultProps = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : EMPTY_OBJECT;
+  var isDefaultTheme = defaultProps ? props.theme === defaultProps.theme : false;
+  var theme = props.theme && !isDefaultTheme ? props.theme : fallbackTheme || defaultProps.theme;
+  return theme;
+};
+
+var escapeRegex = /[[\].#*$><+~=|^:(),"'`-]+/g;
+var dashesAtEnds = /(^-|-$)/g;
+
+function escape(str) {
+  return str.replace(escapeRegex, '-').replace(dashesAtEnds, '');
+}
+
+function isTag(target) {
+  return typeof target === 'string' && (process.env.NODE_ENV !== 'production' ? target.charAt(0) === target.charAt(0).toLowerCase() : true);
+}
+
+function generateDisplayName(target) {
+  return isTag(target) ? 'styled.' + target : 'Styled(' + getComponentName(target) + ')';
+}
+
+var _TYPE_STATICS;
+
+var REACT_STATICS = {
+  childContextTypes: true,
+  contextTypes: true,
+  defaultProps: true,
+  displayName: true,
+  getDerivedStateFromProps: true,
+  propTypes: true,
+  type: true
+};
+var KNOWN_STATICS = {
+  name: true,
+  length: true,
+  prototype: true,
+  caller: true,
+  callee: true,
+  arguments: true,
+  arity: true
+};
+var TYPE_STATICS = (_TYPE_STATICS = {}, _TYPE_STATICS[reactIs.ForwardRef] = {
+  $$typeof: true,
+  render: true
+}, _TYPE_STATICS);
+var defineProperty$1 = Object.defineProperty,
+    getOwnPropertyNames = Object.getOwnPropertyNames,
+    _Object$getOwnPropert = Object.getOwnPropertySymbols,
+    getOwnPropertySymbols = _Object$getOwnPropert === undefined ? function () {
+  return [];
+} : _Object$getOwnPropert,
+    getOwnPropertyDescriptor = Object.getOwnPropertyDescriptor,
+    getPrototypeOf = Object.getPrototypeOf,
+    objectPrototype = Object.prototype;
+var arrayPrototype = Array.prototype;
+
+function hoistNonReactStatics(targetComponent, sourceComponent, blacklist) {
+  if (typeof sourceComponent !== 'string') {
+    var inheritedComponent = getPrototypeOf(sourceComponent);
+
+    if (inheritedComponent && inheritedComponent !== objectPrototype) {
+      hoistNonReactStatics(targetComponent, inheritedComponent, blacklist);
+    }
+
+    var keys = arrayPrototype.concat(getOwnPropertyNames(sourceComponent), getOwnPropertySymbols(sourceComponent));
+    var targetStatics = TYPE_STATICS[targetComponent.$$typeof] || REACT_STATICS;
+    var sourceStatics = TYPE_STATICS[sourceComponent.$$typeof] || REACT_STATICS;
+    var i = keys.length;
+    var descriptor = void 0;
+    var key = void 0;
+
+    while (i--) {
+      key = keys[i];
+
+      if (!KNOWN_STATICS[key] && !(blacklist && blacklist[key]) && !(sourceStatics && sourceStatics[key]) && !(targetStatics && targetStatics[key])) {
+        descriptor = getOwnPropertyDescriptor(sourceComponent, key);
+
+        if (descriptor) {
+          try {
+            defineProperty$1(targetComponent, key, descriptor);
+          } catch (e) {}
+        }
+      }
+    }
+
+    return targetComponent;
+  }
+
+  return targetComponent;
+}
+
+function isDerivedReactComponent(fn) {
+  return !!(fn && fn.prototype && fn.prototype.isReactComponent);
+}
+
+var once = function once(cb) {
+  var called = false;
+  return function () {
+    if (!called) {
+      called = true;
+      cb.apply(undefined, arguments);
+    }
+  };
+};
+
+var ThemeContext = React.createContext();
+var ThemeConsumer = ThemeContext.Consumer;
+
+var ThemeProvider = function (_Component) {
+  inherits(ThemeProvider, _Component);
+
+  function ThemeProvider(props) {
+    classCallCheck(this, ThemeProvider);
+
+    var _this = possibleConstructorReturn(this, _Component.call(this, props));
+
+    _this.getContext = memoize(_this.getContext.bind(_this));
+    _this.renderInner = _this.renderInner.bind(_this);
+    return _this;
+  }
+
+  ThemeProvider.prototype.render = function render() {
+    if (!this.props.children) return null;
+    return React__default.createElement(ThemeContext.Consumer, null, this.renderInner);
+  };
+
+  ThemeProvider.prototype.renderInner = function renderInner(outerTheme) {
+    var context = this.getContext(this.props.theme, outerTheme);
+    return React__default.createElement(ThemeContext.Provider, {
+      value: context
+    }, React__default.Children.only(this.props.children));
+  };
+
+  ThemeProvider.prototype.getTheme = function getTheme(theme, outerTheme) {
+    if (isFunction(theme)) {
+      var mergedTheme = theme(outerTheme);
+
+      if (process.env.NODE_ENV !== 'production' && (mergedTheme === null || Array.isArray(mergedTheme) || (typeof mergedTheme === 'undefined' ? 'undefined' : _typeof(mergedTheme)) !== 'object')) {
+        throw new StyledComponentsError(7);
+      }
+
+      return mergedTheme;
+    }
+
+    if (theme === null || Array.isArray(theme) || (typeof theme === 'undefined' ? 'undefined' : _typeof(theme)) !== 'object') {
+      throw new StyledComponentsError(8);
+    }
+
+    return _extends({}, outerTheme, theme);
+  };
+
+  ThemeProvider.prototype.getContext = function getContext(theme, outerTheme) {
+    return this.getTheme(theme, outerTheme);
+  };
+
+  return ThemeProvider;
+}(React.Component);
+
+var CLOSING_TAG_R = /^\s*<\/[a-z]/i;
+
+var ServerStyleSheet = function () {
+  function ServerStyleSheet() {
+    classCallCheck(this, ServerStyleSheet);
+    this.masterSheet = StyleSheet.master;
+    this.instance = this.masterSheet.clone();
+    this.sealed = false;
+  }
+
+  ServerStyleSheet.prototype.seal = function seal() {
+    if (!this.sealed) {
+      var index = this.masterSheet.clones.indexOf(this.instance);
+      this.masterSheet.clones.splice(index, 1);
+      this.sealed = true;
+    }
+  };
+
+  ServerStyleSheet.prototype.collectStyles = function collectStyles(children) {
+    if (this.sealed) {
+      throw new StyledComponentsError(2);
+    }
+
+    return React__default.createElement(StyleSheetManager, {
+      sheet: this.instance
+    }, children);
+  };
+
+  ServerStyleSheet.prototype.getStyleTags = function getStyleTags() {
+    this.seal();
+    return this.instance.toHTML();
+  };
+
+  ServerStyleSheet.prototype.getStyleElement = function getStyleElement() {
+    this.seal();
+    return this.instance.toReactElements();
+  };
+
+  ServerStyleSheet.prototype.interleaveWithNodeStream = function interleaveWithNodeStream(readableStream) {
+    var _this = this;
+
+    if (IS_BROWSER) {
+      throw new StyledComponentsError(3);
+    }
+
+    var instance = this.instance;
+    var instanceTagIndex = 0;
+    var streamAttr = SC_STREAM_ATTR + '="true"';
+    var transformer = new stream.Transform({
+      transform: function appendStyleChunks(chunk, _, callback) {
+        var tags = instance.tags;
+        var html = '';
+
+        for (; instanceTagIndex < tags.length; instanceTagIndex += 1) {
+          var tag = tags[instanceTagIndex];
+          html += tag.toHTML(streamAttr);
+        }
+
+        instance.sealAllTags();
+        var renderedHtml = chunk.toString();
+
+        if (CLOSING_TAG_R.test(renderedHtml)) {
+          var endOfClosingTag = renderedHtml.indexOf('>');
+          this.push(renderedHtml.slice(0, endOfClosingTag + 1) + html + renderedHtml.slice(endOfClosingTag + 1));
+        } else this.push(html + renderedHtml);
+
+        callback();
+      }
+    });
+    readableStream.on('end', function () {
+      return _this.seal();
+    });
+    readableStream.on('error', function (err) {
+      _this.seal();
+
+      transformer.emit('error', err);
+    });
+    return readableStream.pipe(transformer);
+  };
+
+  return ServerStyleSheet;
+}();
+
+var StyleSheetContext = React.createContext();
+var StyleSheetConsumer = StyleSheetContext.Consumer;
+
+var StyleSheetManager = function (_Component) {
+  inherits(StyleSheetManager, _Component);
+
+  function StyleSheetManager(props) {
+    classCallCheck(this, StyleSheetManager);
+
+    var _this = possibleConstructorReturn(this, _Component.call(this, props));
+
+    _this.getContext = memoize(_this.getContext);
+    return _this;
+  }
+
+  StyleSheetManager.prototype.getContext = function getContext(sheet, target) {
+    if (sheet) {
+      return sheet;
+    } else if (target) {
+      return new StyleSheet(target);
+    } else {
+      throw new StyledComponentsError(4);
+    }
+  };
+
+  StyleSheetManager.prototype.render = function render() {
+    var _props = this.props,
+        children = _props.children,
+        sheet = _props.sheet,
+        target = _props.target;
+    return React__default.createElement(StyleSheetContext.Provider, {
+      value: this.getContext(sheet, target)
+    }, process.env.NODE_ENV !== 'production' ? React__default.Children.only(children) : children);
+  };
+
+  return StyleSheetManager;
+}(React.Component);
+
+process.env.NODE_ENV !== "production" ? StyleSheetManager.propTypes = {
+  sheet: PropTypes.oneOfType([PropTypes.instanceOf(StyleSheet), PropTypes.instanceOf(ServerStyleSheet)]),
+  target: PropTypes.shape({
+    appendChild: PropTypes.func.isRequired
+  })
+} : void 0;
+var identifiers = {};
+
+function generateId(_ComponentStyle, _displayName, parentComponentId) {
+  var displayName = typeof _displayName !== 'string' ? 'sc' : escape(_displayName);
+  var nr = (identifiers[displayName] || 0) + 1;
+  identifiers[displayName] = nr;
+
+  var componentId = displayName + '-' + _ComponentStyle.generateName(displayName + nr);
+
+  return parentComponentId ? parentComponentId + '-' + componentId : componentId;
+}
+
+var StyledComponent = function (_Component) {
+  inherits(StyledComponent, _Component);
+
+  function StyledComponent() {
+    classCallCheck(this, StyledComponent);
+
+    var _this = possibleConstructorReturn(this, _Component.call(this));
+
+    _this.attrs = {};
+    _this.renderOuter = _this.renderOuter.bind(_this);
+    _this.renderInner = _this.renderInner.bind(_this);
+
+    if (process.env.NODE_ENV !== 'production') {
+      _this.warnInnerRef = once(function (displayName) {
+        return console.warn('The "innerRef" API has been removed in styled-components v4 in favor of React 16 ref forwarding, use "ref" instead like a typical component. "innerRef" was detected on component "' + displayName + '".');
+      });
+      _this.warnAttrsFnObjectKeyDeprecated = once(function (key, displayName) {
+        return console.warn('Functions as object-form attrs({}) keys are now deprecated and will be removed in a future version of styled-components. Switch to the new attrs(props => ({})) syntax instead for easier and more powerful composition. The attrs key in question is "' + key + '" on component "' + displayName + '".', '\n ' + new Error().stack);
+      });
+      _this.warnNonStyledComponentAttrsObjectKey = once(function (key, displayName) {
+        return console.warn('It looks like you\'ve used a non styled-component as the value for the "' + key + '" prop in an object-form attrs constructor of "' + displayName + '".\n' + 'You should use the new function-form attrs constructor which avoids this issue: attrs(props => ({ yourStuff }))\n' + "To continue using the deprecated object syntax, you'll need to wrap your component prop in a function to make it available inside the styled component (you'll still get the deprecation warning though.)\n" + ('For example, { ' + key + ': () => InnerComponent } instead of { ' + key + ': InnerComponent }'));
+      });
+    }
+
+    return _this;
+  }
+
+  StyledComponent.prototype.render = function render() {
+    return React__default.createElement(StyleSheetConsumer, null, this.renderOuter);
+  };
+
+  StyledComponent.prototype.renderOuter = function renderOuter() {
+    var styleSheet = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : StyleSheet.master;
+    this.styleSheet = styleSheet;
+    if (this.props.forwardedComponent.componentStyle.isStatic) return this.renderInner();
+    return React__default.createElement(ThemeConsumer, null, this.renderInner);
+  };
+
+  StyledComponent.prototype.renderInner = function renderInner(theme) {
+    var _props$forwardedCompo = this.props.forwardedComponent,
+        componentStyle = _props$forwardedCompo.componentStyle,
+        defaultProps = _props$forwardedCompo.defaultProps,
+        displayName = _props$forwardedCompo.displayName,
+        foldedComponentIds = _props$forwardedCompo.foldedComponentIds,
+        styledComponentId = _props$forwardedCompo.styledComponentId,
+        target = _props$forwardedCompo.target;
+    var generatedClassName = void 0;
+
+    if (componentStyle.isStatic) {
+      generatedClassName = this.generateAndInjectStyles(EMPTY_OBJECT, this.props);
+    } else {
+      generatedClassName = this.generateAndInjectStyles(determineTheme(this.props, theme, defaultProps) || EMPTY_OBJECT, this.props);
+    }
+
+    var elementToBeCreated = this.props.as || this.attrs.as || target;
+    var isTargetTag = isTag(elementToBeCreated);
+    var propsForElement = {};
+
+    var computedProps = _extends({}, this.attrs, this.props);
+
+    var key = void 0;
+
+    for (key in computedProps) {
+      if (process.env.NODE_ENV !== 'production' && key === 'innerRef' && isTargetTag) {
+        this.warnInnerRef(displayName);
+      }
+
+      if (key === 'forwardedComponent' || key === 'as') {
+        continue;
+      } else if (key === 'forwardedRef') propsForElement.ref = computedProps[key];else if (key === 'forwardedAs') propsForElement.as = computedProps[key];else if (!isTargetTag || validAttr(key)) {
+        propsForElement[key] = computedProps[key];
+      }
+    }
+
+    if (this.props.style && this.attrs.style) {
+      propsForElement.style = _extends({}, this.attrs.style, this.props.style);
+    }
+
+    propsForElement.className = Array.prototype.concat(foldedComponentIds, this.props.className, styledComponentId, this.attrs.className, generatedClassName).filter(Boolean).join(' ');
+    return React.createElement(elementToBeCreated, propsForElement);
+  };
+
+  StyledComponent.prototype.buildExecutionContext = function buildExecutionContext(theme, props, attrs) {
+    var _this2 = this;
+
+    var context = _extends({}, props, {
+      theme: theme
+    });
+
+    if (!attrs.length) return context;
+    this.attrs = {};
+    attrs.forEach(function (attrDef) {
+      var resolvedAttrDef = attrDef;
+      var attrDefWasFn = false;
+      var attr = void 0;
+      var key = void 0;
+
+      if (isFunction(resolvedAttrDef)) {
+        resolvedAttrDef = resolvedAttrDef(context);
+        attrDefWasFn = true;
+      }
+
+      for (key in resolvedAttrDef) {
+        attr = resolvedAttrDef[key];
+
+        if (!attrDefWasFn) {
+          if (isFunction(attr) && !isDerivedReactComponent(attr) && !isStyledComponent(attr)) {
+            if (process.env.NODE_ENV !== 'production') {
+              _this2.warnAttrsFnObjectKeyDeprecated(key, props.forwardedComponent.displayName);
+            }
+
+            attr = attr(context);
+
+            if (process.env.NODE_ENV !== 'production' && React__default.isValidElement(attr)) {
+              _this2.warnNonStyledComponentAttrsObjectKey(key, props.forwardedComponent.displayName);
+            }
+          }
+        }
+
+        _this2.attrs[key] = attr;
+        context[key] = attr;
+      }
+    });
+    return context;
+  };
+
+  StyledComponent.prototype.generateAndInjectStyles = function generateAndInjectStyles(theme, props) {
+    var _props$forwardedCompo2 = props.forwardedComponent,
+        attrs = _props$forwardedCompo2.attrs,
+        componentStyle = _props$forwardedCompo2.componentStyle,
+        warnTooManyClasses = _props$forwardedCompo2.warnTooManyClasses;
+
+    if (componentStyle.isStatic && !attrs.length) {
+      return componentStyle.generateAndInjectStyles(EMPTY_OBJECT, this.styleSheet);
+    }
+
+    var className = componentStyle.generateAndInjectStyles(this.buildExecutionContext(theme, props, attrs), this.styleSheet);
+    if (process.env.NODE_ENV !== 'production' && warnTooManyClasses) warnTooManyClasses(className);
+    return className;
+  };
+
+  return StyledComponent;
+}(React.Component);
+
+function createStyledComponent(target, options, rules) {
+  var isTargetStyledComp = isStyledComponent(target);
+  var isClass = !isTag(target);
+  var _options$displayName = options.displayName,
+      displayName = _options$displayName === undefined ? generateDisplayName(target) : _options$displayName,
+      _options$componentId = options.componentId,
+      componentId = _options$componentId === undefined ? generateId(ComponentStyle, options.displayName, options.parentComponentId) : _options$componentId,
+      _options$ParentCompon = options.ParentComponent,
+      ParentComponent = _options$ParentCompon === undefined ? StyledComponent : _options$ParentCompon,
+      _options$attrs = options.attrs,
+      attrs = _options$attrs === undefined ? EMPTY_ARRAY : _options$attrs;
+  var styledComponentId = options.displayName && options.componentId ? escape(options.displayName) + '-' + options.componentId : options.componentId || componentId;
+  var finalAttrs = isTargetStyledComp && target.attrs ? Array.prototype.concat(target.attrs, attrs).filter(Boolean) : attrs;
+  var componentStyle = new ComponentStyle(isTargetStyledComp ? target.componentStyle.rules.concat(rules) : rules, finalAttrs, styledComponentId);
+  var WrappedStyledComponent = void 0;
+
+  var forwardRef = function forwardRef(props, ref) {
+    return React__default.createElement(ParentComponent, _extends({}, props, {
+      forwardedComponent: WrappedStyledComponent,
+      forwardedRef: ref
+    }));
+  };
+
+  forwardRef.displayName = displayName;
+  WrappedStyledComponent = React__default.forwardRef(forwardRef);
+  WrappedStyledComponent.displayName = displayName;
+  WrappedStyledComponent.attrs = finalAttrs;
+  WrappedStyledComponent.componentStyle = componentStyle;
+  WrappedStyledComponent.foldedComponentIds = isTargetStyledComp ? Array.prototype.concat(target.foldedComponentIds, target.styledComponentId) : EMPTY_ARRAY;
+  WrappedStyledComponent.styledComponentId = styledComponentId;
+  WrappedStyledComponent.target = isTargetStyledComp ? target.target : target;
+
+  WrappedStyledComponent.withComponent = function withComponent(tag) {
+    var previousComponentId = options.componentId,
+        optionsToCopy = objectWithoutProperties(options, ['componentId']);
+    var newComponentId = previousComponentId && previousComponentId + '-' + (isTag(tag) ? tag : escape(getComponentName(tag)));
+
+    var newOptions = _extends({}, optionsToCopy, {
+      attrs: finalAttrs,
+      componentId: newComponentId,
+      ParentComponent: ParentComponent
+    });
+
+    return createStyledComponent(tag, newOptions, rules);
+  };
+
+  Object.defineProperty(WrappedStyledComponent, 'defaultProps', {
+    get: function get$$1() {
+      return this._foldedDefaultProps;
+    },
+    set: function set$$1(obj) {
+      this._foldedDefaultProps = isTargetStyledComp ? merge(target.defaultProps, obj) : obj;
+    }
+  });
+
+  if (process.env.NODE_ENV !== 'production') {
+    WrappedStyledComponent.warnTooManyClasses = createWarnTooManyClasses(displayName);
+  }
+
+  WrappedStyledComponent.toString = function () {
+    return '.' + WrappedStyledComponent.styledComponentId;
+  };
+
+  if (isClass) {
+    hoistNonReactStatics(WrappedStyledComponent, target, {
+      attrs: true,
+      componentStyle: true,
+      displayName: true,
+      foldedComponentIds: true,
+      styledComponentId: true,
+      target: true,
+      withComponent: true
+    });
+  }
+
+  return WrappedStyledComponent;
+}
+
+var domElements = ['a', 'abbr', 'address', 'area', 'article', 'aside', 'audio', 'b', 'base', 'bdi', 'bdo', 'big', 'blockquote', 'body', 'br', 'button', 'canvas', 'caption', 'cite', 'code', 'col', 'colgroup', 'data', 'datalist', 'dd', 'del', 'details', 'dfn', 'dialog', 'div', 'dl', 'dt', 'em', 'embed', 'fieldset', 'figcaption', 'figure', 'footer', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'hr', 'html', 'i', 'iframe', 'img', 'input', 'ins', 'kbd', 'keygen', 'label', 'legend', 'li', 'link', 'main', 'map', 'mark', 'marquee', 'menu', 'menuitem', 'meta', 'meter', 'nav', 'noscript', 'object', 'ol', 'optgroup', 'option', 'output', 'p', 'param', 'picture', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'script', 'section', 'select', 'small', 'source', 'span', 'strong', 'style', 'sub', 'summary', 'sup', 'table', 'tbody', 'td', 'textarea', 'tfoot', 'th', 'thead', 'time', 'title', 'tr', 'track', 'u', 'ul', 'var', 'video', 'wbr', 'circle', 'clipPath', 'defs', 'ellipse', 'foreignObject', 'g', 'image', 'line', 'linearGradient', 'marker', 'mask', 'path', 'pattern', 'polygon', 'polyline', 'radialGradient', 'rect', 'stop', 'svg', 'text', 'tspan'];
+
+var styled = function styled(tag) {
+  return constructWithOptions(createStyledComponent, tag);
+};
+
+domElements.forEach(function (domElement) {
+  styled[domElement] = styled(domElement);
+});
+
+var GlobalStyle = function () {
+  function GlobalStyle(rules, componentId) {
+    classCallCheck(this, GlobalStyle);
+    this.rules = rules;
+    this.componentId = componentId;
+    this.isStatic = isStaticRules(rules, EMPTY_ARRAY);
+
+    if (!StyleSheet.master.hasId(componentId)) {
+      StyleSheet.master.deferredInject(componentId, []);
+    }
+  }
+
+  GlobalStyle.prototype.createStyles = function createStyles(executionContext, styleSheet) {
+    var flatCSS = flatten(this.rules, executionContext, styleSheet);
+    var css = stringifyRules(flatCSS, '');
+    styleSheet.inject(this.componentId, css);
+  };
+
+  GlobalStyle.prototype.removeStyles = function removeStyles(styleSheet) {
+    var componentId = this.componentId;
+
+    if (styleSheet.hasId(componentId)) {
+      styleSheet.remove(componentId);
+    }
+  };
+
+  GlobalStyle.prototype.renderStyles = function renderStyles(executionContext, styleSheet) {
+    this.removeStyles(styleSheet);
+    this.createStyles(executionContext, styleSheet);
+  };
+
+  return GlobalStyle;
+}();
+
+if (IS_BROWSER) {
+  window.scCGSHMRCache = {};
+}
+
+function createGlobalStyle(strings) {
+  for (var _len = arguments.length, interpolations = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    interpolations[_key - 1] = arguments[_key];
+  }
+
+  var rules = css.apply(undefined, [strings].concat(interpolations));
+  var id = 'sc-global-' + murmurhash(JSON.stringify(rules));
+  var style = new GlobalStyle(rules, id);
+
+  var GlobalStyleComponent = function (_React$Component) {
+    inherits(GlobalStyleComponent, _React$Component);
+
+    function GlobalStyleComponent(props) {
+      classCallCheck(this, GlobalStyleComponent);
+
+      var _this = possibleConstructorReturn(this, _React$Component.call(this, props));
+
+      var _this$constructor = _this.constructor,
+          globalStyle = _this$constructor.globalStyle,
+          styledComponentId = _this$constructor.styledComponentId;
+
+      if (IS_BROWSER) {
+        window.scCGSHMRCache[styledComponentId] = (window.scCGSHMRCache[styledComponentId] || 0) + 1;
+      }
+
+      _this.state = {
+        globalStyle: globalStyle,
+        styledComponentId: styledComponentId
+      };
+      return _this;
+    }
+
+    GlobalStyleComponent.prototype.componentWillUnmount = function componentWillUnmount() {
+      if (window.scCGSHMRCache[this.state.styledComponentId]) {
+        window.scCGSHMRCache[this.state.styledComponentId] -= 1;
+      }
+
+      if (window.scCGSHMRCache[this.state.styledComponentId] === 0) {
+        this.state.globalStyle.removeStyles(this.styleSheet);
+      }
+    };
+
+    GlobalStyleComponent.prototype.render = function render() {
+      var _this2 = this;
+
+      if (process.env.NODE_ENV !== 'production' && React__default.Children.count(this.props.children)) {
+        console.warn('The global style component ' + this.state.styledComponentId + ' was given child JSX. createGlobalStyle does not render children.');
+      }
+
+      return React__default.createElement(StyleSheetConsumer, null, function (styleSheet) {
+        _this2.styleSheet = styleSheet || StyleSheet.master;
+        var globalStyle = _this2.state.globalStyle;
+
+        if (globalStyle.isStatic) {
+          globalStyle.renderStyles(STATIC_EXECUTION_CONTEXT, _this2.styleSheet);
+          return null;
+        } else {
+          return React__default.createElement(ThemeConsumer, null, function (theme) {
+            var defaultProps = _this2.constructor.defaultProps;
+
+            var context = _extends({}, _this2.props);
+
+            if (typeof theme !== 'undefined') {
+              context.theme = determineTheme(_this2.props, theme, defaultProps);
+            }
+
+            globalStyle.renderStyles(context, _this2.styleSheet);
+            return null;
+          });
+        }
+      });
+    };
+
+    return GlobalStyleComponent;
+  }(React__default.Component);
+
+  GlobalStyleComponent.globalStyle = style;
+  GlobalStyleComponent.styledComponentId = id;
+  return GlobalStyleComponent;
+}
+
+var replaceWhitespace = function replaceWhitespace(str) {
+  return str.replace(/\s|\\n/g, '');
+};
+
+function keyframes(strings) {
+  if (process.env.NODE_ENV !== 'production' && typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+    console.warn('`keyframes` cannot be used on ReactNative, only on the web. To do animation in ReactNative please use Animated.');
+  }
+
+  for (var _len = arguments.length, interpolations = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+    interpolations[_key - 1] = arguments[_key];
+  }
+
+  var rules = css.apply(undefined, [strings].concat(interpolations));
+  var name = generateAlphabeticName(murmurhash(replaceWhitespace(JSON.stringify(rules))));
+  return new Keyframes(name, stringifyRules(rules, name, '@keyframes'));
+}
+
+var withTheme = function withTheme(Component) {
+  var WithTheme = React__default.forwardRef(function (props, ref) {
+    return React__default.createElement(ThemeConsumer, null, function (theme) {
+      var defaultProps = Component.defaultProps;
+      var themeProp = determineTheme(props, theme, defaultProps);
+
+      if (process.env.NODE_ENV !== 'production' && themeProp === undefined) {
+        console.warn('[withTheme] You are not using a ThemeProvider nor passing a theme prop or a theme in defaultProps in component class "' + getComponentName(Component) + '"');
+      }
+
+      return React__default.createElement(Component, _extends({}, props, {
+        theme: themeProp,
+        ref: ref
+      }));
+    });
+  });
+  hoistNonReactStatics(WithTheme, Component);
+  WithTheme.displayName = 'WithTheme(' + getComponentName(Component) + ')';
+  return WithTheme;
+};
+
+var __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS = {
+  StyleSheet: StyleSheet
+};
+
+if (process.env.NODE_ENV !== 'production' && typeof navigator !== 'undefined' && navigator.product === 'ReactNative') {
+  console.warn("It looks like you've imported 'styled-components' on React Native.\n" + "Perhaps you're looking to import 'styled-components/native'?\n" + 'Read more about this at https://www.styled-components.com/docs/basics#react-native');
+}
+
+if (process.env.NODE_ENV !== 'production' && process.env.NODE_ENV !== 'test' && typeof window !== 'undefined' && typeof navigator !== 'undefined' && typeof navigator.userAgent === 'string' && navigator.userAgent.indexOf('Node.js') === -1 && navigator.userAgent.indexOf('jsdom') === -1) {
+  window['__styled-components-init__'] = window['__styled-components-init__'] || 0;
+
+  if (window['__styled-components-init__'] === 1) {
+    console.warn("It looks like there are several instances of 'styled-components' initialized in this application. " + 'This may cause dynamic styles not rendering properly, errors happening during rehydration process ' + 'and makes your application bigger without a good reason.\n\n' + 'See https://s-c.sh/2BAXzed for more info.');
+  }
+
+  window['__styled-components-init__'] += 1;
+}
+
+exports.default = styled;
+exports.createGlobalStyle = createGlobalStyle;
+exports.css = css;
+exports.isStyledComponent = isStyledComponent;
+exports.keyframes = keyframes;
+exports.ServerStyleSheet = ServerStyleSheet;
+exports.StyleSheetConsumer = StyleSheetConsumer;
+exports.StyleSheetContext = StyleSheetContext;
+exports.StyleSheetManager = StyleSheetManager;
+exports.ThemeConsumer = ThemeConsumer;
+exports.ThemeContext = ThemeContext;
+exports.ThemeProvider = ThemeProvider;
+exports.withTheme = withTheme;
+exports.__DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS = __DO_NOT_USE_OR_YOU_WILL_BE_HAUNTED_BY_SPOOKY_GHOSTS;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uL3NyYy9tb2RlbHMvU3R5bGVUYWdzLmpzIiwiLi4vc3JjL21vZGVscy9UaGVtZVByb3ZpZGVyLmpzIiwiLi4vc3JjL21vZGVscy9TdHlsZVNoZWV0TWFuYWdlci5qcyIsIi4uL3NyYy9tb2RlbHMvU3R5bGVkQ29tcG9uZW50LmpzIiwiLi4vc3JjL21vZGVscy9HbG9iYWxTdHlsZS5qcyJdLCJuYW1lcyI6WyJfX1ZFUlNJT05fXyIsImkiXSwibWFwcGluZ3MiOiI7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztBQTJDQyxJQUFBLGNBQUEsR0FBQSxTQUFBLGNBQUEsQ0FBQSxFQUFBLEVBQUE7O0FBQUEsQ0FBQTs7Ozs7Ozs7Ozs7Ozs7O21DQWdCZ0RBLE87Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O2lFQTJETzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O3dEQW9TbkQ7V0FFTUMsQ0FBQUEsR0FBQUEsQyxFQUFBQSxHQUFBQSxHQUFBQSxTQUFBQSxDQUFBQSxNLEVBQUFBLENBQUFBLEdBQUFBLEcsRUFBQUEsQ0FBQUEsSUFBQUEsQyxFQUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUNqWlQsSUFBQSxZQUFBLEdBQUEsS0FBQSxDQUFBLGFBQUEsRUFBQTs7Ozs7O3lCQVVBLEssRUFBQTs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs2QkNRQSxLLEVBQUE7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7OztxQ0N5STJCOzs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O3VCQzFKM0IsSyxFQUFBLFcsRUFBQSIsInNvdXJjZXNDb250ZW50IjpbIi8vIEBmbG93XG4vKiBlc2xpbnQtZGlzYWJsZSBmbG93dHlwZS9vYmplY3QtdHlwZS1kZWxpbWl0ZXIgKi9cbi8qIGVzbGludC1kaXNhYmxlIHJlYWN0L3Byb3AtdHlwZXMgKi9cblxuaW1wb3J0IFJlYWN0LCB7IHR5cGUgRWxlbWVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCB7IElTX0JST1dTRVIsIERJU0FCTEVfU1BFRURZLCBTQ19BVFRSLCBTQ19WRVJTSU9OX0FUVFIgfSBmcm9tICcuLi9jb25zdGFudHMnO1xuaW1wb3J0IFN0eWxlZEVycm9yIGZyb20gJy4uL3V0aWxzL2Vycm9yJztcbmltcG9ydCB7IHR5cGUgRXh0cmFjdGVkQ29tcCB9IGZyb20gJy4uL3V0aWxzL2V4dHJhY3RDb21wc0Zyb21DU1MnO1xuaW1wb3J0IHsgc3BsaXRCeVJ1bGVzIH0gZnJvbSAnLi4vdXRpbHMvc3RyaW5naWZ5UnVsZXMnO1xuaW1wb3J0IGdldE5vbmNlIGZyb20gJy4uL3V0aWxzL25vbmNlJztcblxuaW1wb3J0IHtcbiAgdHlwZSBOYW1lcyxcbiAgYWRkTmFtZUZvcklkLFxuICByZXNldElkTmFtZXMsXG4gIGhhc05hbWVGb3JJZCxcbiAgc3RyaW5naWZ5TmFtZXMsXG4gIGNsb25lTmFtZXMsXG59IGZyb20gJy4uL3V0aWxzL3N0eWxlTmFtZXMnO1xuXG5pbXBvcnQgeyBzaGVldEZvclRhZywgc2FmZUluc2VydFJ1bGUsIGRlbGV0ZVJ1bGVzIH0gZnJvbSAnLi4vdXRpbHMvaW5zZXJ0UnVsZUhlbHBlcnMnO1xuXG5kZWNsYXJlIHZhciBfX1ZFUlNJT05fXzogc3RyaW5nO1xuXG5leHBvcnQgaW50ZXJmYWNlIFRhZzxUPiB7XG4gIC8vICRGbG93Rml4TWU6IERvZXNuJ3Qgc2VlbSB0byBhY2NlcHQgYW55IGNvbWJpbmF0aW9uIHcvIEhUTUxTdHlsZUVsZW1lbnQgZm9yIHNvbWUgcmVhc29uXG4gIHN0eWxlVGFnOiBIVE1MU3R5bGVFbGVtZW50IHwgbnVsbDtcbiAgLyogbGlzdHMgYWxsIGlkcyBvZiB0aGUgdGFnICovXG4gIGdldElkcygpOiBzdHJpbmdbXTtcbiAgLyogY2hlY2tzIHdoZXRoZXIgYG5hbWVgIGlzIGFscmVhZHkgaW5qZWN0ZWQgZm9yIGBpZGAgKi9cbiAgaGFzTmFtZUZvcklkKGlkOiBzdHJpbmcsIG5hbWU6IHN0cmluZyk6IGJvb2xlYW47XG4gIC8qIGluc2VydHMgYSBtYXJrZXIgdG8gZW5zdXJlIHRoZSBpZCdzIGNvcnJlY3QgcG9zaXRpb24gaW4gdGhlIHNoZWV0ICovXG4gIGluc2VydE1hcmtlcihpZDogc3RyaW5nKTogVDtcbiAgLyogaW5zZXJ0cyBydWxlcyBhY2NvcmRpbmcgdG8gdGhlIGlkcyBtYXJrZXJzICovXG4gIGluc2VydFJ1bGVzKGlkOiBzdHJpbmcsIGNzc1J1bGVzOiBzdHJpbmdbXSwgbmFtZTogP3N0cmluZyk6IHZvaWQ7XG4gIC8qIHJlbW92ZXMgYWxsIHJ1bGVzIGJlbG9uZ2luZyB0byB0aGUgaWQsIGtlZXBpbmcgdGhlIG1hcmtlciBhcm91bmQgKi9cbiAgcmVtb3ZlUnVsZXMoaWQ6IHN0cmluZyk6IHZvaWQ7XG4gIGNzcygpOiBzdHJpbmc7XG4gIHRvSFRNTChhZGRpdGlvbmFsQXR0cnM6ID9zdHJpbmcpOiBzdHJpbmc7XG4gIHRvRWxlbWVudCgpOiBFbGVtZW50PCo+O1xuICBjbG9uZSgpOiBUYWc8VD47XG4gIC8qIHVzZWQgaW4gc2VydmVyIHNpZGUgcmVuZGVyaW5nIHRvIGluZGljYXRlIHRoYXQgdGhlIHJ1bGVzIGluIHRoZSB0YWcgaGF2ZSBiZWVuIGZsdXNoZWQgdG8gSFRNTCAqL1xuICBzZWFsZWQ6IGJvb2xlYW47XG59XG5cbi8qIHRoaXMgbWFya2VyIHNlcGFyYXRlcyBjb21wb25lbnQgc3R5bGVzIGFuZCBpcyBpbXBvcnRhbnQgZm9yIHJlaHlkcmF0aW9uICovXG5jb25zdCBtYWtlVGV4dE1hcmtlciA9IGlkID0+IGBcXG4vKiBzYy1jb21wb25lbnQtaWQ6ICR7aWR9ICovXFxuYDtcblxuLyogYWRkIHVwIGFsbCBudW1iZXJzIGluIGFycmF5IHVwIHVudGlsIGFuZCBpbmNsdWRpbmcgdGhlIGluZGV4ICovXG5jb25zdCBhZGRVcFVudGlsSW5kZXggPSAoc2l6ZXM6IG51bWJlcltdLCBpbmRleDogbnVtYmVyKTogbnVtYmVyID0+IHtcbiAgbGV0IHRvdGFsVXBUb0luZGV4ID0gMDtcbiAgZm9yIChsZXQgaSA9IDA7IGkgPD0gaW5kZXg7IGkgKz0gMSkge1xuICAgIHRvdGFsVXBUb0luZGV4ICs9IHNpemVzW2ldO1xuICB9XG5cbiAgcmV0dXJuIHRvdGFsVXBUb0luZGV4O1xufTtcblxuLyogY3JlYXRlIGEgbmV3IHN0eWxlIHRhZyBhZnRlciBsYXN0RWwgKi9cbmNvbnN0IG1ha2VTdHlsZVRhZyA9ICh0YXJnZXQ6ID9IVE1MRWxlbWVudCwgdGFnRWw6ID9Ob2RlLCBpbnNlcnRCZWZvcmU6ID9ib29sZWFuKSA9PiB7XG4gIGNvbnN0IGVsID0gZG9jdW1lbnQuY3JlYXRlRWxlbWVudCgnc3R5bGUnKTtcbiAgZWwuc2V0QXR0cmlidXRlKFNDX0FUVFIsICcnKTtcbiAgZWwuc2V0QXR0cmlidXRlKFNDX1ZFUlNJT05fQVRUUiwgX19WRVJTSU9OX18pO1xuXG4gIGNvbnN0IG5vbmNlID0gZ2V0Tm9uY2UoKTtcbiAgaWYgKG5vbmNlKSB7XG4gICAgZWwuc2V0QXR0cmlidXRlKCdub25jZScsIG5vbmNlKTtcbiAgfVxuXG4gIC8qIFdvcmsgYXJvdW5kIGluc2VydFJ1bGUgcXVpcmsgaW4gRWRnZUhUTUwgKi9cbiAgZWwuYXBwZW5kQ2hpbGQoZG9jdW1lbnQuY3JlYXRlVGV4dE5vZGUoJycpKTtcblxuICBpZiAodGFyZ2V0ICYmICF0YWdFbCkge1xuICAgIC8qIEFwcGVuZCB0byB0YXJnZXQgd2hlbiBubyBwcmV2aW91cyBlbGVtZW50IHdhcyBwYXNzZWQgKi9cbiAgICB0YXJnZXQuYXBwZW5kQ2hpbGQoZWwpO1xuICB9IGVsc2Uge1xuICAgIGlmICghdGFnRWwgfHwgIXRhcmdldCB8fCAhdGFnRWwucGFyZW50Tm9kZSkge1xuICAgICAgdGhyb3cgbmV3IFN0eWxlZEVycm9yKDYpO1xuICAgIH1cblxuICAgIC8qIEluc2VydCBuZXcgc3R5bGUgdGFnIGFmdGVyIHRoZSBwcmV2aW91cyBvbmUgKi9cbiAgICB0YWdFbC5wYXJlbnROb2RlLmluc2VydEJlZm9yZShlbCwgaW5zZXJ0QmVmb3JlID8gdGFnRWwgOiB0YWdFbC5uZXh0U2libGluZyk7XG4gIH1cblxuICByZXR1cm4gZWw7XG59O1xuXG4vKiB0YWtlcyBhIGNzcyBmYWN0b3J5IGZ1bmN0aW9uIGFuZCBvdXRwdXRzIGFuIGh0bWwgc3R5bGVkIHRhZyBmYWN0b3J5ICovXG5jb25zdCB3cmFwQXNIdG1sVGFnID0gKGNzczogKCkgPT4gc3RyaW5nLCBuYW1lczogTmFtZXMpID0+IChhZGRpdGlvbmFsQXR0cnM6ID9zdHJpbmcpOiBzdHJpbmcgPT4ge1xuICBjb25zdCBub25jZSA9IGdldE5vbmNlKCk7XG4gIGNvbnN0IGF0dHJzID0gW1xuICAgIG5vbmNlICYmIGBub25jZT1cIiR7bm9uY2V9XCJgLFxuICAgIGAke1NDX0FUVFJ9PVwiJHtzdHJpbmdpZnlOYW1lcyhuYW1lcyl9XCJgLFxuICAgIGAke1NDX1ZFUlNJT05fQVRUUn09XCIke19fVkVSU0lPTl9ffVwiYCxcbiAgICBhZGRpdGlvbmFsQXR0cnMsXG4gIF07XG5cbiAgY29uc3QgaHRtbEF0dHIgPSBhdHRycy5maWx0ZXIoQm9vbGVhbikuam9pbignICcpO1xuICByZXR1cm4gYDxzdHlsZSAke2h0bWxBdHRyfT4ke2NzcygpfTwvc3R5bGU+YDtcbn07XG5cbi8qIHRha2VzIGEgY3NzIGZhY3RvcnkgZnVuY3Rpb24gYW5kIG91dHB1dHMgYW4gZWxlbWVudCBmYWN0b3J5ICovXG5jb25zdCB3cmFwQXNFbGVtZW50ID0gKGNzczogKCkgPT4gc3RyaW5nLCBuYW1lczogTmFtZXMpID0+ICgpID0+IHtcbiAgY29uc3QgcHJvcHMgPSB7XG4gICAgW1NDX0FUVFJdOiBzdHJpbmdpZnlOYW1lcyhuYW1lcyksXG4gICAgW1NDX1ZFUlNJT05fQVRUUl06IF9fVkVSU0lPTl9fLFxuICB9O1xuXG4gIGNvbnN0IG5vbmNlID0gZ2V0Tm9uY2UoKTtcbiAgaWYgKG5vbmNlKSB7XG4gICAgLy8gJEZsb3dGaXhNZVxuICAgIHByb3BzLm5vbmNlID0gbm9uY2U7XG4gIH1cblxuICAvLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgcmVhY3Qvbm8tZGFuZ2VyXG4gIHJldHVybiA8c3R5bGUgey4uLnByb3BzfSBkYW5nZXJvdXNseVNldElubmVySFRNTD17eyBfX2h0bWw6IGNzcygpIH19IC8+O1xufTtcblxuY29uc3QgZ2V0SWRzRnJvbU1hcmtlcnNGYWN0b3J5ID0gKG1hcmtlcnM6IE9iamVjdCkgPT4gKCk6IHN0cmluZ1tdID0+IE9iamVjdC5rZXlzKG1hcmtlcnMpO1xuXG4vKiBzcGVlZHkgdGFncyB1dGlsaXNlIGluc2VydFJ1bGUgKi9cbmNvbnN0IG1ha2VTcGVlZHlUYWcgPSAoZWw6IEhUTUxTdHlsZUVsZW1lbnQsIGdldEltcG9ydFJ1bGVUYWc6ID8oKSA9PiBUYWc8YW55Pik6IFRhZzxudW1iZXI+ID0+IHtcbiAgY29uc3QgbmFtZXM6IE5hbWVzID0gKE9iamVjdC5jcmVhdGUobnVsbCk6IE9iamVjdCk7XG4gIGNvbnN0IG1hcmtlcnMgPSBPYmplY3QuY3JlYXRlKG51bGwpO1xuICBjb25zdCBzaXplczogbnVtYmVyW10gPSBbXTtcblxuICBjb25zdCBleHRyYWN0SW1wb3J0ID0gZ2V0SW1wb3J0UnVsZVRhZyAhPT0gdW5kZWZpbmVkO1xuICAvKiBpbmRpY2F0ZXMgd2hldGhlciBnZXRJbXBvcnRSdWxlVGFnIHdhcyBjYWxsZWQgKi9cbiAgbGV0IHVzZWRJbXBvcnRSdWxlVGFnID0gZmFsc2U7XG5cbiAgY29uc3QgaW5zZXJ0TWFya2VyID0gaWQgPT4ge1xuICAgIGNvbnN0IHByZXYgPSBtYXJrZXJzW2lkXTtcbiAgICBpZiAocHJldiAhPT0gdW5kZWZpbmVkKSB7XG4gICAgICByZXR1cm4gcHJldjtcbiAgICB9XG5cbiAgICBtYXJrZXJzW2lkXSA9IHNpemVzLmxlbmd0aDtcbiAgICBzaXplcy5wdXNoKDApO1xuICAgIHJlc2V0SWROYW1lcyhuYW1lcywgaWQpO1xuXG4gICAgcmV0dXJuIG1hcmtlcnNbaWRdO1xuICB9O1xuXG4gIGNvbnN0IGluc2VydFJ1bGVzID0gKGlkLCBjc3NSdWxlcywgbmFtZSkgPT4ge1xuICAgIGNvbnN0IG1hcmtlciA9IGluc2VydE1hcmtlcihpZCk7XG4gICAgY29uc3Qgc2hlZXQgPSBzaGVldEZvclRhZyhlbCk7XG4gICAgY29uc3QgaW5zZXJ0SW5kZXggPSBhZGRVcFVudGlsSW5kZXgoc2l6ZXMsIG1hcmtlcik7XG5cbiAgICBsZXQgaW5qZWN0ZWRSdWxlcyA9IDA7XG4gICAgY29uc3QgaW1wb3J0UnVsZXMgPSBbXTtcbiAgICBjb25zdCBjc3NSdWxlc1NpemUgPSBjc3NSdWxlcy5sZW5ndGg7XG5cbiAgICBmb3IgKGxldCBpID0gMDsgaSA8IGNzc1J1bGVzU2l6ZTsgaSArPSAxKSB7XG4gICAgICBjb25zdCBjc3NSdWxlID0gY3NzUnVsZXNbaV07XG4gICAgICBsZXQgbWF5SGF2ZUltcG9ydCA9IGV4dHJhY3RJbXBvcnQ7IC8qIEBpbXBvcnQgcnVsZXMgYXJlIHJlb3JkZXJlZCB0byBhcHBlYXIgZmlyc3QgKi9cbiAgICAgIGlmIChtYXlIYXZlSW1wb3J0ICYmIGNzc1J1bGUuaW5kZXhPZignQGltcG9ydCcpICE9PSAtMSkge1xuICAgICAgICBpbXBvcnRSdWxlcy5wdXNoKGNzc1J1bGUpO1xuICAgICAgfSBlbHNlIGlmIChzYWZlSW5zZXJ0UnVsZShzaGVldCwgY3NzUnVsZSwgaW5zZXJ0SW5kZXggKyBpbmplY3RlZFJ1bGVzKSkge1xuICAgICAgICBtYXlIYXZlSW1wb3J0ID0gZmFsc2U7XG4gICAgICAgIGluamVjdGVkUnVsZXMgKz0gMTtcbiAgICAgIH1cbiAgICB9XG5cbiAgICBpZiAoZXh0cmFjdEltcG9ydCAmJiBpbXBvcnRSdWxlcy5sZW5ndGggPiAwKSB7XG4gICAgICB1c2VkSW1wb3J0UnVsZVRhZyA9IHRydWU7XG4gICAgICAvLyAkRmxvd0ZpeE1lXG4gICAgICBnZXRJbXBvcnRSdWxlVGFnKCkuaW5zZXJ0UnVsZXMoYCR7aWR9LWltcG9ydGAsIGltcG9ydFJ1bGVzKTtcbiAgICB9XG5cbiAgICBzaXplc1ttYXJrZXJdICs9IGluamVjdGVkUnVsZXM7IC8qIGFkZCB1cCBubyBvZiBpbmplY3RlZCBydWxlcyAqL1xuICAgIGFkZE5hbWVGb3JJZChuYW1lcywgaWQsIG5hbWUpO1xuICB9O1xuXG4gIGNvbnN0IHJlbW92ZVJ1bGVzID0gaWQgPT4ge1xuICAgIGNvbnN0IG1hcmtlciA9IG1hcmtlcnNbaWRdO1xuICAgIGlmIChtYXJrZXIgPT09IHVuZGVmaW5lZCkgcmV0dXJuO1xuXG4gICAgY29uc3Qgc2l6ZSA9IHNpemVzW21hcmtlcl07XG4gICAgY29uc3Qgc2hlZXQgPSBzaGVldEZvclRhZyhlbCk7XG4gICAgY29uc3QgcmVtb3ZhbEluZGV4ID0gYWRkVXBVbnRpbEluZGV4KHNpemVzLCBtYXJrZXIpIC0gMTtcbiAgICBkZWxldGVSdWxlcyhzaGVldCwgcmVtb3ZhbEluZGV4LCBzaXplKTtcbiAgICBzaXplc1ttYXJrZXJdID0gMDtcbiAgICByZXNldElkTmFtZXMobmFtZXMsIGlkKTtcblxuICAgIGlmIChleHRyYWN0SW1wb3J0ICYmIHVzZWRJbXBvcnRSdWxlVGFnKSB7XG4gICAgICAvLyAkRmxvd0ZpeE1lXG4gICAgICBnZXRJbXBvcnRSdWxlVGFnKCkucmVtb3ZlUnVsZXMoYCR7aWR9LWltcG9ydGApO1xuICAgIH1cbiAgfTtcblxuICBjb25zdCBjc3MgPSAoKSA9PiB7XG4gICAgY29uc3QgeyBjc3NSdWxlcyB9ID0gc2hlZXRGb3JUYWcoZWwpO1xuICAgIGxldCBzdHIgPSAnJztcblxuICAgIC8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBndWFyZC1mb3ItaW5cbiAgICBmb3IgKGNvbnN0IGlkIGluIG1hcmtlcnMpIHtcbiAgICAgIHN0ciArPSBtYWtlVGV4dE1hcmtlcihpZCk7XG4gICAgICBjb25zdCBtYXJrZXIgPSBtYXJrZXJzW2lkXTtcbiAgICAgIGNvbnN0IGVuZCA9IGFkZFVwVW50aWxJbmRleChzaXplcywgbWFya2VyKTtcbiAgICAgIGNvbnN0IHNpemUgPSBzaXplc1ttYXJrZXJdO1xuICAgICAgZm9yIChsZXQgaSA9IGVuZCAtIHNpemU7IGkgPCBlbmQ7IGkgKz0gMSkge1xuICAgICAgICBjb25zdCBydWxlID0gY3NzUnVsZXNbaV07XG4gICAgICAgIGlmIChydWxlICE9PSB1bmRlZmluZWQpIHtcbiAgICAgICAgICBzdHIgKz0gcnVsZS5jc3NUZXh0O1xuICAgICAgICB9XG4gICAgICB9XG4gICAgfVxuXG4gICAgcmV0dXJuIHN0cjtcbiAgfTtcblxuICByZXR1cm4ge1xuICAgIGNsb25lKCkge1xuICAgICAgdGhyb3cgbmV3IFN0eWxlZEVycm9yKDUpO1xuICAgIH0sXG4gICAgY3NzLFxuICAgIGdldElkczogZ2V0SWRzRnJvbU1hcmtlcnNGYWN0b3J5KG1hcmtlcnMpLFxuICAgIGhhc05hbWVGb3JJZDogaGFzTmFtZUZvcklkKG5hbWVzKSxcbiAgICBpbnNlcnRNYXJrZXIsXG4gICAgaW5zZXJ0UnVsZXMsXG4gICAgcmVtb3ZlUnVsZXMsXG4gICAgc2VhbGVkOiBmYWxzZSxcbiAgICBzdHlsZVRhZzogZWwsXG4gICAgdG9FbGVtZW50OiB3cmFwQXNFbGVtZW50KGNzcywgbmFtZXMpLFxuICAgIHRvSFRNTDogd3JhcEFzSHRtbFRhZyhjc3MsIG5hbWVzKSxcbiAgfTtcbn07XG5cbmNvbnN0IG1ha2VUZXh0Tm9kZSA9IGlkID0+IGRvY3VtZW50LmNyZWF0ZVRleHROb2RlKG1ha2VUZXh0TWFya2VyKGlkKSk7XG5cbmNvbnN0IG1ha2VCcm93c2VyVGFnID0gKGVsOiBIVE1MU3R5bGVFbGVtZW50LCBnZXRJbXBvcnRSdWxlVGFnOiA/KCkgPT4gVGFnPGFueT4pOiBUYWc8VGV4dD4gPT4ge1xuICBjb25zdCBuYW1lcyA9IChPYmplY3QuY3JlYXRlKG51bGwpOiBPYmplY3QpO1xuICBjb25zdCBtYXJrZXJzID0gT2JqZWN0LmNyZWF0ZShudWxsKTtcblxuICBjb25zdCBleHRyYWN0SW1wb3J0ID0gZ2V0SW1wb3J0UnVsZVRhZyAhPT0gdW5kZWZpbmVkO1xuXG4gIC8qIGluZGljYXRlcyB3aGV0aGVyIGdldEltcG9ydFJ1bGVUYWcgd2FzIGNhbGxlZCAqL1xuICBsZXQgdXNlZEltcG9ydFJ1bGVUYWcgPSBmYWxzZTtcblxuICBjb25zdCBpbnNlcnRNYXJrZXIgPSBpZCA9PiB7XG4gICAgY29uc3QgcHJldiA9IG1hcmtlcnNbaWRdO1xuICAgIGlmIChwcmV2ICE9PSB1bmRlZmluZWQpIHtcbiAgICAgIHJldHVybiBwcmV2O1xuICAgIH1cblxuICAgIG1hcmtlcnNbaWRdID0gbWFrZVRleHROb2RlKGlkKTtcbiAgICBlbC5hcHBlbmRDaGlsZChtYXJrZXJzW2lkXSk7XG4gICAgbmFtZXNbaWRdID0gT2JqZWN0LmNyZWF0ZShudWxsKTtcblxuICAgIHJldHVybiBtYXJrZXJzW2lkXTtcbiAgfTtcblxuICBjb25zdCBpbnNlcnRSdWxlcyA9IChpZCwgY3NzUnVsZXMsIG5hbWUpID0+IHtcbiAgICBjb25zdCBtYXJrZXIgPSBpbnNlcnRNYXJrZXIoaWQpO1xuICAgIGNvbnN0IGltcG9ydFJ1bGVzID0gW107XG4gICAgY29uc3QgY3NzUnVsZXNTaXplID0gY3NzUnVsZXMubGVuZ3RoO1xuXG4gICAgZm9yIChsZXQgaSA9IDA7IGkgPCBjc3NSdWxlc1NpemU7IGkgKz0gMSkge1xuICAgICAgY29uc3QgcnVsZSA9IGNzc1J1bGVzW2ldO1xuICAgICAgbGV0IG1heUhhdmVJbXBvcnQgPSBleHRyYWN0SW1wb3J0O1xuICAgICAgaWYgKG1heUhhdmVJbXBvcnQgJiYgcnVsZS5pbmRleE9mKCdAaW1wb3J0JykgIT09IC0xKSB7XG4gICAgICAgIGltcG9ydFJ1bGVzLnB1c2gocnVsZSk7XG4gICAgICB9IGVsc2Uge1xuICAgICAgICBtYXlIYXZlSW1wb3J0ID0gZmFsc2U7XG4gICAgICAgIGNvbnN0IHNlcGFyYXRvciA9IGkgPT09IGNzc1J1bGVzU2l6ZSAtIDEgPyAnJyA6ICcgJztcbiAgICAgICAgbWFya2VyLmFwcGVuZERhdGEoYCR7cnVsZX0ke3NlcGFyYXRvcn1gKTtcbiAgICAgIH1cbiAgICB9XG5cbiAgICBhZGROYW1lRm9ySWQobmFtZXMsIGlkLCBuYW1lKTtcblxuICAgIGlmIChleHRyYWN0SW1wb3J0ICYmIGltcG9ydFJ1bGVzLmxlbmd0aCA+IDApIHtcbiAgICAgIHVzZWRJbXBvcnRSdWxlVGFnID0gdHJ1ZTtcbiAgICAgIC8vICRGbG93Rml4TWVcbiAgICAgIGdldEltcG9ydFJ1bGVUYWcoKS5pbnNlcnRSdWxlcyhgJHtpZH0taW1wb3J0YCwgaW1wb3J0UnVsZXMpO1xuICAgIH1cbiAgfTtcblxuICBjb25zdCByZW1vdmVSdWxlcyA9IGlkID0+IHtcbiAgICBjb25zdCBtYXJrZXIgPSBtYXJrZXJzW2lkXTtcbiAgICBpZiAobWFya2VyID09PSB1bmRlZmluZWQpIHJldHVybjtcblxuICAgIC8qIGNyZWF0ZSBuZXcgZW1wdHkgdGV4dCBub2RlIGFuZCByZXBsYWNlIHRoZSBjdXJyZW50IG9uZSAqL1xuICAgIGNvbnN0IG5ld01hcmtlciA9IG1ha2VUZXh0Tm9kZShpZCk7XG4gICAgZWwucmVwbGFjZUNoaWxkKG5ld01hcmtlciwgbWFya2VyKTtcbiAgICBtYXJrZXJzW2lkXSA9IG5ld01hcmtlcjtcbiAgICByZXNldElkTmFtZXMobmFtZXMsIGlkKTtcblxuICAgIGlmIChleHRyYWN0SW1wb3J0ICYmIHVzZWRJbXBvcnRSdWxlVGFnKSB7XG4gICAgICAvLyAkRmxvd0ZpeE1lXG4gICAgICBnZXRJbXBvcnRSdWxlVGFnKCkucmVtb3ZlUnVsZXMoYCR7aWR9LWltcG9ydGApO1xuICAgIH1cbiAgfTtcblxuICBjb25zdCBjc3MgPSAoKSA9PiB7XG4gICAgbGV0IHN0ciA9ICcnO1xuXG4gICAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIGd1YXJkLWZvci1pblxuICAgIGZvciAoY29uc3QgaWQgaW4gbWFya2Vycykge1xuICAgICAgc3RyICs9IG1hcmtlcnNbaWRdLmRhdGE7XG4gICAgfVxuXG4gICAgcmV0dXJuIHN0cjtcbiAgfTtcblxuICByZXR1cm4ge1xuICAgIGNsb25lKCkge1xuICAgICAgdGhyb3cgbmV3IFN0eWxlZEVycm9yKDUpO1xuICAgIH0sXG4gICAgY3NzLFxuICAgIGdldElkczogZ2V0SWRzRnJvbU1hcmtlcnNGYWN0b3J5KG1hcmtlcnMpLFxuICAgIGhhc05hbWVGb3JJZDogaGFzTmFtZUZvcklkKG5hbWVzKSxcbiAgICBpbnNlcnRNYXJrZXIsXG4gICAgaW5zZXJ0UnVsZXMsXG4gICAgcmVtb3ZlUnVsZXMsXG4gICAgc2VhbGVkOiBmYWxzZSxcbiAgICBzdHlsZVRhZzogZWwsXG4gICAgdG9FbGVtZW50OiB3cmFwQXNFbGVtZW50KGNzcywgbmFtZXMpLFxuICAgIHRvSFRNTDogd3JhcEFzSHRtbFRhZyhjc3MsIG5hbWVzKSxcbiAgfTtcbn07XG5cbmNvbnN0IG1ha2VTZXJ2ZXJUYWcgPSAobmFtZXNBcmcsIG1hcmtlcnNBcmcpOiBUYWc8W3N0cmluZ10+ID0+IHtcbiAgY29uc3QgbmFtZXMgPSBuYW1lc0FyZyA9PT0gdW5kZWZpbmVkID8gKE9iamVjdC5jcmVhdGUobnVsbCk6IE9iamVjdCkgOiBuYW1lc0FyZztcbiAgY29uc3QgbWFya2VycyA9IG1hcmtlcnNBcmcgPT09IHVuZGVmaW5lZCA/IE9iamVjdC5jcmVhdGUobnVsbCkgOiBtYXJrZXJzQXJnO1xuXG4gIGNvbnN0IGluc2VydE1hcmtlciA9IGlkID0+IHtcbiAgICBjb25zdCBwcmV2ID0gbWFya2Vyc1tpZF07XG4gICAgaWYgKHByZXYgIT09IHVuZGVmaW5lZCkge1xuICAgICAgcmV0dXJuIHByZXY7XG4gICAgfVxuXG4gICAgcmV0dXJuIChtYXJrZXJzW2lkXSA9IFsnJ10pO1xuICB9O1xuXG4gIGNvbnN0IGluc2VydFJ1bGVzID0gKGlkLCBjc3NSdWxlcywgbmFtZSkgPT4ge1xuICAgIGNvbnN0IG1hcmtlciA9IGluc2VydE1hcmtlcihpZCk7XG4gICAgbWFya2VyWzBdICs9IGNzc1J1bGVzLmpvaW4oJyAnKTtcbiAgICBhZGROYW1lRm9ySWQobmFtZXMsIGlkLCBuYW1lKTtcbiAgfTtcblxuICBjb25zdCByZW1vdmVSdWxlcyA9IGlkID0+IHtcbiAgICBjb25zdCBtYXJrZXIgPSBtYXJrZXJzW2lkXTtcbiAgICBpZiAobWFya2VyID09PSB1bmRlZmluZWQpIHJldHVybjtcbiAgICBtYXJrZXJbMF0gPSAnJztcbiAgICByZXNldElkTmFtZXMobmFtZXMsIGlkKTtcbiAgfTtcblxuICBjb25zdCBjc3MgPSAoKSA9PiB7XG4gICAgbGV0IHN0ciA9ICcnO1xuICAgIC8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBndWFyZC1mb3ItaW5cbiAgICBmb3IgKGNvbnN0IGlkIGluIG1hcmtlcnMpIHtcbiAgICAgIGNvbnN0IGNzc0ZvcklkID0gbWFya2Vyc1tpZF1bMF07XG4gICAgICBpZiAoY3NzRm9ySWQpIHtcbiAgICAgICAgc3RyICs9IG1ha2VUZXh0TWFya2VyKGlkKSArIGNzc0ZvcklkO1xuICAgICAgfVxuICAgIH1cbiAgICByZXR1cm4gc3RyO1xuICB9O1xuXG4gIGNvbnN0IGNsb25lID0gKCkgPT4ge1xuICAgIGNvbnN0IG5hbWVzQ2xvbmUgPSBjbG9uZU5hbWVzKG5hbWVzKTtcbiAgICBjb25zdCBtYXJrZXJzQ2xvbmUgPSBPYmplY3QuY3JlYXRlKG51bGwpO1xuXG4gICAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIGd1YXJkLWZvci1pblxuICAgIGZvciAoY29uc3QgaWQgaW4gbWFya2Vycykge1xuICAgICAgbWFya2Vyc0Nsb25lW2lkXSA9IFttYXJrZXJzW2lkXVswXV07XG4gICAgfVxuXG4gICAgcmV0dXJuIG1ha2VTZXJ2ZXJUYWcobmFtZXNDbG9uZSwgbWFya2Vyc0Nsb25lKTtcbiAgfTtcblxuICBjb25zdCB0YWcgPSB7XG4gICAgY2xvbmUsXG4gICAgY3NzLFxuICAgIGdldElkczogZ2V0SWRzRnJvbU1hcmtlcnNGYWN0b3J5KG1hcmtlcnMpLFxuICAgIGhhc05hbWVGb3JJZDogaGFzTmFtZUZvcklkKG5hbWVzKSxcbiAgICBpbnNlcnRNYXJrZXIsXG4gICAgaW5zZXJ0UnVsZXMsXG4gICAgcmVtb3ZlUnVsZXMsXG4gICAgc2VhbGVkOiBmYWxzZSxcbiAgICBzdHlsZVRhZzogbnVsbCxcbiAgICB0b0VsZW1lbnQ6IHdyYXBBc0VsZW1lbnQoY3NzLCBuYW1lcyksXG4gICAgdG9IVE1MOiB3cmFwQXNIdG1sVGFnKGNzcywgbmFtZXMpLFxuICB9O1xuXG4gIHJldHVybiB0YWc7XG59O1xuXG5leHBvcnQgY29uc3QgbWFrZVRhZyA9IChcbiAgdGFyZ2V0OiA/SFRNTEVsZW1lbnQsXG4gIHRhZ0VsOiA/SFRNTFN0eWxlRWxlbWVudCxcbiAgZm9yY2VTZXJ2ZXI/OiBib29sZWFuLFxuICBpbnNlcnRCZWZvcmU/OiBib29sZWFuLFxuICBnZXRJbXBvcnRSdWxlVGFnPzogKCkgPT4gVGFnPGFueT5cbik6IFRhZzxhbnk+ID0+IHtcbiAgaWYgKElTX0JST1dTRVIgJiYgIWZvcmNlU2VydmVyKSB7XG4gICAgY29uc3QgZWwgPSBtYWtlU3R5bGVUYWcodGFyZ2V0LCB0YWdFbCwgaW5zZXJ0QmVmb3JlKTtcblxuICAgIGlmIChESVNBQkxFX1NQRUVEWSkge1xuICAgICAgcmV0dXJuIG1ha2VCcm93c2VyVGFnKGVsLCBnZXRJbXBvcnRSdWxlVGFnKTtcbiAgICB9IGVsc2Uge1xuICAgICAgcmV0dXJuIG1ha2VTcGVlZHlUYWcoZWwsIGdldEltcG9ydFJ1bGVUYWcpO1xuICAgIH1cbiAgfVxuXG4gIHJldHVybiBtYWtlU2VydmVyVGFnKCk7XG59O1xuXG5leHBvcnQgY29uc3QgcmVoeWRyYXRlID0gKFxuICB0YWc6IFRhZzxhbnk+LFxuICBlbHM6IEhUTUxTdHlsZUVsZW1lbnRbXSxcbiAgZXh0cmFjdGVkOiBFeHRyYWN0ZWRDb21wW11cbik6IHZvaWQgPT4ge1xuICAvKiBhZGQgYWxsIGV4dHJhY3RlZCBjb21wb25lbnRzIHRvIHRoZSBuZXcgdGFnICovXG4gIGZvciAobGV0IGkgPSAwLCBsZW4gPSBleHRyYWN0ZWQubGVuZ3RoOyBpIDwgbGVuOyBpICs9IDEpIHtcbiAgICBjb25zdCB7IGNvbXBvbmVudElkLCBjc3NGcm9tRE9NIH0gPSBleHRyYWN0ZWRbaV07XG4gICAgY29uc3QgY3NzUnVsZXMgPSBzcGxpdEJ5UnVsZXMoY3NzRnJvbURPTSk7XG4gICAgdGFnLmluc2VydFJ1bGVzKGNvbXBvbmVudElkLCBjc3NSdWxlcyk7XG4gIH1cblxuICAvKiByZW1vdmUgb2xkIEhUTUxTdHlsZUVsZW1lbnRzLCBzaW5jZSB0aGV5IGhhdmUgYmVlbiByZWh5ZHJhdGVkICovXG4gIGZvciAobGV0IGkgPSAwLCBsZW4gPSBlbHMubGVuZ3RoOyBpIDwgbGVuOyBpICs9IDEpIHtcbiAgICBjb25zdCBlbCA9IGVsc1tpXTtcbiAgICBpZiAoZWwucGFyZW50Tm9kZSkge1xuICAgICAgZWwucGFyZW50Tm9kZS5yZW1vdmVDaGlsZChlbCk7XG4gICAgfVxuICB9XG59O1xuIiwiLy8gQGZsb3dcbmltcG9ydCBSZWFjdCwgeyBjcmVhdGVDb250ZXh0LCBDb21wb25lbnQsIHR5cGUgRWxlbWVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBtZW1vaXplIGZyb20gJ21lbW9pemUtb25lJztcbmltcG9ydCBTdHlsZWRFcnJvciBmcm9tICcuLi91dGlscy9lcnJvcic7XG5pbXBvcnQgaXNGdW5jdGlvbiBmcm9tICcuLi91dGlscy9pc0Z1bmN0aW9uJztcblxuZXhwb3J0IHR5cGUgVGhlbWUgPSB7IFtrZXk6IHN0cmluZ106IG1peGVkIH07XG5cbnR5cGUgUHJvcHMgPSB7XG4gIGNoaWxkcmVuPzogRWxlbWVudDxhbnk+LFxuICB0aGVtZTogVGhlbWUgfCAoKG91dGVyVGhlbWU6IFRoZW1lKSA9PiB2b2lkKSxcbn07XG5cbmV4cG9ydCBjb25zdCBUaGVtZUNvbnRleHQgPSBjcmVhdGVDb250ZXh0KCk7XG5cbmV4cG9ydCBjb25zdCBUaGVtZUNvbnN1bWVyID0gVGhlbWVDb250ZXh0LkNvbnN1bWVyO1xuXG4vKipcbiAqIFByb3ZpZGUgYSB0aGVtZSB0byBhbiBlbnRpcmUgcmVhY3QgY29tcG9uZW50IHRyZWUgdmlhIGNvbnRleHRcbiAqL1xuZXhwb3J0IGRlZmF1bHQgY2xhc3MgVGhlbWVQcm92aWRlciBleHRlbmRzIENvbXBvbmVudDxQcm9wcz4ge1xuICBnZXRDb250ZXh0OiAodGhlbWU6IFRoZW1lIHwgKChvdXRlclRoZW1lOiBUaGVtZSkgPT4gdm9pZCksIG91dGVyVGhlbWU/OiBUaGVtZSkgPT4gVGhlbWU7XG5cbiAgcmVuZGVySW5uZXI6IEZ1bmN0aW9uO1xuXG4gIGNvbnN0cnVjdG9yKHByb3BzOiBQcm9wcykge1xuICAgIHN1cGVyKHByb3BzKTtcbiAgICB0aGlzLmdldENvbnRleHQgPSBtZW1vaXplKHRoaXMuZ2V0Q29udGV4dC5iaW5kKHRoaXMpKTtcbiAgICB0aGlzLnJlbmRlcklubmVyID0gdGhpcy5yZW5kZXJJbm5lci5iaW5kKHRoaXMpO1xuICB9XG5cbiAgcmVuZGVyKCkge1xuICAgIGlmICghdGhpcy5wcm9wcy5jaGlsZHJlbikgcmV0dXJuIG51bGw7XG5cbiAgICByZXR1cm4gPFRoZW1lQ29udGV4dC5Db25zdW1lcj57dGhpcy5yZW5kZXJJbm5lcn08L1RoZW1lQ29udGV4dC5Db25zdW1lcj47XG4gIH1cblxuICByZW5kZXJJbm5lcihvdXRlclRoZW1lPzogVGhlbWUpIHtcbiAgICBjb25zdCBjb250ZXh0ID0gdGhpcy5nZXRDb250ZXh0KHRoaXMucHJvcHMudGhlbWUsIG91dGVyVGhlbWUpO1xuXG4gICAgcmV0dXJuIChcbiAgICAgIDxUaGVtZUNvbnRleHQuUHJvdmlkZXIgdmFsdWU9e2NvbnRleHR9PlxuICAgICAgICB7UmVhY3QuQ2hpbGRyZW4ub25seSh0aGlzLnByb3BzLmNoaWxkcmVuKX1cbiAgICAgIDwvVGhlbWVDb250ZXh0LlByb3ZpZGVyPlxuICAgICk7XG4gIH1cblxuICAvKipcbiAgICogR2V0IHRoZSB0aGVtZSBmcm9tIHRoZSBwcm9wcywgc3VwcG9ydGluZyBib3RoIChvdXRlclRoZW1lKSA9PiB7fVxuICAgKiBhcyB3ZWxsIGFzIG9iamVjdCBub3RhdGlvblxuICAgKi9cbiAgZ2V0VGhlbWUodGhlbWU6IChvdXRlclRoZW1lOiA/VGhlbWUpID0+IHZvaWQsIG91dGVyVGhlbWU6ID9UaGVtZSkge1xuICAgIGlmIChpc0Z1bmN0aW9uKHRoZW1lKSkge1xuICAgICAgY29uc3QgbWVyZ2VkVGhlbWUgPSB0aGVtZShvdXRlclRoZW1lKTtcblxuICAgICAgaWYgKFxuICAgICAgICBwcm9jZXNzLmVudi5OT0RFX0VOViAhPT0gJ3Byb2R1Y3Rpb24nICYmXG4gICAgICAgIChtZXJnZWRUaGVtZSA9PT0gbnVsbCB8fCBBcnJheS5pc0FycmF5KG1lcmdlZFRoZW1lKSB8fCB0eXBlb2YgbWVyZ2VkVGhlbWUgIT09ICdvYmplY3QnKVxuICAgICAgKSB7XG4gICAgICAgIHRocm93IG5ldyBTdHlsZWRFcnJvcig3KTtcbiAgICAgIH1cblxuICAgICAgcmV0dXJuIG1lcmdlZFRoZW1lO1xuICAgIH1cblxuICAgIGlmICh0aGVtZSA9PT0gbnVsbCB8fCBBcnJheS5pc0FycmF5KHRoZW1lKSB8fCB0eXBlb2YgdGhlbWUgIT09ICdvYmplY3QnKSB7XG4gICAgICB0aHJvdyBuZXcgU3R5bGVkRXJyb3IoOCk7XG4gICAgfVxuXG4gICAgcmV0dXJuIHsgLi4ub3V0ZXJUaGVtZSwgLi4udGhlbWUgfTtcbiAgfVxuXG4gIGdldENvbnRleHQodGhlbWU6IChvdXRlclRoZW1lOiA/VGhlbWUpID0+IHZvaWQsIG91dGVyVGhlbWU/OiBUaGVtZSkge1xuICAgIHJldHVybiB0aGlzLmdldFRoZW1lKHRoZW1lLCBvdXRlclRoZW1lKTtcbiAgfVxufVxuIiwiLy8gQGZsb3dcbmltcG9ydCBSZWFjdCwgeyBjcmVhdGVDb250ZXh0LCBDb21wb25lbnQsIHR5cGUgRWxlbWVudCB9IGZyb20gJ3JlYWN0JztcbmltcG9ydCBQcm9wVHlwZXMgZnJvbSAncHJvcC10eXBlcyc7XG5pbXBvcnQgbWVtb2l6ZSBmcm9tICdtZW1vaXplLW9uZSc7XG5pbXBvcnQgU3R5bGVTaGVldCBmcm9tICcuL1N0eWxlU2hlZXQnO1xuaW1wb3J0IFNlcnZlclN0eWxlU2hlZXQgZnJvbSAnLi9TZXJ2ZXJTdHlsZVNoZWV0JztcbmltcG9ydCBTdHlsZWRFcnJvciBmcm9tICcuLi91dGlscy9lcnJvcic7XG5cbnR5cGUgUHJvcHMgPSB7XG4gIGNoaWxkcmVuPzogRWxlbWVudDxhbnk+LFxuICBzaGVldD86IFN0eWxlU2hlZXQsXG4gIHRhcmdldD86IEhUTUxFbGVtZW50LFxufTtcblxuZXhwb3J0IGNvbnN0IFN0eWxlU2hlZXRDb250ZXh0ID0gY3JlYXRlQ29udGV4dCgpO1xuZXhwb3J0IGNvbnN0IFN0eWxlU2hlZXRDb25zdW1lciA9IFN0eWxlU2hlZXRDb250ZXh0LkNvbnN1bWVyO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBTdHlsZVNoZWV0TWFuYWdlciBleHRlbmRzIENvbXBvbmVudDxQcm9wcz4ge1xuICBzdGF0aWMgcHJvcFR5cGVzID0ge1xuICAgIHNoZWV0OiBQcm9wVHlwZXMub25lT2ZUeXBlKFtcbiAgICAgIFByb3BUeXBlcy5pbnN0YW5jZU9mKFN0eWxlU2hlZXQpLFxuICAgICAgUHJvcFR5cGVzLmluc3RhbmNlT2YoU2VydmVyU3R5bGVTaGVldCksXG4gICAgXSksXG5cbiAgICB0YXJnZXQ6IFByb3BUeXBlcy5zaGFwZSh7XG4gICAgICBhcHBlbmRDaGlsZDogUHJvcFR5cGVzLmZ1bmMuaXNSZXF1aXJlZCxcbiAgICB9KSxcbiAgfTtcblxuICBnZXRDb250ZXh0OiAoc2hlZXQ6ID9TdHlsZVNoZWV0LCB0YXJnZXQ6ID9IVE1MRWxlbWVudCkgPT4gU3R5bGVTaGVldDtcblxuICBjb25zdHJ1Y3Rvcihwcm9wczogUHJvcHMpIHtcbiAgICBzdXBlcihwcm9wcyk7XG4gICAgdGhpcy5nZXRDb250ZXh0ID0gbWVtb2l6ZSh0aGlzLmdldENvbnRleHQpO1xuICB9XG5cbiAgZ2V0Q29udGV4dChzaGVldDogP1N0eWxlU2hlZXQsIHRhcmdldDogP0hUTUxFbGVtZW50KSB7XG4gICAgaWYgKHNoZWV0KSB7XG4gICAgICByZXR1cm4gc2hlZXQ7XG4gICAgfSBlbHNlIGlmICh0YXJnZXQpIHtcbiAgICAgIHJldHVybiBuZXcgU3R5bGVTaGVldCh0YXJnZXQpO1xuICAgIH0gZWxzZSB7XG4gICAgICB0aHJvdyBuZXcgU3R5bGVkRXJyb3IoNCk7XG4gICAgfVxuICB9XG5cbiAgcmVuZGVyKCkge1xuICAgIGNvbnN0IHsgY2hpbGRyZW4sIHNoZWV0LCB0YXJnZXQgfSA9IHRoaXMucHJvcHM7XG5cbiAgICByZXR1cm4gKFxuICAgICAgPFN0eWxlU2hlZXRDb250ZXh0LlByb3ZpZGVyIHZhbHVlPXt0aGlzLmdldENvbnRleHQoc2hlZXQsIHRhcmdldCl9PlxuICAgICAgICB7cHJvY2Vzcy5lbnYuTk9ERV9FTlYgIT09ICdwcm9kdWN0aW9uJyA/IFJlYWN0LkNoaWxkcmVuLm9ubHkoY2hpbGRyZW4pIDogY2hpbGRyZW59XG4gICAgICA8L1N0eWxlU2hlZXRDb250ZXh0LlByb3ZpZGVyPlxuICAgICk7XG4gIH1cbn1cbiIsIi8vIEBmbG93XG5pbXBvcnQgdmFsaWRBdHRyIGZyb20gJ0BlbW90aW9uL2lzLXByb3AtdmFsaWQnO1xuaW1wb3J0IG1lcmdlIGZyb20gJ21lcmdlLWFueXRoaW5nJztcbmltcG9ydCBSZWFjdCwgeyBjcmVhdGVFbGVtZW50LCBDb21wb25lbnQgfSBmcm9tICdyZWFjdCc7XG5pbXBvcnQgQ29tcG9uZW50U3R5bGUgZnJvbSAnLi9Db21wb25lbnRTdHlsZSc7XG5pbXBvcnQgY3JlYXRlV2FyblRvb01hbnlDbGFzc2VzIGZyb20gJy4uL3V0aWxzL2NyZWF0ZVdhcm5Ub29NYW55Q2xhc3Nlcyc7XG5pbXBvcnQgZGV0ZXJtaW5lVGhlbWUgZnJvbSAnLi4vdXRpbHMvZGV0ZXJtaW5lVGhlbWUnO1xuaW1wb3J0IGVzY2FwZSBmcm9tICcuLi91dGlscy9lc2NhcGUnO1xuaW1wb3J0IGdlbmVyYXRlRGlzcGxheU5hbWUgZnJvbSAnLi4vdXRpbHMvZ2VuZXJhdGVEaXNwbGF5TmFtZSc7XG5pbXBvcnQgZ2V0Q29tcG9uZW50TmFtZSBmcm9tICcuLi91dGlscy9nZXRDb21wb25lbnROYW1lJztcbmltcG9ydCBob2lzdCBmcm9tICcuLi91dGlscy9ob2lzdCc7XG5pbXBvcnQgaXNGdW5jdGlvbiBmcm9tICcuLi91dGlscy9pc0Z1bmN0aW9uJztcbmltcG9ydCBpc1RhZyBmcm9tICcuLi91dGlscy9pc1RhZyc7XG5pbXBvcnQgaXNEZXJpdmVkUmVhY3RDb21wb25lbnQgZnJvbSAnLi4vdXRpbHMvaXNEZXJpdmVkUmVhY3RDb21wb25lbnQnO1xuaW1wb3J0IGlzU3R5bGVkQ29tcG9uZW50IGZyb20gJy4uL3V0aWxzL2lzU3R5bGVkQ29tcG9uZW50JztcbmltcG9ydCBvbmNlIGZyb20gJy4uL3V0aWxzL29uY2UnO1xuaW1wb3J0IFN0eWxlU2hlZXQgZnJvbSAnLi9TdHlsZVNoZWV0JztcbmltcG9ydCB7IFRoZW1lQ29uc3VtZXIsIHR5cGUgVGhlbWUgfSBmcm9tICcuL1RoZW1lUHJvdmlkZXInO1xuaW1wb3J0IHsgU3R5bGVTaGVldENvbnN1bWVyIH0gZnJvbSAnLi9TdHlsZVNoZWV0TWFuYWdlcic7XG5pbXBvcnQgeyBFTVBUWV9BUlJBWSwgRU1QVFlfT0JKRUNUIH0gZnJvbSAnLi4vdXRpbHMvZW1wdGllcyc7XG5cbmltcG9ydCB0eXBlIHsgQXR0cnMsIFJ1bGVTZXQsIFRhcmdldCB9IGZyb20gJy4uL3R5cGVzJztcblxuY29uc3QgaWRlbnRpZmllcnMgPSB7fTtcblxuLyogV2UgZGVwZW5kIG9uIGNvbXBvbmVudHMgaGF2aW5nIHVuaXF1ZSBJRHMgKi9cbmZ1bmN0aW9uIGdlbmVyYXRlSWQoX0NvbXBvbmVudFN0eWxlOiBGdW5jdGlvbiwgX2Rpc3BsYXlOYW1lOiBzdHJpbmcsIHBhcmVudENvbXBvbmVudElkOiBzdHJpbmcpIHtcbiAgY29uc3QgZGlzcGxheU5hbWUgPSB0eXBlb2YgX2Rpc3BsYXlOYW1lICE9PSAnc3RyaW5nJyA/ICdzYycgOiBlc2NhcGUoX2Rpc3BsYXlOYW1lKTtcblxuICAvKipcbiAgICogVGhpcyBlbnN1cmVzIHVuaXF1ZW5lc3MgaWYgdHdvIGNvbXBvbmVudHMgaGFwcGVuIHRvIHNoYXJlXG4gICAqIHRoZSBzYW1lIGRpc3BsYXlOYW1lLlxuICAgKi9cbiAgY29uc3QgbnIgPSAoaWRlbnRpZmllcnNbZGlzcGxheU5hbWVdIHx8IDApICsgMTtcbiAgaWRlbnRpZmllcnNbZGlzcGxheU5hbWVdID0gbnI7XG5cbiAgY29uc3QgY29tcG9uZW50SWQgPSBgJHtkaXNwbGF5TmFtZX0tJHtfQ29tcG9uZW50U3R5bGUuZ2VuZXJhdGVOYW1lKGRpc3BsYXlOYW1lICsgbnIpfWA7XG5cbiAgcmV0dXJuIHBhcmVudENvbXBvbmVudElkID8gYCR7cGFyZW50Q29tcG9uZW50SWR9LSR7Y29tcG9uZW50SWR9YCA6IGNvbXBvbmVudElkO1xufVxuXG4vLyAkRmxvd0ZpeE1lXG5jbGFzcyBTdHlsZWRDb21wb25lbnQgZXh0ZW5kcyBDb21wb25lbnQ8Kj4ge1xuICByZW5kZXJPdXRlcjogRnVuY3Rpb247XG5cbiAgcmVuZGVySW5uZXI6IEZ1bmN0aW9uO1xuXG4gIHN0eWxlU2hlZXQ6ID9TdHlsZVNoZWV0O1xuXG4gIHdhcm5Jbm5lclJlZjogRnVuY3Rpb247XG5cbiAgd2FybkF0dHJzRm5PYmplY3RLZXlEZXByZWNhdGVkOiBGdW5jdGlvbjtcblxuICB3YXJuTm9uU3R5bGVkQ29tcG9uZW50QXR0cnNPYmplY3RLZXk6IEZ1bmN0aW9uO1xuXG4gIGF0dHJzID0ge307XG5cbiAgY29uc3RydWN0b3IoKSB7XG4gICAgc3VwZXIoKTtcbiAgICB0aGlzLnJlbmRlck91dGVyID0gdGhpcy5yZW5kZXJPdXRlci5iaW5kKHRoaXMpO1xuICAgIHRoaXMucmVuZGVySW5uZXIgPSB0aGlzLnJlbmRlcklubmVyLmJpbmQodGhpcyk7XG5cbiAgICBpZiAocHJvY2Vzcy5lbnYuTk9ERV9FTlYgIT09ICdwcm9kdWN0aW9uJykge1xuICAgICAgdGhpcy53YXJuSW5uZXJSZWYgPSBvbmNlKGRpc3BsYXlOYW1lID0+XG4gICAgICAgIC8vIGVzbGludC1kaXNhYmxlLW5leHQtbGluZSBuby1jb25zb2xlXG4gICAgICAgIGNvbnNvbGUud2FybihcbiAgICAgICAgICBgVGhlIFwiaW5uZXJSZWZcIiBBUEkgaGFzIGJlZW4gcmVtb3ZlZCBpbiBzdHlsZWQtY29tcG9uZW50cyB2NCBpbiBmYXZvciBvZiBSZWFjdCAxNiByZWYgZm9yd2FyZGluZywgdXNlIFwicmVmXCIgaW5zdGVhZCBsaWtlIGEgdHlwaWNhbCBjb21wb25lbnQuIFwiaW5uZXJSZWZcIiB3YXMgZGV0ZWN0ZWQgb24gY29tcG9uZW50IFwiJHtkaXNwbGF5TmFtZX1cIi5gXG4gICAgICAgIClcbiAgICAgICk7XG5cbiAgICAgIHRoaXMud2FybkF0dHJzRm5PYmplY3RLZXlEZXByZWNhdGVkID0gb25jZShcbiAgICAgICAgKGtleSwgZGlzcGxheU5hbWUpOiB2b2lkID0+XG4gICAgICAgICAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIG5vLWNvbnNvbGVcbiAgICAgICAgICBjb25zb2xlLndhcm4oXG4gICAgICAgICAgICBgRnVuY3Rpb25zIGFzIG9iamVjdC1mb3JtIGF0dHJzKHt9KSBrZXlzIGFyZSBub3cgZGVwcmVjYXRlZCBhbmQgd2lsbCBiZSByZW1vdmVkIGluIGEgZnV0dXJlIHZlcnNpb24gb2Ygc3R5bGVkLWNvbXBvbmVudHMuIFN3aXRjaCB0byB0aGUgbmV3IGF0dHJzKHByb3BzID0+ICh7fSkpIHN5bnRheCBpbnN0ZWFkIGZvciBlYXNpZXIgYW5kIG1vcmUgcG93ZXJmdWwgY29tcG9zaXRpb24uIFRoZSBhdHRycyBrZXkgaW4gcXVlc3Rpb24gaXMgXCIke2tleX1cIiBvbiBjb21wb25lbnQgXCIke2Rpc3BsYXlOYW1lfVwiLmAsXG4gICAgICAgICAgICBgXFxuICR7bmV3IEVycm9yKCkuc3RhY2t9YFxuICAgICAgICAgIClcbiAgICAgICk7XG5cbiAgICAgIHRoaXMud2Fybk5vblN0eWxlZENvbXBvbmVudEF0dHJzT2JqZWN0S2V5ID0gb25jZShcbiAgICAgICAgKGtleSwgZGlzcGxheU5hbWUpOiB2b2lkID0+XG4gICAgICAgICAgLy8gZXNsaW50LWRpc2FibGUtbmV4dC1saW5lIG5vLWNvbnNvbGVcbiAgICAgICAgICBjb25zb2xlLndhcm4oXG4gICAgICAgICAgICBgSXQgbG9va3MgbGlrZSB5b3UndmUgdXNlZCBhIG5vbiBzdHlsZWQtY29tcG9uZW50IGFzIHRoZSB2YWx1ZSBmb3IgdGhlIFwiJHtrZXl9XCIgcHJvcCBpbiBhbiBvYmplY3QtZm9ybSBhdHRycyBjb25zdHJ1Y3RvciBvZiBcIiR7ZGlzcGxheU5hbWV9XCIuXFxuYCArXG4gICAgICAgICAgICAgICdZb3Ugc2hvdWxkIHVzZSB0aGUgbmV3IGZ1bmN0aW9uLWZvcm0gYXR0cnMgY29uc3RydWN0b3Igd2hpY2ggYXZvaWRzIHRoaXMgaXNzdWU6IGF0dHJzKHByb3BzID0+ICh7IHlvdXJTdHVmZiB9KSlcXG4nICtcbiAgICAgICAgICAgICAgXCJUbyBjb250aW51ZSB1c2luZyB0aGUgZGVwcmVjYXRlZCBvYmplY3Qgc3ludGF4LCB5b3UnbGwgbmVlZCB0byB3cmFwIHlvdXIgY29tcG9uZW50IHByb3AgaW4gYSBmdW5jdGlvbiB0byBtYWtlIGl0IGF2YWlsYWJsZSBpbnNpZGUgdGhlIHN0eWxlZCBjb21wb25lbnQgKHlvdSdsbCBzdGlsbCBnZXQgdGhlIGRlcHJlY2F0aW9uIHdhcm5pbmcgdGhvdWdoLilcXG5cIiArXG4gICAgICAgICAgICAgIGBGb3IgZXhhbXBsZSwgeyAke2tleX06ICgpID0+IElubmVyQ29tcG9uZW50IH0gaW5zdGVhZCBvZiB7ICR7a2V5fTogSW5uZXJDb21wb25lbnQgfWBcbiAgICAgICAgICApXG4gICAgICApO1xuICAgIH1cbiAgfVxuXG4gIHJlbmRlcigpIHtcbiAgICByZXR1cm4gPFN0eWxlU2hlZXRDb25zdW1lcj57dGhpcy5yZW5kZXJPdXRlcn08L1N0eWxlU2hlZXRDb25zdW1lcj47XG4gIH1cblxuICByZW5kZXJPdXRlcihzdHlsZVNoZWV0PzogU3R5bGVTaGVldCA9IFN0eWxlU2hlZXQubWFzdGVyKSB7XG4gICAgdGhpcy5zdHlsZVNoZWV0ID0gc3R5bGVTaGVldDtcblxuICAgIC8vIE5vIG5lZWQgdG8gc3Vic2NyaWJlIGEgc3RhdGljIGNvbXBvbmVudCB0byB0aGVtZSBjaGFuZ2VzLCBpdCB3b24ndCBjaGFuZ2UgYW55dGhpbmdcbiAgICBpZiAodGhpcy5wcm9wcy5mb3J3YXJkZWRDb21wb25lbnQuY29tcG9uZW50U3R5bGUuaXNTdGF0aWMpIHJldHVybiB0aGlzLnJlbmRlcklubmVyKCk7XG5cbiAgICByZXR1cm4gPFRoZW1lQ29uc3VtZXI+e3RoaXMucmVuZGVySW5uZXJ9PC9UaGVtZUNvbnN1bWVyPjtcbiAgfVxuXG4gIHJlbmRlcklubmVyKHRoZW1lPzogVGhlbWUpIHtcbiAgICBjb25zdCB7XG4gICAgICBjb21wb25lbnRTdHlsZSxcbiAgICAgIGRlZmF1bHRQcm9wcyxcbiAgICAgIGRpc3BsYXlOYW1lLFxuICAgICAgZm9sZGVkQ29tcG9uZW50SWRzLFxuICAgICAgc3R5bGVkQ29tcG9uZW50SWQsXG4gICAgICB0YXJnZXQsXG4gICAgfSA9IHRoaXMucHJvcHMuZm9yd2FyZGVkQ29tcG9uZW50O1xuXG4gICAgbGV0IGdlbmVyYXRlZENsYXNzTmFtZTtcbiAgICBpZiAoY29tcG9uZW50U3R5bGUuaXNTdGF0aWMpIHtcbiAgICAgIGdlbmVyYXRlZENsYXNzTmFtZSA9IHRoaXMuZ2VuZXJhdGVBbmRJbmplY3RTdHlsZXMoRU1QVFlfT0JKRUNULCB0aGlzLnByb3BzKTtcbiAgICB9IGVsc2Uge1xuICAgICAgZ2VuZXJhdGVkQ2xhc3NOYW1lID0gdGhpcy5nZW5lcmF0ZUFuZEluamVjdFN0eWxlcyhcbiAgICAgICAgZGV0ZXJtaW5lVGhlbWUodGhpcy5wcm9wcywgdGhlbWUsIGRlZmF1bHRQcm9wcykgfHwgRU1QVFlfT0JKRUNULFxuICAgICAgICB0aGlzLnByb3BzXG4gICAgICApO1xuICAgIH1cblxuICAgIGNvbnN0IGVsZW1lbnRUb0JlQ3JlYXRlZCA9IHRoaXMucHJvcHMuYXMgfHwgdGhpcy5hdHRycy5hcyB8fCB0YXJnZXQ7XG4gICAgY29uc3QgaXNUYXJnZXRUYWcgPSBpc1RhZyhlbGVtZW50VG9CZUNyZWF0ZWQpO1xuXG4gICAgY29uc3QgcHJvcHNGb3JFbGVtZW50ID0ge307XG4gICAgY29uc3QgY29tcHV0ZWRQcm9wcyA9IHsgLi4udGhpcy5hdHRycywgLi4udGhpcy5wcm9wcyB9O1xuXG4gICAgbGV0IGtleTtcbiAgICAvLyBlc2xpbnQtZGlzYWJsZS1uZXh0LWxpbmUgZ3VhcmQtZm9yLWluXG4gICAgZm9yIChrZXkgaW4gY29tcHV0ZWRQcm9wcykge1xuICAgICAgaWYgKHByb2Nlc3MuZW52Lk5PREVfRU5WICE9PSAncHJvZHVjdGlvbicgJiYga2V5ID09PSAnaW5uZXJSZWYnICYmIGlzVGFyZ2V0VGFnKSB7XG4gICAgICAgIHRoaXMud2FybklubmVyUmVmKGRpc3BsYXlOYW1lKTtcbiAgICAgIH1cblxuICAgICAgaWYgKGtleSA9PT0gJ2ZvcndhcmRlZENvbXBvbmVudCcgfHwga2V5ID09PSAnYXMnKSB7XG4gICAgICAgIGNvbnRpbnVlO1xuICAgICAgfSBlbHNlIGlmIChrZXkgPT09ICdmb3J3YXJkZWRSZWYnKSBwcm9wc0ZvckVsZW1lbnQucmVmID0gY29tcHV0ZWRQcm9wc1trZXldO1xuICAgICAgZWxzZSBpZiAoa2V5ID09PSAnZm9yd2FyZGVkQXMnKSBwcm9wc0ZvckVsZW1lbnQuYXMgPSBjb21wdXRlZFByb3BzW2tleV07XG4gICAgICBlbHNlIGlmICghaXNUYXJnZXRUYWcgfHwgdmFsaWRBdHRyKGtleSkpIHtcbiAgICAgICAgLy8gRG9uJ3QgcGFzcyB0aHJvdWdoIG5vbiBIVE1MIHRhZ3MgdGhyb3VnaCB0byBIVE1MIGVsZW1lbnRzXG4gICAgICAgIHByb3BzRm9yRWxlbWVudFtrZXldID0gY29tcHV0ZWRQcm9wc1trZXldO1xuICAgICAgfVxuICAgIH1cblxuICAgIGlmICh0aGlzLnByb3BzLnN0eWxlICYmIHRoaXMuYXR0cnMuc3R5bGUpIHtcbiAgICAgIHByb3BzRm9yRWxlbWVudC5zdHlsZSA9IHsgLi4udGhpcy5hdHRycy5zdHlsZSwgLi4udGhpcy5wcm9wcy5zdHlsZSB9O1xuICAgIH1cblxuICAgIHByb3BzRm9yRWxlbWVudC5jbGFzc05hbWUgPSBBcnJheS5wcm90b3R5cGVcbiAgICAgIC5jb25jYXQoXG4gICAgICAgIGZvbGRlZENvbXBvbmVudElkcyxcbiAgICAgICAgdGhpcy5wcm9wcy5jbGFzc05hbWUsXG4gICAgICAgIHN0eWxlZENvbXBvbmVudElkLFxuICAgICAgICB0aGlzLmF0dHJzLmNsYXNzTmFtZSxcbiAgICAgICAgZ2VuZXJhdGVkQ2xhc3NOYW1lXG4gICAgICApXG4gICAgICAuZmlsdGVyKEJvb2xlYW4pXG4gICAgICAuam9pbignICcpO1xuXG4gICAgcmV0dXJuIGNyZWF0ZUVsZW1lbnQoZWxlbWVudFRvQmVDcmVhdGVkLCBwcm9wc0ZvckVsZW1lbnQpO1xuICB9XG5cbiAgYnVpbGRFeGVjdXRpb25Db250ZXh0KHRoZW1lOiA/T2JqZWN0LCBwcm9wczogT2JqZWN0LCBhdHRyczogQXR0cnMpIHtcbiAgICBjb25zdCBjb250ZXh0ID0geyAuLi5wcm9wcywgdGhlbWUgfTtcblxuICAgIGlmICghYXR0cnMubGVuZ3RoKSByZXR1cm4gY29udGV4dDtcblxuICAgIHRoaXMuYXR0cnMgPSB7fTtcblxuICAgIGF0dHJzLmZvckVhY2goYXR0ckRlZiA9PiB7XG4gICAgICBsZXQgcmVzb2x2ZWRBdHRyRGVmID0gYXR0ckRlZjtcbiAgICAgIGxldCBhdHRyRGVmV2FzRm4gPSBmYWxzZTtcbiAgICAgIGxldCBhdHRyO1xuICAgICAgbGV0IGtleTtcblxuICAgICAgaWYgKGlzRnVuY3Rpb24ocmVzb2x2ZWRBdHRyRGVmKSkge1xuICAgICAgICAvLyAkRmxvd0ZpeE1lXG4gICAgICAgIHJlc29sdmVkQXR0ckRlZiA9IHJlc29sdmVkQXR0ckRlZihjb250ZXh0KTtcbiAgICAgICAgYXR0ckRlZldhc0ZuID0gdHJ1ZTtcbiAgICAgIH1cblxuICAgICAgLyogZXNsaW50LWRpc2FibGUgZ3VhcmQtZm9yLWluICovXG4gICAgICAvLyAkRmxvd0ZpeE1lXG4gICAgICBmb3IgKGtleSBpbiByZXNvbHZlZEF0dHJEZWYpIHtcbiAgICAgICAgYXR0ciA9IHJlc29sdmVkQXR0ckRlZltrZXldO1xuXG4gICAgICAgIGlmICghYXR0ckRlZldhc0ZuKSB7XG4gICAgICAgICAgaWYgKGlzRnVuY3Rpb24oYXR0cikgJiYgIWlzRGVyaXZlZFJlYWN0Q29tcG9uZW50KGF0dHIpICYmICFpc1N0eWxlZENvbXBvbmVudChhdHRyKSkge1xuICAgICAgICAgICAgaWYgKHByb2Nlc3MuZW52Lk5PREVfRU5WICE9PSAncHJvZHVjdGlvbicpIHtcbiAgICAgICAgICAgICAgdGhpcy53YXJuQXR0cnNGbk9iamVjdEtleURlcHJlY2F0ZWQoa2V5LCBwcm9wcy5mb3J3YXJkZWRDb21wb25lbnQuZGlzcGxheU5hbWUpO1xuICAgICAgICAgICAgfVxuXG4gICAgICAgICAgICBhdHRyID0gYXR0cihjb250ZXh0KTtcblxuICAgICAgICAgICAgaWYgKHByb2Nlc3MuZW52Lk5PREVfRU5WICE9PSAncHJvZHVjdGlvbicgJiYgUmVhY3QuaXNWYWxpZEVsZW1lbnQoYXR0cikpIHtcbiAgICAgICAgICAgICAgdGhpcy53YXJuTm9uU3R5bGVkQ29tcG9uZW50QXR0cnNPYmplY3RLZXkoa2V5LCBwcm9wcy5mb3J3YXJkZWRDb21wb25lbnQuZGlzcGxheU5hbWUpO1xuICAgICAgICAgICAgfVxuICAgICAgICAgIH1cbiAgICAgICAgfVxuXG4gICAgICAgIHRoaXMuYXR0cnNba2V5XSA9IGF0dHI7XG4gICAgICAgIGNvbnRleHRba2V5XSA9IGF0dHI7XG4gICAgICB9XG4gICAgICAvKiBlc2xpbnQtZW5hYmxlICovXG4gICAgfSk7XG5cbiAgICByZXR1cm4gY29udGV4dDtcbiAgfVxuXG4gIGdlbmVyYXRlQW5kSW5qZWN0U3R5bGVzKHRoZW1lOiBhbnksIHByb3BzOiBhbnkpIHtcbiAgICBjb25zdCB7IGF0dHJzLCBjb21wb25lbnRTdHlsZSwgd2FyblRvb01hbnlDbGFzc2VzIH0gPSBwcm9wcy5mb3J3YXJkZWRDb21wb25lbnQ7XG5cbiAgICAvLyBzdGF0aWNhbGx5IHN0eWxlZC1jb21wb25lbnRzIGRvbid0IG5lZWQgdG8gYnVpbGQgYW4gZXhlY3V0aW9uIGNvbnRleHQgb2JqZWN0LFxuICAgIC8vIGFuZCBzaG91bGRuJ3QgYmUgaW5jcmVhc2luZyB0aGUgbnVtYmVyIG9mIGNsYXNzIG5hbWVzXG4gICAgaWYgKGNvbXBvbmVudFN0eWxlLmlzU3RhdGljICYmICFhdHRycy5sZW5ndGgpIHtcbiAgICAgIHJldHVybiBjb21wb25lbnRTdHlsZS5nZW5lcmF0ZUFuZEluamVjdFN0eWxlcyhFTVBUWV9PQkpFQ1QsIHRoaXMuc3R5bGVTaGVldCk7XG4gICAgfVxuXG4gICAgY29uc3QgY2xhc3NOYW1lID0gY29tcG9uZW50U3R5bGUuZ2VuZXJhdGVBbmRJbmplY3RTdHlsZXMoXG4gICAgICB0aGlzLmJ1aWxkRXhlY3V0aW9uQ29udGV4dCh0aGVtZSwgcHJvcHMsIGF0dHJzKSxcbiAgICAgIHRoaXMuc3R5bGVTaGVldFxuICAgICk7XG5cbiAgICBpZiAocHJvY2Vzcy5lbnYuTk9ERV9FTlYgIT09ICdwcm9kdWN0aW9uJyAmJiB3YXJuVG9vTWFueUNsYXNzZXMpIHdhcm5Ub29NYW55Q2xhc3NlcyhjbGFzc05hbWUpO1xuXG4gICAgcmV0dXJuIGNsYXNzTmFtZTtcbiAgfVxufVxuXG5leHBvcnQgZGVmYXVsdCBmdW5jdGlvbiBjcmVhdGVTdHlsZWRDb21wb25lbnQodGFyZ2V0OiBUYXJnZXQsIG9wdGlvbnM6IE9iamVjdCwgcnVsZXM6IFJ1bGVTZXQpIHtcbiAgY29uc3QgaXNUYXJnZXRTdHlsZWRDb21wID0gaXNTdHlsZWRDb21wb25lbnQodGFyZ2V0KTtcbiAgY29uc3QgaXNDbGFzcyA9ICFpc1RhZyh0YXJnZXQpO1xuXG4gIGNvbnN0IHtcbiAgICBkaXNwbGF5TmFtZSA9IGdlbmVyYXRlRGlzcGxheU5hbWUodGFyZ2V0KSxcbiAgICBjb21wb25lbnRJZCA9IGdlbmVyYXRlSWQoQ29tcG9uZW50U3R5bGUsIG9wdGlvbnMuZGlzcGxheU5hbWUsIG9wdGlvbnMucGFyZW50Q29tcG9uZW50SWQpLFxuICAgIFBhcmVudENvbXBvbmVudCA9IFN0eWxlZENvbXBvbmVudCxcbiAgICBhdHRycyA9IEVNUFRZX0FSUkFZLFxuICB9ID0gb3B0aW9ucztcblxuICBjb25zdCBzdHlsZWRDb21wb25lbnRJZCA9XG4gICAgb3B0aW9ucy5kaXNwbGF5TmFtZSAmJiBvcHRpb25zLmNvbXBvbmVudElkXG4gICAgICA/IGAke2VzY2FwZShvcHRpb25zLmRpc3BsYXlOYW1lKX0tJHtvcHRpb25zLmNvbXBvbmVudElkfWBcbiAgICAgIDogb3B0aW9ucy5jb21wb25lbnRJZCB8fCBjb21wb25lbnRJZDtcblxuICAvLyBmb2xkIHRoZSB1bmRlcmx5aW5nIFN0eWxlZENvbXBvbmVudCBhdHRycyB1cCAoaW1wbGljaXQgZXh0ZW5kKVxuICBjb25zdCBmaW5hbEF0dHJzID1cbiAgICAvLyAkRmxvd0ZpeE1lXG4gICAgaXNUYXJnZXRTdHlsZWRDb21wICYmIHRhcmdldC5hdHRyc1xuICAgICAgPyBBcnJheS5wcm90b3R5cGUuY29uY2F0KHRhcmdldC5hdHRycywgYXR0cnMpLmZpbHRlcihCb29sZWFuKVxuICAgICAgOiBhdHRycztcblxuICBjb25zdCBjb21wb25lbnRTdHlsZSA9IG5ldyBDb21wb25lbnRTdHlsZShcbiAgICBpc1RhcmdldFN0eWxlZENvbXBcbiAgICAgID8gLy8gZm9sZCB0aGUgdW5kZXJseWluZyBTdHlsZWRDb21wb25lbnQgcnVsZXMgdXAgKGltcGxpY2l0IGV4dGVuZClcbiAgICAgICAgLy8gJEZsb3dGaXhNZVxuICAgICAgICB0YXJnZXQuY29tcG9uZW50U3R5bGUucnVsZXMuY29uY2F0KHJ1bGVzKVxuICAgICAgOiBydWxlcyxcbiAgICBmaW5hbEF0dHJzLFxuICAgIHN0eWxlZENvbXBvbmVudElkXG4gICk7XG5cbiAgLyoqXG4gICAqIGZvcndhcmRSZWYgY3JlYXRlcyBhIG5ldyBpbnRlcmltIGNvbXBvbmVudCwgd2hpY2ggd2UnbGwgdGFrZSBhZHZhbnRhZ2Ugb2ZcbiAgICogaW5zdGVhZCBvZiBleHRlbmRpbmcgUGFyZW50Q29tcG9uZW50IHRvIGNyZWF0ZSBfYW5vdGhlcl8gaW50ZXJpbSBjbGFzc1xuICAgKi9cbiAgbGV0IFdyYXBwZWRTdHlsZWRDb21wb25lbnQ7XG4gIGNvbnN0IGZvcndhcmRSZWYgPSAocHJvcHMsIHJlZikgPT4gKFxuICAgIDxQYXJlbnRDb21wb25lbnQgey4uLnByb3BzfSBmb3J3YXJkZWRDb21wb25lbnQ9e1dyYXBwZWRTdHlsZWRDb21wb25lbnR9IGZvcndhcmRlZFJlZj17cmVmfSAvPlxuICApO1xuICBmb3J3YXJkUmVmLmRpc3BsYXlOYW1lID0gZGlzcGxheU5hbWU7XG4gIFdyYXBwZWRTdHlsZWRDb21wb25lbnQgPSBSZWFjdC5mb3J3YXJkUmVmKGZvcndhcmRSZWYpO1xuICBXcmFwcGVkU3R5bGVkQ29tcG9uZW50LmRpc3BsYXlOYW1lID0gZGlzcGxheU5hbWU7XG5cbiAgLy8gJEZsb3dGaXhNZVxuICBXcmFwcGVkU3R5bGVkQ29tcG9uZW50LmF0dHJzID0gZmluYWxBdHRycztcbiAgLy8gJEZsb3dGaXhNZVxuICBXcmFwcGVkU3R5bGVkQ29tcG9uZW50LmNvbXBvbmVudFN0eWxlID0gY29tcG9uZW50U3R5bGU7XG5cbiAgLy8gJEZsb3dGaXhNZVxuICBXcmFwcGVkU3R5bGVkQ29tcG9uZW50LmZvbGRlZENvbXBvbmVudElkcyA9IGlzVGFyZ2V0U3R5bGVkQ29tcFxuICAgID8gLy8gJEZsb3dGaXhNZVxuICAgICAgQXJyYXkucHJvdG90eXBlLmNvbmNhdCh0YXJnZXQuZm9sZGVkQ29tcG9uZW50SWRzLCB0YXJnZXQuc3R5bGVkQ29tcG9uZW50SWQpXG4gICAgOiBFTVBUWV9BUlJBWTtcblxuICAvLyAkRmxvd0ZpeE1lXG4gIFdyYXBwZWRTdHlsZWRDb21wb25lbnQuc3R5bGVkQ29tcG9uZW50SWQgPSBzdHlsZWRDb21wb25lbnRJZDtcblxuICAvLyBmb2xkIHRoZSB1bmRlcmx5aW5nIFN0eWxlZENvbXBvbmVudCB0YXJnZXQgdXAgc2luY2Ugd2UgZm9sZGVkIHRoZSBzdHlsZXNcbiAgLy8gJEZsb3dGaXhNZVxuICBXcmFwcGVkU3R5bGVkQ29tcG9uZW50LnRhcmdldCA9IGlzVGFyZ2V0U3R5bGVkQ29tcCA/IHRhcmdldC50YXJnZXQgOiB0YXJnZXQ7XG5cbiAgLy8gJEZsb3dGaXhNZVxuICBXcmFwcGVkU3R5bGVkQ29tcG9uZW50LndpdGhDb21wb25lbnQgPSBmdW5jdGlvbiB3aXRoQ29tcG9uZW50KHRhZzogVGFyZ2V0KSB7XG4gICAgY29uc3QgeyBjb21wb25lbnRJZDogcHJldmlvdXNDb21wb25lbnRJZCwgLi4ub3B0aW9uc1RvQ29weSB9ID0gb3B0aW9ucztcblxuICAgIGNvbnN0IG5ld0NvbXBvbmVudElkID1cbiAgICAgIHByZXZpb3VzQ29tcG9uZW50SWQgJiZcbiAgICAgIGAke3ByZXZpb3VzQ29tcG9uZW50SWR9LSR7aXNUYWcodGFnKSA/IHRhZyA6IGVzY2FwZShnZXRDb21wb25lbnROYW1lKHRhZykpfWA7XG5cbiAgICBjb25zdCBuZXdPcHRpb25zID0ge1xuICAgICAgLi4ub3B0aW9uc1RvQ29weSxcbiAgICAgIGF0dHJzOiBmaW5hbEF0dHJzLFxuICAgICAgY29tcG9uZW50SWQ6IG5ld0NvbXBvbmVudElkLFxuICAgICAgUGFyZW50Q29tcG9uZW50LFxuICAgIH07XG5cbiAgICByZXR1cm4gY3JlYXRlU3R5bGVkQ29tcG9uZW50KHRhZywgbmV3T3B0aW9ucywgcnVsZXMpO1xuICB9O1xuXG4gIC8vICRGbG93Rml4TWVcbiAgT2JqZWN0LmRlZmluZVByb3BlcnR5KFdyYXBwZWRTdHlsZWRDb21wb25lbnQsICdkZWZhdWx0UHJvcHMnLCB7XG4gICAgZ2V0KCkge1xuICAgICAgcmV0dXJuIHRoaXMuX2ZvbGRlZERlZmF1bHRQcm9wcztcbiAgICB9LFxuXG4gICAgc2V0KG9iaikge1xuICAgICAgLy8gJEZsb3dGaXhNZVxuICAgICAgdGhpcy5fZm9sZGVkRGVmYXVsdFByb3BzID0gaXNUYXJnZXRTdHlsZWRDb21wID8gbWVyZ2UodGFyZ2V0LmRlZmF1bHRQcm9wcywgb2JqKSA6IG9iajtcbiAgICB9LFxuICB9KTtcblxuICBpZiAocHJvY2Vzcy5lbnYuTk9ERV9FTlYgIT09ICdwcm9kdWN0aW9uJykge1xuICAgIC8vICRGbG93Rml4TWVcbiAgICBXcmFwcGVkU3R5bGVkQ29tcG9uZW50Lndhcm5Ub29NYW55Q2xhc3NlcyA9IGNyZWF0ZVdhcm5Ub29NYW55Q2xhc3NlcyhkaXNwbGF5TmFtZSk7XG4gIH1cblxuICAvLyAkRmxvd0ZpeE1lXG4gIFdyYXBwZWRTdHlsZWRDb21wb25lbnQudG9TdHJpbmcgPSAoKSA9PiBgLiR7V3JhcHBlZFN0eWxlZENvbXBvbmVudC5zdHlsZWRDb21wb25lbnRJZH1gO1xuXG4gIGlmIChpc0NsYXNzKSB7XG4gICAgaG9pc3QoV3JhcHBlZFN0eWxlZENvbXBvbmVudCwgdGFyZ2V0LCB7XG4gICAgICAvLyBhbGwgU0Mtc3BlY2lmaWMgdGhpbmdzIHNob3VsZCBub3QgYmUgaG9pc3RlZFxuICAgICAgYXR0cnM6IHRydWUsXG4gICAgICBjb21wb25lbnRTdHlsZTogdHJ1ZSxcbiAgICAgIGRpc3BsYXlOYW1lOiB0cnVlLFxuICAgICAgZm9sZGVkQ29tcG9uZW50SWRzOiB0cnVlLFxuICAgICAgc3R5bGVkQ29tcG9uZW50SWQ6IHRydWUsXG4gICAgICB0YXJnZXQ6IHRydWUsXG4gICAgICB3aXRoQ29tcG9uZW50OiB0cnVlLFxuICAgIH0pO1xuICB9XG5cbiAgcmV0dXJuIFdyYXBwZWRTdHlsZWRDb21wb25lbnQ7XG59XG4iLCIvLyBAZmxvd1xuaW1wb3J0IHsgRU1QVFlfQVJSQVkgfSBmcm9tICcuLi91dGlscy9lbXB0aWVzJztcbmltcG9ydCBmbGF0dGVuIGZyb20gJy4uL3V0aWxzL2ZsYXR0ZW4nO1xuaW1wb3J0IGlzU3RhdGljUnVsZXMgZnJvbSAnLi4vdXRpbHMvaXNTdGF0aWNSdWxlcyc7XG5pbXBvcnQgc3RyaW5naWZ5UnVsZXMgZnJvbSAnLi4vdXRpbHMvc3RyaW5naWZ5UnVsZXMnO1xuaW1wb3J0IFN0eWxlU2hlZXQgZnJvbSAnLi9TdHlsZVNoZWV0JztcblxuaW1wb3J0IHR5cGUgeyBSdWxlU2V0IH0gZnJvbSAnLi4vdHlwZXMnO1xuXG5leHBvcnQgZGVmYXVsdCBjbGFzcyBHbG9iYWxTdHlsZSB7XG4gIGNvbXBvbmVudElkOiBzdHJpbmc7XG5cbiAgaXNTdGF0aWM6IGJvb2xlYW47XG5cbiAgcnVsZXM6IFJ1bGVTZXQ7XG5cbiAgY29uc3RydWN0b3IocnVsZXM6IFJ1bGVTZXQsIGNvbXBvbmVudElkOiBzdHJpbmcpIHtcbiAgICB0aGlzLnJ1bGVzID0gcnVsZXM7XG4gICAgdGhpcy5jb21wb25lbnRJZCA9IGNvbXBvbmVudElkO1xuICAgIHRoaXMuaXNTdGF0aWMgPSBpc1N0YXRpY1J1bGVzKHJ1bGVzLCBFTVBUWV9BUlJBWSk7XG5cbiAgICBpZiAoIVN0eWxlU2hlZXQubWFzdGVyLmhhc0lkKGNvbXBvbmVudElkKSkge1xuICAgICAgU3R5bGVTaGVldC5tYXN0ZXIuZGVmZXJyZWRJbmplY3QoY29tcG9uZW50SWQsIFtdKTtcbiAgICB9XG4gIH1cblxuICBjcmVhdGVTdHlsZXMoZXhlY3V0aW9uQ29udGV4dDogT2JqZWN0LCBzdHlsZVNoZWV0OiBTdHlsZVNoZWV0KSB7XG4gICAgY29uc3QgZmxhdENTUyA9IGZsYXR0ZW4odGhpcy5ydWxlcywgZXhlY3V0aW9uQ29udGV4dCwgc3R5bGVTaGVldCk7XG4gICAgY29uc3QgY3NzID0gc3RyaW5naWZ5UnVsZXMoZmxhdENTUywgJycpO1xuXG4gICAgc3R5bGVTaGVldC5pbmplY3QodGhpcy5jb21wb25lbnRJZCwgY3NzKTtcbiAgfVxuXG4gIHJlbW92ZVN0eWxlcyhzdHlsZVNoZWV0OiBTdHlsZVNoZWV0KSB7XG4gICAgY29uc3QgeyBjb21wb25lbnRJZCB9ID0gdGhpcztcbiAgICBpZiAoc3R5bGVTaGVldC5oYXNJZChjb21wb25lbnRJZCkpIHtcbiAgICAgIHN0eWxlU2hlZXQucmVtb3ZlKGNvbXBvbmVudElkKTtcbiAgICB9XG4gIH1cblxuICAvLyBUT0RPOiBvdmVyd3JpdGUgaW4tcGxhY2UgaW5zdGVhZCBvZiByZW1vdmUrY3JlYXRlP1xuICByZW5kZXJTdHlsZXMoZXhlY3V0aW9uQ29udGV4dDogT2JqZWN0LCBzdHlsZVNoZWV0OiBTdHlsZVNoZWV0KSB7XG4gICAgdGhpcy5yZW1vdmVTdHlsZXMoc3R5bGVTaGVldCk7XG4gICAgdGhpcy5jcmVhdGVTdHlsZXMoZXhlY3V0aW9uQ29udGV4dCwgc3R5bGVTaGVldCk7XG4gIH1cbn1cbiJdfQ==

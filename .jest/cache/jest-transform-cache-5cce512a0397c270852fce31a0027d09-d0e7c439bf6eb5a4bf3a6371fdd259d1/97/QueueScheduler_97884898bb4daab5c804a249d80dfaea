@@ -1,0 +1,47 @@
+fc0c1d356e3c25b260215aa20de1968f
+"use strict";
+
+var __extends = this && this.__extends || function () {
+  var _extendStatics = function extendStatics(d, b) {
+    _extendStatics = Object.setPrototypeOf || {
+      __proto__: []
+    } instanceof Array && function (d, b) {
+      d.__proto__ = b;
+    } || function (d, b) {
+      for (var p in b) {
+        if (b.hasOwnProperty(p)) d[p] = b[p];
+      }
+    };
+
+    return _extendStatics(d, b);
+  };
+
+  return function (d, b) {
+    _extendStatics(d, b);
+
+    function __() {
+      this.constructor = d;
+    }
+
+    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+  };
+}();
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var AsyncScheduler_1 = require("./AsyncScheduler");
+
+var QueueScheduler = function (_super) {
+  __extends(QueueScheduler, _super);
+
+  function QueueScheduler() {
+    return _super !== null && _super.apply(this, arguments) || this;
+  }
+
+  return QueueScheduler;
+}(AsyncScheduler_1.AsyncScheduler);
+
+exports.QueueScheduler = QueueScheduler;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9zY2hlZHVsZXIvUXVldWVTY2hlZHVsZXIudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7QUFBQSxJQUFBLGdCQUFBLEdBQUEsT0FBQSxDQUFBLGtCQUFBLENBQUE7O0FBRUEsSUFBQSxjQUFBLEdBQUEsVUFBQSxNQUFBLEVBQUE7QUFBb0MsRUFBQSxTQUFBLENBQUEsY0FBQSxFQUFBLE1BQUEsQ0FBQTs7QUFBcEMsV0FBQSxjQUFBLEdBQUE7O0FBQ0M7O0FBQUQsU0FBQSxjQUFBO0FBQUMsQ0FERCxDQUFvQyxnQkFBQSxDQUFBLGNBQXBDLENBQUE7O0FBQWEsT0FBQSxDQUFBLGNBQUEsR0FBQSxjQUFBIn0=

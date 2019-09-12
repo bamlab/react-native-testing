@@ -1,0 +1,31 @@
+e4c9cc0ca068f6723929e3802b43974f
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var scan_1 = require("./scan");
+
+var takeLast_1 = require("./takeLast");
+
+var defaultIfEmpty_1 = require("./defaultIfEmpty");
+
+var pipe_1 = require("../util/pipe");
+
+function reduce(accumulator, seed) {
+  if (arguments.length >= 2) {
+    return function reduceOperatorFunctionWithSeed(source) {
+      return pipe_1.pipe(scan_1.scan(accumulator, seed), takeLast_1.takeLast(1), defaultIfEmpty_1.defaultIfEmpty(seed))(source);
+    };
+  }
+
+  return function reduceOperatorFunction(source) {
+    return pipe_1.pipe(scan_1.scan(function (acc, value, index) {
+      return accumulator(acc, value, index + 1);
+    }), takeLast_1.takeLast(1))(source);
+  };
+}
+
+exports.reduce = reduce;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvcmVkdWNlLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUNBLElBQUEsTUFBQSxHQUFBLE9BQUEsQ0FBQSxRQUFBLENBQUE7O0FBQ0EsSUFBQSxVQUFBLEdBQUEsT0FBQSxDQUFBLFlBQUEsQ0FBQTs7QUFDQSxJQUFBLGdCQUFBLEdBQUEsT0FBQSxDQUFBLGtCQUFBLENBQUE7O0FBRUEsSUFBQSxNQUFBLEdBQUEsT0FBQSxDQUFBLGNBQUEsQ0FBQTs7QUEyREEsU0FBZ0IsTUFBaEIsQ0FBNkIsV0FBN0IsRUFBMkYsSUFBM0YsRUFBdUc7QUFNckcsTUFBSSxTQUFTLENBQUMsTUFBVixJQUFvQixDQUF4QixFQUEyQjtBQUN6QixXQUFPLFNBQVMsOEJBQVQsQ0FBd0MsTUFBeEMsRUFBNkQ7QUFDbEUsYUFBTyxNQUFBLENBQUEsSUFBQSxDQUFLLE1BQUEsQ0FBQSxJQUFBLENBQUssV0FBTCxFQUFrQixJQUFsQixDQUFMLEVBQThCLFVBQUEsQ0FBQSxRQUFBLENBQVMsQ0FBVCxDQUE5QixFQUEyQyxnQkFBQSxDQUFBLGNBQUEsQ0FBZSxJQUFmLENBQTNDLEVBQWlFLE1BQWpFLENBQVA7QUFDRCxLQUZEO0FBR0Q7O0FBQ0QsU0FBTyxTQUFTLHNCQUFULENBQWdDLE1BQWhDLEVBQXFEO0FBQzFELFdBQU8sTUFBQSxDQUFBLElBQUEsQ0FDTCxNQUFBLENBQUEsSUFBQSxDQUFlLFVBQUMsR0FBRCxFQUFNLEtBQU4sRUFBYSxLQUFiLEVBQWtCO0FBQUssYUFBQSxXQUFXLENBQUMsR0FBRCxFQUFNLEtBQU4sRUFBYSxLQUFLLEdBQTdCLENBQVcsQ0FBWDtBQUFrQyxLQUF4RSxDQURLLEVBRUwsVUFBQSxDQUFBLFFBQUEsQ0FBUyxDQUFULENBRkssRUFHTCxNQUhLLENBQVA7QUFJRCxHQUxEO0FBTUQ7O0FBakJELE9BQUEsQ0FBQSxNQUFBLEdBQUEsTUFBQSJ9

@@ -1,0 +1,152 @@
+aa60bd121afef544317019e3ae93d7f3
+var _interopRequireWildcard = require("@babel/runtime/helpers/interopRequireWildcard");
+
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _classCallCheck2 = _interopRequireDefault(require("@babel/runtime/helpers/classCallCheck"));
+
+var _createClass2 = _interopRequireDefault(require("@babel/runtime/helpers/createClass"));
+
+var _possibleConstructorReturn2 = _interopRequireDefault(require("@babel/runtime/helpers/possibleConstructorReturn"));
+
+var _getPrototypeOf3 = _interopRequireDefault(require("@babel/runtime/helpers/getPrototypeOf"));
+
+var _inherits2 = _interopRequireDefault(require("@babel/runtime/helpers/inherits"));
+
+var _react = _interopRequireWildcard(require("react"));
+
+var _reactNative = require("react-native");
+
+var _reactNativeModalbox = _interopRequireDefault(require("react-native-modalbox"));
+
+var _reactNativeRootSiblings = _interopRequireDefault(require("react-native-root-siblings"));
+
+var renderModal = function renderModal(props, open) {
+  return _react.default.createElement(_reactNativeModalbox.default, {
+    backdrop: false,
+    position: "bottom",
+    isOpen: open,
+    style: [{
+      height: 216,
+      backgroundColor: "rgb(200, 203, 211)"
+    }, props.style],
+    easing: props.easingAnimation
+  }, props.children);
+};
+
+var keyboardModalInstance = null;
+var displayedKeyboardComponent = null;
+var keyboardModalCount = 0;
+var keyboardDidShowListener = null;
+var currentProps;
+
+var updateKeyboardModalComponent = function updateKeyboardModalComponent(props, open) {
+  if (open) currentProps = props;
+  if (keyboardModalInstance) keyboardModalInstance.update(renderModal(props, open));
+};
+
+var _open = function open(keyboardComponent) {
+  if (displayedKeyboardComponent) displayedKeyboardComponent.displayed = false;
+  displayedKeyboardComponent = keyboardComponent;
+  displayedKeyboardComponent.displayed = true;
+  updateKeyboardModalComponent(keyboardComponent.props, true);
+};
+
+var keyboardDidShow = function keyboardDidShow() {
+  return updateKeyboardModalComponent(currentProps, false);
+};
+
+var createKeyboardModalComponent = function createKeyboardModalComponent(props) {
+  keyboardModalCount += 1;
+  if (keyboardModalCount > 1) return;
+  currentProps = props;
+  keyboardModalInstance = new _reactNativeRootSiblings.default(renderModal(props));
+  keyboardDidShowListener = _reactNative.Keyboard.addListener("keyboardWillShow", keyboardDidShow);
+};
+
+var removeKeyboardModalComponent = function removeKeyboardModalComponent() {
+  keyboardModalCount -= 1;
+
+  if (keyboardModalCount === 0) {
+    if (keyboardDidShowListener) keyboardDidShowListener.remove();
+    if (keyboardModalInstance) keyboardModalInstance.destroy();
+  }
+};
+
+var KeyboardModal = function (_PureComponent) {
+  (0, _inherits2.default)(KeyboardModal, _PureComponent);
+
+  function KeyboardModal() {
+    var _getPrototypeOf2;
+
+    var _this;
+
+    (0, _classCallCheck2.default)(this, KeyboardModal);
+
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+
+    _this = (0, _possibleConstructorReturn2.default)(this, (_getPrototypeOf2 = (0, _getPrototypeOf3.default)(KeyboardModal)).call.apply(_getPrototypeOf2, [this].concat(args)));
+    _this.displayed = false;
+    return _this;
+  }
+
+  (0, _createClass2.default)(KeyboardModal, [{
+    key: "componentWillMount",
+    value: function componentWillMount() {
+      createKeyboardModalComponent(this.props);
+    }
+  }, {
+    key: "componentWillReceiveProps",
+    value: function componentWillReceiveProps(nextProps) {
+      if (this.displayed) {
+        updateKeyboardModalComponent(nextProps);
+      }
+    }
+  }, {
+    key: "componentWillUnmount",
+    value: function componentWillUnmount() {
+      removeKeyboardModalComponent();
+    }
+  }, {
+    key: "open",
+    value: function open() {
+      this.displayed = true;
+
+      _reactNative.Keyboard.dismiss();
+
+      _open(this);
+    }
+  }, {
+    key: "close",
+    value: function close() {
+      this.displayed = false;
+      updateKeyboardModalComponent(this.props, false);
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      return null;
+    }
+  }], [{
+    key: "dismiss",
+    value: function dismiss() {
+      if (keyboardModalCount > 0) {
+        updateKeyboardModalComponent(currentProps, false);
+      }
+    }
+  }]);
+  return KeyboardModal;
+}(_react.PureComponent);
+
+exports.default = KeyboardModal;
+KeyboardModal.defaultProps = {
+  easingAnimation: _reactNative.Easing.ease
+};
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIktleWJvYXJkTW9kYWwuanMiXSwibmFtZXMiOlsicmVuZGVyTW9kYWwiLCJwcm9wcyIsIm9wZW4iLCJoZWlnaHQiLCJiYWNrZ3JvdW5kQ29sb3IiLCJzdHlsZSIsImVhc2luZ0FuaW1hdGlvbiIsImNoaWxkcmVuIiwia2V5Ym9hcmRNb2RhbEluc3RhbmNlIiwiZGlzcGxheWVkS2V5Ym9hcmRDb21wb25lbnQiLCJrZXlib2FyZE1vZGFsQ291bnQiLCJrZXlib2FyZERpZFNob3dMaXN0ZW5lciIsImN1cnJlbnRQcm9wcyIsInVwZGF0ZUtleWJvYXJkTW9kYWxDb21wb25lbnQiLCJ1cGRhdGUiLCJrZXlib2FyZENvbXBvbmVudCIsImRpc3BsYXllZCIsImtleWJvYXJkRGlkU2hvdyIsImNyZWF0ZUtleWJvYXJkTW9kYWxDb21wb25lbnQiLCJSb290U2libGluZ3MiLCJLZXlib2FyZCIsImFkZExpc3RlbmVyIiwicmVtb3ZlS2V5Ym9hcmRNb2RhbENvbXBvbmVudCIsInJlbW92ZSIsImRlc3Ryb3kiLCJLZXlib2FyZE1vZGFsIiwibmV4dFByb3BzIiwiZGlzbWlzcyIsIlB1cmVDb21wb25lbnQiLCJkZWZhdWx0UHJvcHMiLCJFYXNpbmciLCJlYXNlIl0sIm1hcHBpbmdzIjoiOzs7Ozs7Ozs7Ozs7Ozs7Ozs7O0FBRUE7O0FBQ0E7O0FBQ0E7O0FBQ0E7O0FBUUEsSUFBTUEsV0FBVyxHQUFHLFNBQWRBLFdBQWMsQ0FBQ0MsS0FBRCxFQUFtQkMsSUFBbkI7QUFBQSxTQUNsQiw2QkFBQyw0QkFBRDtBQUNFLElBQUEsUUFBUSxFQUFFLEtBRFo7QUFFRSxJQUFBLFFBQVEsRUFBQyxRQUZYO0FBR0UsSUFBQSxNQUFNLEVBQUVBLElBSFY7QUFJRSxJQUFBLEtBQUssRUFBRSxDQUNMO0FBQUVDLE1BQUFBLE1BQU0sRUFBRSxHQUFWO0FBQWVDLE1BQUFBLGVBQWUsRUFBRTtBQUFoQyxLQURLLEVBRUxILEtBQUssQ0FBQ0ksS0FGRCxDQUpUO0FBUUUsSUFBQSxNQUFNLEVBQUVK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O0VBTHdDZ0Isb0I7OztBQUF0QkgsYSxDQU9aSSxZLEdBQWU7QUFDcEJ2QixFQUFBQSxlQUFlLEVBQUV3QixvQkFBT0M7QUFESixDIiwic291cmNlc0NvbnRlbnQiOlsiLy8gQGZsb3dcblxuaW1wb3J0IFJlYWN0LCB7IFB1cmVDb21wb25lbnQgfSBmcm9tIFwicmVhY3RcIjtcbmltcG9ydCB7IEVhc2luZywgS2V5Ym9hcmQgfSBmcm9tIFwicmVhY3QtbmF0aXZlXCI7XG5pbXBvcnQgTW9kYWwgZnJvbSBcInJlYWN0LW5hdGl2ZS1tb2RhbGJveFwiO1xuaW1wb3J0IFJvb3RTaWJsaW5ncyBmcm9tIFwicmVhY3QtbmF0aXZlLXJvb3Qtc2libGluZ3NcIjtcblxudHlwZSBQcm9wc1R5cGUgPSB7XG4gIHN0eWxlOiBPYmplY3QsXG4gIGVhc2luZ0FuaW1hdGlvbjogKCkgPT4gdm9pZCxcbiAgY2hpbGRyZW46IGFueVxufTtcblxuY29uc3QgcmVuZGVyTW9kYWwgPSAocHJvcHM6IFByb3BzVHlwZSwgb3BlbjogP2Jvb2xlYW4pID0+IChcbiAgPE1vZGFsXG4gICAgYmFja2Ryb3A9e2ZhbHNlfVxuICAgIHBvc2l0aW9uPVwiYm90dG9tXCJcbiAgICBpc09wZW49e29wZW59XG4gICAgc3R5bGU9e1tcbiAgICAgIHsgaGVpZ2h0OiAyMTYsIGJhY2tncm91bmRDb2xvcjogXCJyZ2IoMjAwLCAyMDMsIDIxMSlcIiB9LFxuICAgICAgcHJvcHMuc3R5bGVcbiAgICBdfVxuICAgIGVhc2luZz17cHJvcHMuZWFzaW5nQW5pbWF0aW9ufVxuICA+XG4gICAge3Byb3BzLmNoaWxkcmVufVxuICA8L01vZGFsPlxuKTtcblxubGV0IGtleWJvYXJkTW9kYWxJbnN0YW5jZSA9IG51bGw7XG5sZXQgZGlzcGxheWVkS2V5Ym9hcmRDb21wb25lbnQgPSBudWxsO1xubGV0IGtleWJvYXJkTW9kYWxDb3VudCA9IDA7XG5sZXQga2V5Ym9hcmREaWRTaG93TGlzdGVuZXIgPSBudWxsO1xubGV0IGN1cnJlbnRQcm9wcztcblxuY29uc3QgdXBkYXRlS2V5Ym9hcmRNb2RhbENvbXBvbmVudCA9IChwcm9wczogUHJvcHNUeXBlLCBvcGVuOiA/Ym9vbGVhbikgPT4ge1xuICBpZiAob3BlbikgY3VycmVudFByb3BzID0gcHJvcHM7XG4gIGlmIChrZXlib2FyZE1vZGFsSW5zdGFuY2UpXG4gICAga2V5Ym9hcmRNb2RhbEluc3RhbmNlLnVwZGF0ZShyZW5kZXJNb2RhbChwcm9wcywgb3BlbikpO1xufTtcblxuY29uc3Qgb3BlbiA9IChrZXlib2FyZENvbXBvbmVudDogYW55KSA9PiB7XG4gIGlmIChkaXNwbGF5ZWRLZXlib2FyZENvbXBvbmVudCkgZGlzcGxheWVkS2V5Ym9hcmRDb21wb25lbnQuZGlzcGxheWVkID0gZmFsc2U7XG5cbiAgZGlzcGxheWVkS2V5Ym9hcmRDb21wb25lbnQgPSBrZXlib2FyZENvbXBvbmVudDtcbiAgZGlzcGxheWVkS2V5Ym9hcmRDb21wb25lbnQuZGlzcGxheWVkID0gdHJ1ZTtcblxuICB1cGRhdGVLZXlib2FyZE1vZGFsQ29tcG9uZW50KGtleWJvYXJkQ29tcG9uZW50LnByb3BzLCB0cnVlKTtcbn07XG5cbmNvbnN0IGtleWJvYXJkRGlkU2hvdyA9ICgpID0+IHVwZGF0ZUtleWJvYXJkTW9kYWxDb21wb25lbnQoY3VycmVudFByb3BzLCBmYWxzZSk7XG5cbmNvbnN0IGNyZWF0ZUtleWJvYXJkTW9kYWxDb21wb25lbnQgPSAocHJvcHM6IFByb3BzVHlwZSkgPT4ge1xuICBrZXlib2FyZE1vZGFsQ291bnQgKz0gMTtcblxuICBpZiAoa2V5Ym9hcmRNb2RhbENvdW50ID4gMSkgcmV0dXJuO1xuXG4gIGN1cnJlbnRQcm9wcyA9IHByb3BzO1xuXG4gIGtleWJvYXJkTW9kYWxJbnN0YW5jZSA9IG5ldyBSb290U2libGluZ3MocmVuZGVyTW9kYWwocHJvcHMpKTtcbiAga2V5Ym9hcmREaWRTaG93TGlzdGVuZXIgPSBLZXlib2FyZC5hZGRMaXN0ZW5lcihcbiAgICBcImtleWJvYXJkV2lsbFNob3dcIixcbiAgICBrZXlib2FyZERpZFNob3dcbiAgKTtcbn07XG5cbmNvbnN0IHJlbW92ZUtleWJvYXJkTW9kYWxDb21wb25lbnQgPSAoKSA9PiB7XG4gIGtleWJvYXJkTW9kYWxDb3VudCAtPSAxO1xuXG4gIGlmIChrZXlib2FyZE1vZGFsQ291bnQgPT09IDApIHtcbiAgICBpZiAoa2V5Ym9hcmREaWRTaG93TGlzdGVuZXIpIGtleWJvYXJkRGlkU2hvd0xpc3RlbmVyLnJlbW92ZSgpO1xuICAgIGlmIChrZXlib2FyZE1vZGFsSW5zdGFuY2UpIGtleWJvYXJkTW9kYWxJbnN0YW5jZS5kZXN0cm95KCk7XG4gIH1cbn07XG5cbmV4cG9ydCBkZWZhdWx0IGNsYXNzIEtleWJvYXJkTW9kYWwgZXh0ZW5kcyBQdXJlQ29tcG9uZW50IHtcbiAgc3RhdGljIGRpc21pc3MoKSB7XG4gICAgaWYgKGtleWJvYXJkTW9kYWxDb3VudCA+IDApIHtcbiAgICAgIHVwZGF0ZUtleWJvYXJkTW9kYWxDb21wb25lbnQoY3VycmVudFByb3BzLCBmYWxzZSk7XG4gICAgfVxuICB9XG5cbiAgc3RhdGljIGRlZmF1bHRQcm9wcyA9IHtcbiAgICBlYXNpbmdBbmltYXRpb246IEVhc2luZy5lYXNlXG4gIH07XG5cbiAgY29tcG9uZW50V2lsbE1vdW50KCkge1xuICAgIGNyZWF0ZUtleWJvYXJkTW9kYWxDb21wb25lbnQodGhpcy5wcm9wcyk7XG4gIH1cblxuICBjb21wb25lbnRXaWxsUmVjZWl2ZVByb3BzKG5leHRQcm9wczogUHJvcHNUeXBlKSB7XG4gICAgaWYgKHRoaXMuZGlzcGxheWVkKSB7XG4gICAgICB1cGRhdGVLZXlib2FyZE1vZGFsQ29tcG9uZW50KG5leHRQcm9wcyk7XG4gICAgfVxuICB9XG5cbiAgY29tcG9uZW50V2lsbFVubW91bnQoKSB7XG4gICAgcmVtb3ZlS2V5Ym9hcmRNb2RhbENvbXBvbmVudCgpO1xuICB9XG5cbiAgZGlzcGxheWVkOiBib29sZWFuID0gZmFsc2U7XG5cbiAgb3BlbigpIHtcbiAgICB0aGlzLmRpc3BsYXllZCA9IHRydWU7XG4gICAgS2V5Ym9hcmQuZGlzbWlzcygpO1xuICAgIG9wZW4odGhpcyk7XG4gIH1cblxuICBjbG9zZSgpIHtcbiAgICB0aGlzLmRpc3BsYXllZCA9IGZhbHNlO1xuICAgIHVwZGF0ZUtleWJvYXJkTW9kYWxDb21wb25lbnQodGhpcy5wcm9wcywgZmFsc2UpO1xuICB9XG5cbiAgcmVuZGVyKCkge1xuICAgIHJldHVybiBudWxsO1xuICB9XG59XG4iXX0=

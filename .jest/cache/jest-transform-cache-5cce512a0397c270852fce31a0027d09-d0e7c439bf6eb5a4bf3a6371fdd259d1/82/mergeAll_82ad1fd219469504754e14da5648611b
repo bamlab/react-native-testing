@@ -1,0 +1,21 @@
+f10a9252c228a8d782335c16dc486a26
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var mergeMap_1 = require("./mergeMap");
+
+var identity_1 = require("../util/identity");
+
+function mergeAll(concurrent) {
+  if (concurrent === void 0) {
+    concurrent = Number.POSITIVE_INFINITY;
+  }
+
+  return mergeMap_1.mergeMap(identity_1.identity, concurrent);
+}
+
+exports.mergeAll = mergeAll;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvbWVyZ2VBbGwudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQ0EsSUFBQSxVQUFBLEdBQUEsT0FBQSxDQUFBLFlBQUEsQ0FBQTs7QUFDQSxJQUFBLFVBQUEsR0FBQSxPQUFBLENBQUEsa0JBQUEsQ0FBQTs7QUE2REEsU0FBZ0IsUUFBaEIsQ0FBNEIsVUFBNUIsRUFBeUU7QUFBN0MsTUFBQSxVQUFBLEtBQUEsS0FBQSxDQUFBLEVBQUE7QUFBQSxJQUFBLFVBQUEsR0FBcUIsTUFBTSxDQUFDLGlCQUE1QjtBQUE2Qzs7QUFDdkUsU0FBTyxVQUFBLENBQUEsUUFBQSxDQUFTLFVBQUEsQ0FBQSxRQUFULEVBQW1CLFVBQW5CLENBQVA7QUFDRDs7QUFGRCxPQUFBLENBQUEsUUFBQSxHQUFBLFFBQUEifQ==

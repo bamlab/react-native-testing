@@ -1,0 +1,38 @@
+7100ae7726425b158d223a7af4250777
+var _interopRequireDefault = require("@babel/runtime/helpers/interopRequireDefault");
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+
+var _defineProperty2 = _interopRequireDefault(require("@babel/runtime/helpers/defineProperty"));
+
+var _objectWithoutProperties2 = _interopRequireDefault(require("@babel/runtime/helpers/objectWithoutProperties"));
+
+var _recompose = require("recompose");
+
+var _formik = require("formik");
+
+var _withError = _interopRequireDefault(require("./withError"));
+
+var _withTouched = _interopRequireDefault(require("./withTouched"));
+
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(source, true).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(source).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+var withErrorIfNeeded = (0, _recompose.compose)(_withError.default, _withTouched.default, _formik.connect, (0, _recompose.mapProps)(function (_ref) {
+  var submitCount = _ref.formik.submitCount,
+      error = _ref.error,
+      touched = _ref.touched,
+      props = (0, _objectWithoutProperties2.default)(_ref, ["formik", "error", "touched"]);
+  var shouldDisplayError = touched || submitCount > 0;
+  return _objectSpread({
+    touched: touched,
+    error: shouldDisplayError ? error : undefined
+  }, props);
+}));
+var _default = withErrorIfNeeded;
+exports.default = _default;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIndpdGhFcnJvcklmTmVlZGVkLmpzIl0sIm5hbWVzIjpbIndpdGhFcnJvcklmTmVlZGVkIiwid2l0aEVycm9yIiwid2l0aFRvdWNoZWQiLCJjb25uZWN0Iiwic3VibWl0Q291bnQiLCJmb3JtaWsiLCJlcnJvciIsInRvdWNoZWQiLCJwcm9wcyIsInNob3VsZERpc3BsYXlFcnJvciIsInVuZGVmaW5lZCJdLCJtYXBwaW5ncyI6Ijs7Ozs7Ozs7Ozs7QUFBQTs7QUFDQTs7QUFDQTs7QUFDQTs7Ozs7O0FBRUEsSUFBTUEsaUJBQWlCLEdBQUcsd0JBQ3hCQyxrQkFEd0IsRUFFeEJDLG9CQUZ3QixFQUd4QkMsZUFId0IsRUFJeEIseUJBQVMsZ0JBQTJEO0FBQUEsTUFBOUNDLFdBQThDLFFBQXhEQyxNQUF3RCxDQUE5Q0QsV0FBOEM7QUFBQSxNQUEvQkUsS0FBK0IsUUFBL0JBLEtBQStCO0FBQUEsTUFBeEJDLE9BQXdCLFFBQXhCQSxPQUF3QjtBQUFBLE1BQVpDLEtBQVk7QUFDbEUsTUFBTUMsa0JBQWtCLEdBQUdGLE9BQU8sSUFBSUgsV0FBVyxHQUFHLENBQXBEO0FBRUE7QUFDRUcsSUFBQUEsT0FBTyxFQUFQQSxPQURGO0FBRUVELElBQUFBLEtBQUssRUFBRUcsa0JBQWtCLEdBQUdILEtBQUgsR0FBV0k7QUFGdEMsS0FHS0YsS0FITDtBQUtELENBUkQsQ0FKd0IsQ0FBMUI7ZUFlZVIsaUIiLCJzb3VyY2VzQ29udGVudCI6WyJpbXBvcnQgeyBjb21wb3NlLCBtYXBQcm9wcyB9IGZyb20gXCJyZWNvbXBvc2VcIjtcbmltcG9ydCB7IGNvbm5lY3QgfSBmcm9tIFwiZm9ybWlrXCI7XG5pbXBvcnQgd2l0aEVycm9yIGZyb20gXCIuL3dpdGhFcnJvclwiO1xuaW1wb3J0IHdpdGhUb3VjaGVkIGZyb20gXCIuL3dpdGhUb3VjaGVkXCI7XG5cbmNvbnN0IHdpdGhFcnJvcklmTmVlZGVkID0gY29tcG9zZShcbiAgd2l0aEVycm9yLFxuICB3aXRoVG91Y2hlZCxcbiAgY29ubmVjdCxcbiAgbWFwUHJvcHMoKHsgZm9ybWlrOiB7IHN1Ym1pdENvdW50IH0sIGVycm9yLCB0b3VjaGVkLCAuLi5wcm9wcyB9KSA9PiB7XG4gICAgY29uc3Qgc2hvdWxkRGlzcGxheUVycm9yID0gdG91Y2hlZCB8fCBzdWJtaXRDb3VudCA+IDA7XG5cbiAgICByZXR1cm4ge1xuICAgICAgdG91Y2hlZCxcbiAgICAgIGVycm9yOiBzaG91bGREaXNwbGF5RXJyb3IgPyBlcnJvciA6IHVuZGVmaW5lZCxcbiAgICAgIC4uLnByb3BzXG4gICAgfTtcbiAgfSlcbik7XG5cbmV4cG9ydCBkZWZhdWx0IHdpdGhFcnJvcklmTmVlZGVkO1xuIl19

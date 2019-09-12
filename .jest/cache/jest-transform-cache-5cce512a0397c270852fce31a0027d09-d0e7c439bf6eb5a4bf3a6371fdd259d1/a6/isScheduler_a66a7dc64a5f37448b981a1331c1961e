@@ -1,0 +1,13 @@
+1949a99c70d95ea9cff0a2e52ef023b2
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+function isScheduler(value) {
+  return value && typeof value.schedule === 'function';
+}
+
+exports.isScheduler = isScheduler;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC91dGlsL2lzU2NoZWR1bGVyLnRzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiI7Ozs7OztBQUVBLFNBQWdCLFdBQWhCLENBQTRCLEtBQTVCLEVBQXNDO0FBQ3BDLFNBQU8sS0FBSyxJQUFJLE9BQWEsS0FBTSxDQUFDLFFBQXBCLEtBQWlDLFVBQWpEO0FBQ0Q7O0FBRkQsT0FBQSxDQUFBLFdBQUEsR0FBQSxXQUFBIn0=

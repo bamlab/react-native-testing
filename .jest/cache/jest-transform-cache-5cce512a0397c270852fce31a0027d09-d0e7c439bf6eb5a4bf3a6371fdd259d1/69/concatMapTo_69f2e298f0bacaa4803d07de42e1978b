@@ -1,0 +1,17 @@
+5db0524a16a1f0f7abe74fbf7dc7659c
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var concatMap_1 = require("./concatMap");
+
+function concatMapTo(innerObservable, resultSelector) {
+  return concatMap_1.concatMap(function () {
+    return innerObservable;
+  }, resultSelector);
+}
+
+exports.concatMapTo = concatMapTo;
+//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9vcGVyYXRvcnMvY29uY2F0TWFwVG8udHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6Ijs7Ozs7O0FBQUEsSUFBQSxXQUFBLEdBQUEsT0FBQSxDQUFBLGFBQUEsQ0FBQTs7QUFtRUEsU0FBZ0IsV0FBaEIsQ0FDRSxlQURGLEVBRUUsY0FGRixFQUUrRztBQUU3RyxTQUFPLFdBQUEsQ0FBQSxTQUFBLENBQVUsWUFBQTtBQUFNLFdBQUEsZUFBQTtBQUFlLEdBQS9CLEVBQWlDLGNBQWpDLENBQVA7QUFDRDs7QUFMRCxPQUFBLENBQUEsV0FBQSxHQUFBLFdBQUEifQ==
