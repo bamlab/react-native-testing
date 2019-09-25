@@ -6,6 +6,7 @@ import {Button} from '../../components/Button';
 import {useSelector, useDispatch} from 'react-redux';
 import {todoListSelector} from '../../modules/todos/selectors';
 import {TodoActions} from '../../modules/todos/actions';
+import {wording} from '../../utils/wording';
 
 export const TodoList = () => {
   const todos = useSelector(todoListSelector);
@@ -24,9 +25,9 @@ export const TodoList = () => {
         <StyledInput
           value={textTodo}
           onChangeText={onChangeText}
-          placeholder="New todo..."
+          placeholder={wording.todos.newTodo}
         />
-        <Button title="Add" onPress={onSubmitTodo} />
+        <Button title={wording.todos.add} onPress={onSubmitTodo} />
         <TodosContainer>
           {todos.map((todo, index) => (
             <Text key={index}>{todo}</Text>
