@@ -1,10 +1,11 @@
 import React from 'react';
-import { fireEvent } from 'react-native-testing-library';
+import {fireEvent, debug} from 'react-native-testing-library';
 import 'jest-styled-components';
 
-import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
-import { wording } from '../../../utils/wording';
-import { About } from '../About';
+import {renderPage, getPropsWithNavigation} from '../../../utils/tests/helpers';
+import {wording} from '../../../utils/wording';
+import {About} from '../About';
+import {Routes} from '../../../navigation/routes';
 
 describe('[Page] About', () => {
   const props = getPropsWithNavigation();
@@ -17,6 +18,6 @@ describe('[Page] About', () => {
     // WHEN
     fireEvent.press(NavigateSubscribeButton);
     // THEN
-    expect(props.navigation.navigate).toBeTruthy();
+    expect(props.navigation.navigate).toHaveBeenCalledWith(Routes.Home);
   });
 });

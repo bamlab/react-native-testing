@@ -6,4 +6,8 @@ export const wording = {
   basicError: 'Ooops something went wrong...',
   about: 'About',
   aboutTitle: 'About this newsletter',
+  todos: {
+    newTodo: 'New todo...',
+    add: 'Add',
+  },
 };

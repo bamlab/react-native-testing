@@ -105,10 +105,10 @@ You can find below example code on how to test features with :
 - [external api calls](./src/pages/Home/__tests__/Home.test.tsx) -> TODO: make a more complte example with a return response
 - [styled-components (or any styling library)](./src/pages/Home/__tests__/Home.test.tsx) -> check [renderWithTheme method](./src/utils/tests/helpers.tsx), don't forget to import `jest-styled-components` in each test file. WARNING : not working yet with theme provider !!
 - [components outside your page](./src/pages/Home/__tests__/Home.test.tsx) -> check [renderPage method](./src/utils/tests/helpers.tsx) with the Toaster
-- [internal navigation](./src/pages/About/__tests__/About.test.tsx)
-- **loading** -> TODO: api call + loading + end of loading + result displayed
+- [internal navigation](./src/pages/About/__tests__/About.test.tsx) (currently for a better solution that would wrap the page with its real stack navigator)
 - **external navigation** -> TODO: navigation from saga with navigateService
 - **asynchronous navigation** -> TODO: using flushMicrotasksQueue
+- **loading** -> TODO: api call + loading + end of loading + result displayed
 - **timers with setTimeout** -> TODO: with jest.useFakeTimers()
 - **timers with saga effect delay** -> TODO: with jest.useFakeTimers()
 - **scroll view** -> TODO: see Antoine J.

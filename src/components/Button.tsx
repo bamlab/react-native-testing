@@ -1,13 +1,16 @@
-import React, { FunctionComponent } from 'react';
-import { TouchableOpacityProps } from 'react-native';
+import React, {FunctionComponent} from 'react';
+import {TouchableOpacityProps} from 'react-native';
 import styled from '../lib/styled-components';
-import { theme } from '../utils/theme';
+import {theme} from '../utils/theme';
 
 interface Props extends TouchableOpacityProps {
   title: string;
 }
 
-export const Button: FunctionComponent<Props> = ({ title, ...touchableOpacityProps }) => (
+export const Button: FunctionComponent<Props> = ({
+  title,
+  ...touchableOpacityProps
+}) => (
   <FullWidthTouchableOpacity {...touchableOpacityProps}>
     <ButtonContainer>
       <ButtonText>{title}</ButtonText>
@@ -25,7 +28,7 @@ const ButtonContainer = styled.View`
   padding-vertical: 10;
   align-items: center;
   color: white;
-  margin-vertical: 10;
+  margin-vertical: 2;
 `;
 
 const ButtonText = styled.Text`
