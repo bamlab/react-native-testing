@@ -19,7 +19,7 @@ export const Movies = () => {
         {movies ? (
           movies.map(movie => <Text>{movie}</Text>)
         ) : (
-          <ActivityIndicator size="large" />
+          <ActivityIndicator size="large" testID="loader" />
         )}
       </Card>
     </Container>
