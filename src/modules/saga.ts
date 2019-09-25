@@ -1,9 +1,10 @@
-import { all } from 'redux-saga/effects';
+import {all} from 'redux-saga/effects';
 
-import { subscribeNewsletterWatcher } from './signup/sagas';
+import {subscribeNewsletterWatcher} from './signup/sagas';
+import {getMoviesWatcher} from './movies/sagas';
 
 function* watchAll() {
-  yield all([subscribeNewsletterWatcher()]);
+  yield all([subscribeNewsletterWatcher(), getMoviesWatcher()]);
 }
 
 export default watchAll;
