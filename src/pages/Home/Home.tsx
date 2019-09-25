@@ -11,13 +11,13 @@ import {ButtonLink} from '../../components/ButtonLink';
 export const Home: FunctionComponent<NavigationScreenProps> = ({
   navigation,
 }) => {
-  const routesToDisplay = [Routes.About, Routes.Subscription];
+  const routesToDisplay = [Routes.About, Routes.Subscription, Routes.TodoList];
 
   return (
     <Container>
       <Card>
         {routesToDisplay.map(route => (
-          <ButtonLink navigation={navigation} route={route} />
+          <ButtonLink navigation={navigation} route={route} key={route} />
         ))}
       </Card>
     </Container>

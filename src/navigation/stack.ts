@@ -3,6 +3,7 @@ import {Home} from '../pages/Home/Home';
 import {About} from '../pages/About/About';
 import {Routes} from './routes';
 import {Subscription} from '../pages/Subscription/Subscription';
+import {TodoList} from '../pages/TodoList/TodoList';
 
 const stackNav = createStackNavigator({
   [Routes.Home]: {
@@ -21,6 +22,12 @@ const stackNav = createStackNavigator({
     screen: Subscription,
     navigationOptions: {
       title: 'Subscription',
+    },
+  },
+  [Routes.TodoList]: {
+    screen: TodoList,
+    navigationOptions: {
+      title: 'TodoList',
     },
   },
 });
