@@ -99,7 +99,7 @@ jest test environment but I found that it was necessary to specify it for some c
 You can find below example code on how to test features with :
 
 - [Redux store](./src/pages/TodoList/__tests__/TodoList.test.tsx)
-  - check [renderPage method](./src/utils/tests/helpers.tsx). TODO: make a more complete example with initialised store
+  - check also [renderPage method](./src/utils/tests/helpers.tsx)
 - [Redux saga](./src/pages/Subscription/__tests__/Subscription.test.tsx)
 - [Formik](./src/pages/Subscription/__tests__/Subscription.test.tsx)
 - [Inputs](./src/pages/Subscription/__tests__/Subscription.test.tsx)
