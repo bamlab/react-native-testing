@@ -98,18 +98,26 @@ jest test environment but I found that it was necessary to specify it for some c
 
 You can find below example code on how to test features with :
 
-- [redux store](./src/pages/Home/__tests__/Home.test.tsx) -> check [renderPage method](./src/utils/tests/helpers.tsx). TODO: make a more complete example with initialised store
-- [redux saga](./src/pages/Home/__tests__/Home.test.tsx)
-- [formik](./src/pages/Home/__tests__/Home.test.tsx)
-- [inputs](./src/pages/Home/__tests__/Home.test.tsx) -> Careful, getByPlaceholder might not work depending on the input you use. I don't think it works with react-native-paper for instance
-- [external api calls](./src/pages/Home/__tests__/Home.test.tsx) -> TODO: make a more complte example with a return response
-- [styled-components (or any styling library)](./src/pages/Home/__tests__/Home.test.tsx) -> check [renderWithTheme method](./src/utils/tests/helpers.tsx), don't forget to import `jest-styled-components` in each test file. WARNING : not working yet with theme provider !!
-- [components outside your page](./src/pages/Home/__tests__/Home.test.tsx) -> check [renderPage method](./src/utils/tests/helpers.tsx) with the Toaster
-- [internal navigation](./src/pages/About/__tests__/About.test.tsx) (currently for a better solution that would wrap the page with its real stack navigator)
-- **external navigation** -> TODO: navigation from saga with navigateService
-- **asynchronous navigation** -> TODO: using flushMicrotasksQueue
-- **loading** -> TODO: api call + loading + end of loading + result displayed
-- **timers with setTimeout** -> TODO: with jest.useFakeTimers()
-- **timers with saga effect delay** -> TODO: with jest.useFakeTimers()
-- **scroll view** -> TODO: see Antoine J.
-- **native code** -> TODO: by mocking the native code
+- [Redux store](./src/pages/TodoList/__tests__/TodoList.test.tsx)
+  - check also [renderPage method](./src/utils/tests/helpers.tsx)
+- [Redux saga](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+- [Formik](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+- [Inputs](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+  - Careful, getByPlaceholder might not work depending on the input you use. I don't think it works with react-native-paper for instance
+- External api calls
+  - [simple](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+  - [with response](./src/pages/Movies/__tests__/Movies.test.tsx)
+  - **with query parameters and tokens to check** -> TODO
+- [Styled-components (or any styling library)](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+  - check [renderWithTheme method](./src/utils/tests/helpers.tsx), don't forget to import `jest-styled-components` in each test file. WARNING : not working yet with theme provider !!
+- [Components outside your page](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+  - check [renderPage method](./src/utils/tests/helpers.tsx) with the Toaster
+- [Timers (delay, setTimeout...)](./src/pages/Movies/__tests__/Movies.test.tsx)
+- [Loading](./src/pages/Movies/**tests**/Movies.test.tsx)
+- Navigation
+  - [Internal navigation](./src/pages/About/__tests__/About.test.tsx)
+    - currently looking for a better solution that would wrap the page with its real stack navigator
+  - **external navigation** -> TODO: navigation from saga with navigateService
+  - **asynchronous navigation** -> TODO: using flushMicrotasksQueue
+- **Scroll view** -> TODO: see Antoine J.
+- **Native code** -> TODO: by mocking the native code

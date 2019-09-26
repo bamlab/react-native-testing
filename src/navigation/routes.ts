@@ -3,4 +3,5 @@ export enum Routes {
   Subscription = 'Subscription',
   About = 'About',
   TodoList = 'TodoList',
+  Movies = 'Movies',
 }

@@ -4,6 +4,7 @@ import {About} from '../pages/About/About';
 import {Routes} from './routes';
 import {Subscription} from '../pages/Subscription/Subscription';
 import {TodoList} from '../pages/TodoList/TodoList';
+import {Movies} from '../pages/Movies/Movies';
 
 const stackNav = createStackNavigator(
   {
@@ -31,8 +32,14 @@ const stackNav = createStackNavigator(
         title: 'TodoList',
       },
     },
+    [Routes.Movies]: {
+      screen: Movies,
+      navigationOptions: {
+        title: 'Movies',
+      },
+    },
   },
-  {initialRouteName: Routes.TodoList},
+  {initialRouteName: Routes.Home},
 );
 
 export const AppContainer = createAppContainer(stackNav);

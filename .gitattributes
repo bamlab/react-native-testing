@@ -1,1 +1,2 @@
 *.pbxproj -text
+src/api/apiTokens.ts filter=crypt diff=crypt
