@@ -17,7 +17,7 @@ export const Movies = () => {
     <Container>
       <Card>
         {movies ? (
-          movies.map(movie => <Text>{movie}</Text>)
+          movies.map((movie, index) => <Text key={index}>{movie}</Text>)
         ) : (
           <ActivityIndicator size="large" testID="loader" />
         )}
