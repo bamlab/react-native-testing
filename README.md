@@ -105,28 +105,24 @@ jest test environment but I found that it was necessary to specify it for some c
 
 ## Examples
 
-You can find below example code on how to test features with :
+You can find below example code on how to test features. More details on those tests [here](./src/utils/tests/documentation.md)
 
 - [Redux store](./src/pages/TodoList/__tests__/TodoList.test.tsx)
-  - check also [renderPage method](./src/utils/tests/helpers.tsx)
 - [Redux saga](./src/pages/Subscription/__tests__/Subscription.test.tsx)
 - [Formik](./src/pages/Subscription/__tests__/Subscription.test.tsx)
 - [Inputs](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-  - Careful, getByPlaceholder might not work depending on the input you use. I don't think it works with react-native-paper for instance
 - External api calls
   - [simple](./src/pages/Subscription/__tests__/Subscription.test.tsx)
   - [with response](./src/pages/Movies/__tests__/Movies.test.tsx)
-  - **with query parameters and tokens to check** -> TODO
+  - **with query parameters and tokens to check**
 - [Styled-components (or any styling library)](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-  - check [renderWithTheme method](./src/utils/tests/helpers.tsx), don't forget to import `jest-styled-components` in each test file. WARNING : not working yet with theme provider !!
 - [Components outside your page](./src/pages/Subscription/__tests__/Subscription.test.tsx)
   - check [renderPage method](./src/utils/tests/helpers.tsx) with the Toaster
 - [Timers (delay, setTimeout...)](./src/pages/Movies/__tests__/Movies.test.tsx)
 - [Loading](./src/pages/Movies/**tests**/Movies.test.tsx)
 - Navigation
   - [Internal navigation](./src/pages/About/__tests__/About.test.tsx)
-    - currently looking for a better solution that would wrap the page with its real stack navigator
-  - **external navigation** -> TODO: navigation from saga with navigateService
-  - **asynchronous navigation** -> TODO: using flushMicrotasksQueue
-- **Scroll view** -> TODO: see Antoine J.
-- **Native code** -> TODO: by mocking the native code
+  - **external navigation**
+  - **asynchronous navigation**
+- **Scroll view**
+- **Native code**
