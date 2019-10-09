@@ -107,22 +107,23 @@ jest test environment but I found that it was necessary to specify it for some c
 
 You can find below example code on how to test features. More details on those tests [here](./src/utils/tests/documentation.md)
 
-- [Redux store](./src/pages/TodoList/__tests__/TodoList.test.tsx)
-- [Redux saga](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-- [Formik](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-- [Inputs](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+- Data flow
+  - [Redux store](./src/utils/tests/documentation.md#using-a-redux-store)
+  - [Redux saga](./src/utils/tests/documentation.md#using-redux-saga)
+- User interactions
+  - [Formik](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+  - [Inputs](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+  - **Scroll view**
+  - **Native code**
 - External api calls
   - [simple](./src/pages/Subscription/__tests__/Subscription.test.tsx)
   - [with response](./src/pages/Movies/__tests__/Movies.test.tsx)
   - **with query parameters and tokens to check**
 - [Styled-components (or any styling library)](./src/pages/Subscription/__tests__/Subscription.test.tsx)
 - [Components outside your page](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-  - check [renderPage method](./src/utils/tests/helpers.tsx) with the Toaster
 - [Timers (delay, setTimeout...)](./src/pages/Movies/__tests__/Movies.test.tsx)
 - [Loading](./src/pages/Movies/**tests**/Movies.test.tsx)
 - Navigation
   - [Internal navigation](./src/pages/About/__tests__/About.test.tsx)
   - **external navigation**
   - **asynchronous navigation**
-- **Scroll view**
-- **Native code**

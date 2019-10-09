@@ -2,9 +2,21 @@
 
 ## Table of contents
 
-## Using a redux store
+## Data flow
 
-Check also [renderPage method](./src/utils/tests/helpers.tsx)
+### Using a redux store
+
+Check out:
+
+- [this test](./src/pages/TodoList/__tests__/TodoList.test.tsx)
+- [renderPage method](./src/utils/tests/helpers.tsx)
+
+### Using redux saga
+
+Check out:
+
+- [this test](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+- [renderPage method](./src/utils/tests/helpers.tsx)
 
 ## Using a styling library
 
@@ -12,7 +24,7 @@ Check [renderWithTheme method](./src/utils/tests/helpers.tsx), don't forget to i
 
 WARNING : not working yet with theme provider !!
 
-## Using inputs with placeholder
+## Using inputs
 
 Careful, getByPlaceholder might not work depending on the input you use.
 I don't think it works with react-native-paper for instance
@@ -38,3 +50,10 @@ TODO: see Antoine Jubin
 ## Native code
 
 TODO: By mocking the proper native library with jest
+
+## Using components outside your page
+
+Check out:
+
+- [this test](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+- check [renderPage method](./src/utils/tests/helpers.tsx) with the Toaste
