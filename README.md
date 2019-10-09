@@ -107,23 +107,25 @@ jest test environment but I found that it was necessary to specify it for some c
 
 You can find below example code on how to test features. More details on those tests [here](./src/utils/tests/documentation.md)
 
-- Data flow
+- [Data flow](./src/utils/tests/documentation.md#data-flow)
+
   - [Redux store](./src/utils/tests/documentation.md#using-a-redux-store)
   - [Redux saga](./src/utils/tests/documentation.md#using-redux-saga)
+
+- [External api calls with fetch / wretch](./src/utils/tests/documentation.md#external-api-calls-with-fetch-/-wretch)
+
+- [Navigation](./src/utils/tests/documentation.md#navigation)
+
+  - [Internal navigation](./src/utils/tests/documentation.md#internal-navigation)
+  - [External navigation](./src/utils/tests/documentation.md#external-navigation)
+  - [Asynchronous navigation](./src/utils/tests/documentation.md#asynchronous-navigation)
+
+- [Styled-components (or any styling library)](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+- [Components outside your page](./src/pages/Subscription/__tests__/Subscription.test.tsx)
+- [Timers (delay, setTimeout...)](./src/pages/Movies/__tests__/Movies.test.tsx)
+- [Loading](./src/pages/Movies/**tests**/Movies.test.tsx)
 - User interactions
   - [Formik](./src/pages/Subscription/__tests__/Subscription.test.tsx)
   - [Inputs](./src/pages/Subscription/__tests__/Subscription.test.tsx)
   - **Scroll view**
   - **Native code**
-- External api calls
-  - [simple](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-  - [with response](./src/pages/Movies/__tests__/Movies.test.tsx)
-  - **with query parameters and tokens to check**
-- [Styled-components (or any styling library)](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-- [Components outside your page](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-- [Timers (delay, setTimeout...)](./src/pages/Movies/__tests__/Movies.test.tsx)
-- [Loading](./src/pages/Movies/**tests**/Movies.test.tsx)
-- Navigation
-  - [Internal navigation](./src/pages/About/__tests__/About.test.tsx)
-  - **external navigation**
-  - **asynchronous navigation**
