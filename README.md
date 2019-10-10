@@ -105,27 +105,22 @@ jest test environment but I found that it was necessary to specify it for some c
 
 ## Examples
 
-You can find below example code on how to test features. More details on those tests [here](./src/utils/tests/documentation.md)
+You can find below example code on how to test features.
 
 - [Data flow](./src/utils/tests/documentation.md#data-flow)
-
-  - [Redux store](./src/utils/tests/documentation.md#using-a-redux-store)
-  - [Redux saga](./src/utils/tests/documentation.md#using-redux-saga)
-
-- [External api calls with fetch / wretch](./src/utils/tests/documentation.md#external-api-calls-with-fetch-/-wretch)
-
+  - [Redux store](./src/utils/tests/documentation.md#redux-store)
+  - [Redux saga](./src/utils/tests/documentation.md#redux-saga)
+  - [External api calls with fetch / wretch](./src/utils/tests/documentation.md#external-api-calls-with-fetch-/-wretch)
 - [Navigation](./src/utils/tests/documentation.md#navigation)
-
   - [Internal navigation](./src/utils/tests/documentation.md#internal-navigation)
-  - [External navigation](./src/utils/tests/documentation.md#external-navigation)
+  - [Outside page navigation](./src/utils/tests/documentation.md#outside-page-navigation)
   - [Asynchronous navigation](./src/utils/tests/documentation.md#asynchronous-navigation)
-
-- [Styled-components (or any styling library)](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-- [Components outside your page](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-- [Timers (delay, setTimeout...)](./src/pages/Movies/__tests__/Movies.test.tsx)
-- [Loading](./src/pages/Movies/**tests**/Movies.test.tsx)
-- User interactions
-  - [Formik](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-  - [Inputs](./src/pages/Subscription/__tests__/Subscription.test.tsx)
-  - **Scroll view**
-  - **Native code**
+- [Timers (delay, setTimeout...)](./src/utils/tests/documentation.md#timers)
+- [User interface](./src/utils/tests/documentation.md#user-interface)
+  - [Styling library](./src/utils/tests/documentation.md#styling-library)
+  - [Formik form](./src/utils/tests/documentation.md#formik-form)
+  - [Inputs](./src/utils/tests/documentation.md#inputs)
+  - [Components outside the tested page](./src/utils/tests/documentation.md#components-outside-the-tested-page)
+  - [Loading](./src/utils/tests/documentation.md#loading)
+  - [Scroll view](./src/utils/tests/documentation.md#scroll-view)
+  - [Native code in general](./src/utils/tests/documentation.md#native-code-in-general)
