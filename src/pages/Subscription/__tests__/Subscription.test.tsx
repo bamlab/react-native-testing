@@ -25,6 +25,8 @@ describe('[Page] Home', () => {
     // GIVEN
     const EmailInput = page.getByPlaceholder(wording.emailPlaceholder);
     const ValidateButton = page.getByText(wording.validateEmail);
+    // Careful, getByPlaceholder might not work depending on the input you use.
+    // I don't think it works with react-native-paper for instance
     // WHEN
     fireEvent.changeText(EmailInput, 'hello@bam.com');
     fireEvent.press(ValidateButton);
