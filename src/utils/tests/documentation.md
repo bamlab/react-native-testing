@@ -1,6 +1,6 @@
 # Documentation for integration test examples
 
-## Table of contents
+## List of examples
 
 - [Data flow](#data-flow)
   - [Redux store](#redux-store)
