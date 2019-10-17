@@ -102,3 +102,23 @@ If you decide to use react-native-testing-library for your project, don't forget
 
 Setup files will list files to run before each page containing tests. Jsdom is supposed to be the default for a
 jest test environment but I found that it was necessary to specify it for some cases.
+
+## Examples
+
+- [Data flow](./src/utils/tests/documentation.md#data-flow)
+  - [Redux store](./src/utils/tests/documentation.md#redux-store)
+  - [Redux saga](./src/utils/tests/documentation.md#redux-saga)
+  - [External api calls with fetch / wretch](./src/utils/tests/documentation.md#external-api-calls-with-fetch-/-wretch)
+- [Navigation](./src/utils/tests/documentation.md#navigation)
+  - [Internal navigation](./src/utils/tests/documentation.md#internal-navigation)
+  - [Outside page navigation](./src/utils/tests/documentation.md#outside-page-navigation)
+  - [Asynchronous navigation](./src/utils/tests/documentation.md#asynchronous-navigation)
+- [Timers (delay, setTimeout...)](./src/utils/tests/documentation.md#timers)
+- [User interface](./src/utils/tests/documentation.md#user-interface)
+  - [Styling library](./src/utils/tests/documentation.md#styling-library)
+  - [Formik form](./src/utils/tests/documentation.md#formik-form)
+  - [Inputs](./src/utils/tests/documentation.md#inputs)
+  - [Components outside the tested page](./src/utils/tests/documentation.md#components-outside-the-tested-page)
+  - [Loading](./src/utils/tests/documentation.md#loading)
+  - [Scroll view](./src/utils/tests/documentation.md#scroll-view)
+  - [Native code in general](./src/utils/tests/documentation.md#native-code-in-general)
