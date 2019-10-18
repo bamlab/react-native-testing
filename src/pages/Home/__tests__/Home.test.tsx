@@ -14,4 +14,4 @@ describe('[Page] Home', () => {
     );
     expect(AboutTitle).toBeDefined();
   });
-});
+}); 
