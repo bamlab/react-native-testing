@@ -10,6 +10,11 @@ import {IAppState} from '../../modules/types';
 import {createInitialiasedStore, sagaMiddlewareTest} from './mockStore';
 import {storeManager} from '../../modules/storeManager';
 import {NavigationScreenProp} from 'react-navigation';
+import {createAppContainer} from 'react-navigation';
+import {
+  createAppContainerWithInitialRoute,
+  AppContainer,
+} from '../../navigation/stack';
 
 export const renderWithTheme = (page: ReactElement) => {
   return render(<ThemeProvider theme={theme}>{page}</ThemeProvider>);
@@ -55,3 +60,23 @@ export const getMockApiResponse = (status: number, data: any = {}) => ({
   status,
   body: {data},
 });
+
+export const renderWithNavigation = (
+  pageRoute: string,
+  initialState?: IAppState,
+) => {
+  const App = createAppContainerWithInitialRoute(pageRoute);
+  storeManager.store = createInitialiasedStore(initialState);
+  sagaMiddlewareTest.run(watchAll);
+
+  const pageContainerComponent = (
+    <Provider store={storeManager.store}>
+      <App />
+      <Toaster />
+    </Provider>
+  );
+  const pageRendered = render(pageContainerComponent);
+  const refresh = () => pageRendered.rerender(pageContainerComponent);
+
+  return {...pageRendered, refresh};
+};

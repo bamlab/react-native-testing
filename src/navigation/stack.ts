@@ -6,40 +6,40 @@ import {Subscription} from '../pages/Subscription/Subscription';
 import {TodoList} from '../pages/TodoList/TodoList';
 import {Movies} from '../pages/Movies/Movies';
 
-const stackNav = createStackNavigator(
-  {
-    [Routes.Home]: {
-      screen: Home,
-      navigationOptions: {
-        title: 'Home',
-      },
-    },
-    [Routes.About]: {
-      screen: About,
-      navigationOptions: {
-        title: 'About',
-      },
-    },
-    [Routes.Subscription]: {
-      screen: Subscription,
-      navigationOptions: {
-        title: 'Subscription',
-      },
-    },
-    [Routes.TodoList]: {
-      screen: TodoList,
-      navigationOptions: {
-        title: 'TodoList',
-      },
-    },
-    [Routes.Movies]: {
-      screen: Movies,
-      navigationOptions: {
-        title: 'Movies',
-      },
+const routes = {
+  [Routes.Home]: {
+    screen: Home,
+    navigationOptions: {
+      title: 'Home',
     },
   },
-  {initialRouteName: Routes.Home},
-);
+  [Routes.About]: {
+    screen: About,
+    navigationOptions: {
+      title: 'About',
+    },
+  },
+  [Routes.Subscription]: {
+    screen: Subscription,
+    navigationOptions: {
+      title: 'Subscription',
+    },
+  },
+  [Routes.TodoList]: {
+    screen: TodoList,
+    navigationOptions: {
+      title: 'TodoList',
+    },
+  },
+  [Routes.Movies]: {
+    screen: Movies,
+    navigationOptions: {
+      title: 'Movies',
+    },
+  },
+};
 
-export const AppContainer = createAppContainer(stackNav);
+export const createAppContainerWithInitialRoute = (initialRouteName: string) =>
+  createAppContainer(createStackNavigator(routes, {initialRouteName}));
+
+export const AppContainer = createAppContainerWithInitialRoute(Routes.Home);
