@@ -26,14 +26,42 @@
 
 ### Redux store
 
-Check out:
+Files to check out:
 
 - [this test](../../pages/TodoList/__tests__/TodoList.test.tsx)
 - [renderPage method](./helpers.tsx)
 - [mockStore](./mockStore.ts)
 
 Basically, for each test, we create a new real redux store with an initial state.
-This store is passed to the page via a provider wrapping the page in the renderPage method.
+This store is passed to the page via a provider wrapping the page in the renderPage method:
+
+```typescript
+export const renderPage = (
+  page: ReactElement,
+  initialState?: Partial<IAppState>,
+) => {
+  storeManager.store = createInitialiasedStore(initialState);
+
+  const pageContainerComponent = (
+    <Provider store={storeManager.store}>
+      {page}
+      <Toaster />
+    </Provider>
+  );
+  const pageRendered = render(pageContainerComponent);
+
+  return {...pageRendered};
+```
+
+In the setup of the test, use the previously defined `renderPage` method
+
+```typescript
+it('should display previous and new todos', async () => {
+  // SETUP
+  const page = renderPage(<TodoList />, initialState);
+  // ...
+});
+```
 
 ### Redux saga
 
