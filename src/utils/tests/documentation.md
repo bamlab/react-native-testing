@@ -5,7 +5,7 @@
 - [Data flow](#data-flow)
   - [Redux store](#redux-store)
   - [Redux saga](#redux-saga)
-  - [External api calls with fetch / wretch](#external-api-calls-with-fetch-/-wretch)
+  - [External api calls with fetch / wretch](#external-api-calls-with-fetch-or-wretch)
 - [Navigation](#navigation)
   - [Internal navigation](#internal-navigation)
   - [Outside page navigation](#outside-page-navigation)
@@ -107,7 +107,7 @@ it('should display succesful message on successful subscription', async () => {
 });
 ```
 
-### External api calls with fetch / wretch
+### External api calls with fetch or wretch
 
 To make our integration tests cover as much code as possible, we use [fetch-mock](https://github.com/wheresrhys/fetch-mock) to mock the api calls. That way, we can test that our api calls to our server are actually made and have the right parameters.
 
