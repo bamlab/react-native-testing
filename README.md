@@ -18,9 +18,9 @@ I've written an article about why you should use this library and how to use it 
 
 ## Theory
 
-### What are they ?
+### What they are
 
-We'll call an integration test a test that :
+We'll call an integration test a test that:
 
 - Starts by simulating a user interaction
 - Ends by expecting a visual feedback
@@ -28,23 +28,23 @@ We'll call an integration test a test that :
 - Mocks the native code
 - Mocks the external api calls (fetch / graphql...)
 
-### Why are they nice ?
+### Why they are nice
 
 - These tests don't depend on implementation details
 - They test the interaction between the different parts of our app (redux / formik / libs / navigation / components...)
 - We won't need to test reducers and sagas separatetely in unit tests
 
 To know more about the philosphy and the reasons behind those tests,
-check out those articles written by Kent C Dodds :
+check out those articles written by Kent C Dodds:
 
 - [Testing implementation details](https://kentcdodds.com/blog/testing-implementation-details)
 - [Write tests. Not too many. Mostly integration.](https://kentcdodds.com/blog/write-tests)
 - [Avoid the test user](https://kentcdodds.com/blog/avoid-the-test-user)
 - [Why I never use shallow rendering](https://kentcdodds.com/blog/why-i-never-use-shallow-rendering)
 
-### When should we write them ?
+### When we should write them
 
-We should write an integration test for each new user interaction we add to our app
+We should write an integration test for each new user interaction we add to our app.
 
 ### When we should write other types of tests
 
@@ -65,7 +65,8 @@ Typical cases where you can write other types of tests include:
 - testing different error handling cases in sagas when you have already tested one
 - testing logic inside a logic service - such as a parser or a service that computes a value
 
-### How do we do it ?
+
+### How we do it
 
 - First, find out the different api calls that you'll have to mock for your test.
   To do that, open up your simulator along with your debugger. Then execute the feature you want to test and check the api calls that occured.
@@ -89,7 +90,7 @@ or
 
 #### On iOS
 
-At the root of the project :
+At the root of the project:
 
 ```
 cd ios
@@ -100,7 +101,7 @@ react-native run-ios
 
 #### On Android
 
-At the root of the project :
+At the root of the project:
 
 ```
 react-native run-android
