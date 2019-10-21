@@ -71,7 +71,41 @@ Check out:
 - [renderPage method](./helpers.tsx)
 - [mockStore](./mockStore.ts)
 
-The sagas are set up in the `renderPage` method and then behave just like they would in the staging environment.
+The sagas are set up in the `renderPage` method and then behave just like they would in the devlopement environment.
+
+```typescript
+export const sagaMiddleware = createSagaMiddleware();
+
+export const renderPage = (
+  page: ReactElement,
+  initialState?: Partial<IAppState>,
+) => {
+  storeManager.store = createInitialiasedStore(initialState);
+  sagaMiddleware.run(watchAll);
+
+  const pageContainerComponent = (
+    <Provider store={storeManager.store}>
+      {page}
+      <Toaster />
+    </Provider>
+  );
+  const pageRendered = render(pageContainerComponent);
+  return {...pageRendered};
+};
+```
+
+In your test, use an async function as well as the waitForElement helper to find your React Node in the DOM
+
+```typescript
+it('should display succesful message on successful subscription', async () => {
+  // ...
+  // THEN
+  const SuccessMessage = await waitForElement(() =>
+    page.queryByText(wording.subscriptionSuccessful),
+  );
+  expect(SuccessMessage).toBeDefined();
+});
+```
 
 ### External api calls with fetch / wretch
 
