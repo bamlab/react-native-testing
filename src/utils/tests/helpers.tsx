@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react';
 import {render} from 'react-native-testing-library';
 import {Provider} from 'react-redux';
+import {NavigationScreenProp} from 'react-navigation';
 
 import {Toaster} from '../../components/Toaster';
 import watchAll from '../../modules/saga';
@@ -9,12 +10,7 @@ import {theme} from '../theme';
 import {IAppState} from '../../modules/types';
 import {createInitialiasedStore, sagaMiddlewareTest} from './mockStore';
 import {storeManager} from '../../modules/storeManager';
-import {NavigationScreenProp} from 'react-navigation';
-import {createAppContainer} from 'react-navigation';
-import {
-  createAppContainerWithInitialRoute,
-  AppContainer,
-} from '../../navigation/stack';
+import {createAppContainerWithInitialRoute} from '../../navigation/stack';
 
 export const renderWithTheme = (page: ReactElement) => {
   return render(<ThemeProvider theme={theme}>{page}</ThemeProvider>);

@@ -94,7 +94,7 @@ export const renderPage = (
 };
 ```
 
-In your test, use an async function as well as the waitForElement helper to find your React Node in the DOM
+In your test, use an async function as well as the [waitForElement](https://callstack.github.io/react-native-testing-library/docs/api#waitforelement) helper to find your React Node in the DOM
 
 ```typescript
 it('should display succesful message on successful subscription', async () => {
@@ -111,9 +111,35 @@ it('should display succesful message on successful subscription', async () => {
 
 To make our integration tests cover as much code as possible, we use [fetch-mock](https://github.com/wheresrhys/fetch-mock) to mock the api calls. That way, we can test that our api calls to our server are actually made and have the right parameters.
 
-- [simple call](../../pages/Subscription/__tests__/Subscription.test.tsx)
-- [with response](../../pages/Movies/__tests__/Movies.test.tsx)
-- **TODO:** with query parameters and tokens to check
+Files to check out:
+
+- [test for simple call](../../pages/Subscription/__tests__/Subscription.test.tsx)
+- [test for call with response](../../pages/Movies/__tests__/Movies.test.tsx)
+- [getMockApiResponse](./helpers.tsx)
+- **TODO:** test calls with query parameters and tokens to check
+
+Here is how you can mock api calls with fetch mock and some custom helpers and then test the page using it:
+
+```typescript
+  const mockGetMovies = () => {
+    fetchMock.get(
+      MOVIES_API_ENDPOINT,
+      getMockApiResponse(200, {results: mockPopularMovies}),
+    );
+  };
+
+  it('should load movies and display movies properly', async () => {
+    // SETUP
+    mockGetMovies();
+    // ...
+    // THEN
+    const FirstMovie = await waitForElement(() =>
+      page.queryByText(mockPopularMovies[0].title),
+    );
+    expect(FirstMovie).toBeDefined();
+  });
+});
+```
 
 ---
 
