@@ -46,6 +46,26 @@ check out those articles written by Kent C Dodds:
 
 We should write an integration test for each new user interaction we add to our app.
 
+### When we should write other types of tests
+
+Because integration tests take a long time to run, you can write lighter tests when it is possible.
+When you want to write another type of test you need to make sure:
+
+- there is an integration test covering the input you give to your test
+  - that way you make sure you cover regressions if you change the structure of the input or the data given
+  - e.g. if you test a logic service, you have tested that the right data is given as arguments everywhere it is called
+  - e.g. if you test a saga, you have tested that it is triggered by the action
+- there is an integration test covering the output you test
+  - that way you make sure you cover regressions if you change the structure of the output or how it is used
+  - e.g. if you test a logic service, you have tested its result everywhere it is called
+  - e.g. if you test a saga, you have tested that right effects are produced
+  
+Typical cases where you can write other types of tests include:
+
+- testing different error handling cases in sagas when you have already tested one
+- testing logic inside a logic service - such as a parser or a service that computes a value
+
+
 ### How we do it
 
 - First, find out the different api calls that you'll have to mock for your test.
