@@ -68,14 +68,25 @@ Typical cases where you can write other types of tests include:
 
 ### How we do it
 
-- First, find out the different api calls that you'll have to mock for your test.
-  To do that, open up your simulator along with your debugger. Then execute the feature you want to test and check the api calls that occured.
-- Then find out how to organise your mock data
-- Finally write your tests following the model
-  - SETUP --> mock api calls, render page
+We can separate our tests into 4 different parts:
+
+  - SETUP --> api calls mocks, page rendering
   - GIVEN --> what the user sees on the page
   - WHEN --> what the user does
   - THEN --> what visual feedback the user should expect
+
+When you want to write a test, you have to ask the questions in the reverse order:
+
+  - THEN -> the end result we want to protect with our test
+    - e.g. I want a modal to show up, I want to be redirected to another page, I want my snapshot to match, I want an amount to be displayed
+  - WHEN -> the furthest action you can easily trigger
+    - e.g. I click on a button, I enter some text, I dispatch a native event
+  - GIVEN -> the state of your components and redux store at the beggining of your test
+    - e.g. my redux store should have a populated order, my user should be logged in
+  - SETUP -> the api calls I need to mock and the components you will need to mount
+    - e.g. redux provider + theme provider + "My Profile" page
+
+To find out the different api calls that you'll have to mock for your test, you can open up your simulator along with your debugger. Then execute the feature you want to test and check the api calls that occured.
 
 ## Setup
 
