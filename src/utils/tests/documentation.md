@@ -240,26 +240,50 @@ You can find the whole test [here](../../pages/Movies/__tests__/Movies.test.tsx)
 Check out:
 
 - [this test](../../pages/Subscription/__tests__/Subscription.test.tsx)
-- the [renderWithTheme method](./helpers.tsx)
+- [renderWithTheme method](./helpers.tsx)
 
 Don't forget to import `jest-styled-components` in each test file.
 
 WARNING : not working yet with theme provider !!
 
-### Formik form
-
-Check out:
-
-- [this test](../../pages/Subscription/__tests__/Subscription.test.tsx)
-
 ### Inputs
 
-Check out:
-
-- [this test](../../pages/Subscription/__tests__/Subscription.test.tsx)
-
-Careful, getByPlaceholder might not work depending on the input you use.
+If possible, get the input in the DOM via its placeholder. However, getByPlaceholder might not work depending on the input you use.
 I don't think it works with react-native-paper for instance
+
+Here is an extract from a [test featuring an input](../../pages/Subscription/__tests__/Subscription.test.tsx)
+
+```typescript
+it('should display succesful message on successful subscription', async () => {
+  // ...
+  // GIVEN
+  const EmailInput = page.getByPlaceholder(wording.emailPlaceholder);
+  // ...
+});
+```
+
+### Formik form
+
+Nothing specific to do here really, here is the [test](../../pages/Subscription/__tests__/Subscription.test.tsx):
+
+```typescript
+it('should display succesful message on successful subscription', async () => {
+  // SETUP
+  mockCallSubscribe(200);
+  const page = renderPage(<Subscription {...props} />);
+  // GIVEN
+  const EmailInput = page.getByPlaceholder(wording.emailPlaceholder);
+  const ValidateButton = page.getByText(wording.validateEmail);
+  // WHEN
+  fireEvent.changeText(EmailInput, 'hello@bam.com');
+  fireEvent.press(ValidateButton);
+  // THEN
+  const SuccessMessage = await waitForElement(() =>
+    page.queryByText(wording.subscriptionSuccessful),
+  );
+  expect(SuccessMessage).toBeDefined();
+});
+```
 
 ### Components outside the tested page
 
