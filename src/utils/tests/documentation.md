@@ -212,11 +212,24 @@ TODO: using flushMicrotasksQueue
 
 ## Timers
 
-To tests features including a timer (implemented with setTimeout or the saga effect delay for instance), you need to use jest fake timers
+To tests features including a timer (implemented with setTimeout or the saga effect delay for instance), you need to use [jest fake timers](https://jestjs.io/docs/en/timer-mocks.html)
 
-Check out:
+```typescript
+it('should load movies and display movies properly [using jest timers]', () => {
+  // SETUP
+  jest.useFakeTimers();
+  //...
+  jest.runOnlyPendingTimers(); // don't run all timers here because delay (the redux saga effect) use recursive timers
+  // THEN it shows the movies from the external API
+  const FirstMovie = waitForElement(() =>
+    // no need for await since we use fake timers
+    page.queryByText(mockPopularMovies[0].title),
+  );
+  expect(FirstMovie).toBeDefined();
+});
+```
 
-- [this test](../../pages/Movies/__tests__/Movies.test.tsx)
+You can find the whole test [here](../../pages/Movies/__tests__/Movies.test.tsx)
 
 ---
 
