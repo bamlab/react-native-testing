@@ -288,13 +288,44 @@ it('should display succesful message on successful subscription', async () => {
 ### Components outside the tested page
 
 Basically, if you're in a page where you want to test a component that is outside its DOM, you need to put the component in the `renderPage` method next to your page.
-In our case, it's the `Toaster component` that is outside our page, that's why we put it in the `renderPage` method.
+In our case, it's the `Toaster component` that is outside our page, that's why we put it in the [renderPage method](./helpers.tsx) method.
 
-Check out:
+```typescript
+export const renderPage = (
+  page: ReactElement,
+  initialState?: Partial<IAppState>,
+) => {
+  // ...
+  const pageContainerComponent = (
+    <Provider store={storeManager.store}>
+      {page}
+      <Toaster />
+    </Provider>
+  );
+  const pageRendered = render(pageContainerComponent);
+  return {...pageRendered};
+};
+```
 
-- [the app](../../App.tsx)
+And then, if you want to assert on the appearance of the toaster, check its presence through its text as you would usually do:
+
+```typescript
+it('should display succesful message on successful subscription', async () => {
+  // ...
+  const page = renderPage(<Subscription {...props} />);
+  //...
+  // THEN
+  const SuccessMessage = await waitForElement(() =>
+    page.queryByText(wording.subscriptionSuccessful),
+  );
+  expect(SuccessMessage).toBeDefined();
+});
+```
+
+Files to check out:
+
+- [the app](../../App.tsx) with the setup of the Toaster
 - [this test](../../pages/Subscription/__tests__/Subscription.test.tsx)
-- the [renderPage method](./helpers.tsx)
 
 ### Loading
 
