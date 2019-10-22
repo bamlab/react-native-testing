@@ -147,12 +147,58 @@ Here is how you can mock api calls with fetch mock and some custom helpers and t
 
 ### Internal navigation
 
-Check out:
+Basically, you need to mock to mock react-native-gesture-handler in a jest setup file
 
-- [this test](../../pages/About/__tests__/About.test.tsx)
-- the helper `getPropsWithNavigation` in the [helpers](../../utils/tests/./helpers.tsx)
+```typescript
+jest.mock('react-native-gesture-handler', () => {
+  const View = require('react-native/Libraries/Components/View/View');
+  return {
+    State: {},
+    PanGestureHandler: View,
+    BaseButton: View,
+    Directions: {},
+  };
+});
+```
 
-I am currently looking for a better solution that would wrap the page with its real stack navigator as advised [here](https://www.native-testing-library.com/docs/example-navigation)
+Then you need a renderWithNavigation function:
+
+```typescript
+export const renderWithNavigation = (
+  pageRoute: string,
+  initialState?: IAppState,
+) => {
+  const App = createAppContainerWithInitialRoute(pageRoute);
+
+  const pageContainerComponent = <App />;
+  const pageRendered = render(pageContainerComponent);
+
+  return {...pageRendered};
+};
+```
+
+Finally write your test:
+
+```typescript
+describe('[Page] Home', () => {
+  it('should navigate to about page without any trouble', async () => {
+    const page = renderWithNavigation(Routes.Home);
+    const AboutButton = page.getByText('About');
+    fireEvent.press(AboutButton);
+    const AboutTitle = await waitForElement(() =>
+      page.queryByText(wording.aboutTitle),
+    );
+    expect(AboutTitle).toBeDefined();
+  });
+});
+```
+
+Files and functions to check out:
+
+- [the test](../../pages/Home/__tests__/Home.test.tsx)
+- [setup file](./setup.ts)
+- [renderWithNavigation](./helpers.tsx)
+- [createAppContainerWithInitialRoute](../../navigation/stack.ts)
 
 ### Outside page navigation
 
