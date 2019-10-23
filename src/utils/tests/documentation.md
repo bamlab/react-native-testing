@@ -131,6 +131,8 @@ Here is how you can mock api calls with fetch mock and some custom helpers and t
   it('should load movies and display movies properly', async () => {
     // SETUP
     mockGetMovies();
+    mockGetMovies();
+    mockGetMovies();
     // ...
     // THEN
     const FirstMovie = await waitForElement(() =>
@@ -329,10 +331,46 @@ Files to check out:
 
 ### Loading
 
-Check out:
+A very common scenario is having a loader appear somewhere on the screen while you wait for your api call to finish. To do that, don't write a test that only checks the loader but write a test covering the whole functionnality.
 
-- [the page tested](../../pages/Movies/Movies.tsx)
-- [the correspondign test](../../pages/Movies/__tests__/Movies.test.tsx)
+Below is the extract of the [page](../../pages/Movies/Movies.tsx) we want to test, you can notice the testID on the ActivityIndicator that will help us find it in the DOM in our test.
+
+```typescript
+useEffect(() => {
+  dispatch(MoviesActions.getMovies());
+}, [dispatch]);
+
+return (
+  <Container>
+    <Card>
+      {movies ? (
+        movies.map((movie, index) => <Text key={index}>{movie}</Text>)
+      ) : (
+        <ActivityIndicator size="large" testID="loader" />
+      )}
+    </Card>
+  </Container>
+);
+```
+
+And then comes the [test](../../pages/Movies/__tests__/Movies.test.tsx):
+
+```typescript
+it('should load movies and display movies properly', async () => {
+  // SETUP
+  mockGetMovies();
+  // GIVEN the page renders
+  const page = renderPage(<Movies />);
+  // THEN it loads
+  const Loader = page.queryByTestId('loader');
+  expect(Loader).toBeDefined();
+  // THEN it shows the movies from the external API
+  const FirstMovie = await waitForElement(() =>
+    page.queryByText(mockPopularMovies[0].title),
+  );
+  expect(FirstMovie).toBeDefined();
+});
+```
 
 ### Scroll View
 
