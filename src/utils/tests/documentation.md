@@ -239,12 +239,42 @@ You can find the whole test [here](../../pages/Movies/__tests__/Movies.test.tsx)
 
 ### Styling library
 
-Check out:
+If you use a styling library, you need to wrap your rendered page with your Theme provider. You can do it for example in a helper:
 
-- [this test](../../pages/Subscription/__tests__/Subscription.test.tsx)
+```typescript
+export const renderPage = (
+  page: ReactElement,
+  initialState?: Partial<IAppState>,
+) => {
+  // ...
+  const pageContainerComponent = (
+    <ThemeProvider theme={theme}>
+      // other providers
+      {page}
+    </ThemeProvider>
+  );
+  const pageRendered = render(pageContainerComponent);
+  return {...pageRendered};
+};
+```
+
+Then use it like this:
+
+```typescript
+it('should display succesful message on successful subscription', async () => {
+  // SETUP
+  // ...
+  const page = renderPage(<Subscription {...props} />);
+  // ...
+});
+```
+
+Files to check out:
+
+- [a test](../../pages/Subscription/__tests__/Subscription.test.tsx)
 - [renderWithTheme method](./helpers.tsx)
 
-Don't forget to import `jest-styled-components` in each test file.
+Don't forget to import `jest-styled-components` in each test file if you use styled-components.
 
 WARNING : not working yet with theme provider !!
 

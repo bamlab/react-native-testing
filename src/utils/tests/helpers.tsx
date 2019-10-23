@@ -12,13 +12,9 @@ import {createInitialiasedStore, sagaMiddlewareTest} from './mockStore';
 import {storeManager} from '../../modules/storeManager';
 import {createAppContainerWithInitialRoute} from '../../navigation/stack';
 
-export const renderWithTheme = (page: ReactElement) => {
-  return render(<ThemeProvider theme={theme}>{page}</ThemeProvider>);
-};
-
 /**
  * If you need to have a wrapper around your page, use it in pageContainerComponent (like the Redux Provider)
- * If you need a component rendered outside your page, do the same
+ * If you need a component rendered outside your page (like a Toaster), do the same
  */
 export const renderPage = (
   page: ReactElement,
@@ -28,10 +24,12 @@ export const renderPage = (
   sagaMiddlewareTest.run(watchAll);
 
   const pageContainerComponent = (
-    <Provider store={storeManager.store}>
-      {page}
-      <Toaster />
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={storeManager.store}>
+        {page}
+        <Toaster />
+      </Provider>
+    </ThemeProvider>
   );
   const pageRendered = render(pageContainerComponent);
   const refresh = () => pageRendered.rerender(pageContainerComponent);
