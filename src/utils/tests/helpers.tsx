@@ -1,6 +1,7 @@
 import React, {ReactElement} from 'react';
 import {render} from 'react-native-testing-library';
 import {Provider} from 'react-redux';
+import {NavigationScreenProp} from 'react-navigation';
 
 import {Toaster} from '../../components/Toaster';
 import watchAll from '../../modules/saga';
@@ -9,20 +10,11 @@ import {theme} from '../theme';
 import {IAppState} from '../../modules/types';
 import {createInitialiasedStore, sagaMiddlewareTest} from './mockStore';
 import {storeManager} from '../../modules/storeManager';
-import {NavigationScreenProp} from 'react-navigation';
-import {createAppContainer} from 'react-navigation';
-import {
-  createAppContainerWithInitialRoute,
-  AppContainer,
-} from '../../navigation/stack';
-
-export const renderWithTheme = (page: ReactElement) => {
-  return render(<ThemeProvider theme={theme}>{page}</ThemeProvider>);
-};
+import {createAppContainerWithInitialRoute} from '../../navigation/stack';
 
 /**
  * If you need to have a wrapper around your page, use it in pageContainerComponent (like the Redux Provider)
- * If you need a component rendered outside your page, do the same
+ * If you need a component rendered outside your page (like a Toaster), do the same
  */
 export const renderPage = (
   page: ReactElement,
@@ -32,10 +24,12 @@ export const renderPage = (
   sagaMiddlewareTest.run(watchAll);
 
   const pageContainerComponent = (
-    <Provider store={storeManager.store}>
-      {page}
-      <Toaster />
-    </Provider>
+    <ThemeProvider theme={theme}>
+      <Provider store={storeManager.store}>
+        {page}
+        <Toaster />
+      </Provider>
+    </ThemeProvider>
   );
   const pageRendered = render(pageContainerComponent);
   const refresh = () => pageRendered.rerender(pageContainerComponent);

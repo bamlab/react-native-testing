@@ -10,7 +10,7 @@ import {wording} from '../../../utils/wording';
 
 describe('[Page] Home', () => {
   const props = getPropsWithNavigation();
-  const mockPostSubscribe = (status: number) => {
+  const mockCallSubscribe = (status: number) => {
     fetchMock.post(EMAIL_API_ENDPOINT, status);
   };
 
@@ -20,7 +20,7 @@ describe('[Page] Home', () => {
 
   it('should display succesful message on successful subscription', async () => {
     // SETUP
-    mockPostSubscribe(200);
+    mockCallSubscribe(200);
     const page = renderPage(<Subscription {...props} />);
     // GIVEN
     const EmailInput = page.getByPlaceholder(wording.emailPlaceholder);
@@ -34,12 +34,12 @@ describe('[Page] Home', () => {
     const SuccessMessage = await waitForElement(() =>
       page.queryByText(wording.subscriptionSuccessful),
     );
-    expect(SuccessMessage).toBeTruthy();
+    expect(SuccessMessage).toBeDefined();
   });
 
   it('should display error message on failed subscription', async () => {
     // SETUP
-    mockPostSubscribe(400);
+    mockCallSubscribe(400);
     const page = renderPage(<Subscription {...props} />);
     // GIVEN
     const EmailInput = page.getByPlaceholder(wording.emailPlaceholder);
