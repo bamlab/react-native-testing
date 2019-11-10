@@ -8,9 +8,8 @@ import {mockPopularMovies} from '../../../utils/tests/mockData/mockMovies';
 
 describe('[Page] Movies', () => {
   beforeEach(() => {
-    fetchMock.reset();
-    jest.resetAllMocks();
     jest.useRealTimers();
+    fetchMock.reset();
   });
 
   const mockGetMovies = () => {

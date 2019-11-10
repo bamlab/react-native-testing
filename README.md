@@ -56,15 +56,15 @@ When you want to write another type of test you need to make sure:
   - e.g. if you test a logic service, you have tested that the right data is given as arguments everywhere it is called
   - e.g. if you test a saga, you have tested that it is triggered by the action
 - there is an integration test covering the output you test
+
   - that way you make sure you cover regressions if you change the structure of the output or how it is used
   - e.g. if you test a logic service, you have tested its result everywhere it is called
   - e.g. if you test a saga, you have tested that right effects are produced
-  
+
 Typical cases where you can write other types of tests include:
 
 - testing different error handling cases in sagas when you have already tested one
 - testing logic inside a logic service - such as a parser or a service that computes a value
-
 
 ### How we do it
 
@@ -129,10 +129,20 @@ If you decide to use react-native-testing-library for your project, don't forget
 ```
   setupFiles: ['./src/utils/test.setup.tsx'],
   testEnvironment: 'jsdom',
+  resetMocks: true,
 ```
 
 Setup files will list files to run before each page containing tests. Jsdom is supposed to be the default for a
 jest test environment but I found that it was necessary to specify it for some cases.
+
+The `resetMocks: true,` option insures that all jest mocks are reset before tests.
+It is independant from react-native-testing-library and should be the default for all apps using jest. It is equivalent of writing in each test:
+
+```typescript
+beforeEach(() => {
+  jest.resetAllMocks();
+});
+```
 
 ## Examples
 
