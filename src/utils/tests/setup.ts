@@ -1,33 +1,44 @@
+import fetchMock from 'fetch-mock';
+
 /**
  * Suppress React 16.8 act() warnings globally.
  * Waiting for react-native to support react 16.9
  */
-export const originalError = console.error;
+const originalConsoleError = console.error;
 console.error = (...args) => {
   if (/Warning.*not wrapped in act/.test(args[0])) {
     return;
   }
-  originalError.call(console, ...args);
+  originalConsoleError.call(console, ...args);
 };
 
-// console.warn = arg => {
-//   const warnings = [
-//     'Calling .measureInWindow()',
-//     'Calling .measureLayout()',
-//     'Calling .setNativeProps()',
-//     'Calling .focus()',
-//     'Calling .blur()',
-//   ];
+/**
+ * Override console.warn to hide unwanted warnings
+ */
+const originalConsoleWarn = console.warn;
+console.warn = (...args) => {
+  const warningMessage = args[0];
+  const warningsToHide = [
+    'Calling .measureInWindow()',
+    'Calling .measureLayout()',
+    'Calling .setNativeProps()',
+    'Calling .focus()',
+    'Calling .blur()',
+  ];
 
-//   const finalArgs = warnings.reduce(
-//     (acc, curr) => (arg.includes(curr) ? [...acc, arg] : acc),
-//     [],
-//   );
-//   if (!finalArgs.length) {
-//     console.warn(arg);
-//   }
-// };
+  const shouldPrintWarning = warningsToHide.reduce(
+    (shouldPrintWarning, warningToHide) =>
+      shouldPrintWarning && !warningMessage.includes(warningToHide),
+    true,
+  );
+  if (shouldPrintWarning) {
+    originalConsoleWarn(...args);
+  }
+};
 
+/**
+ * Mock react-native-gesture-handler to render react navigation components and their animations
+ */
 jest.mock('react-native-gesture-handler', () => {
   const View = require('react-native/Libraries/Components/View/View');
   return {

@@ -14,9 +14,14 @@ module.exports = {
     '\\.(ts|tsx)$': 'ts-jest',
   },
   testRegex: '(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$',
-  testPathIgnorePatterns: ['\\.snap$', '<rootDir>/node_modules/', '<rootDir>/.history/'],
+  testPathIgnorePatterns: [
+    '\\.snap$',
+    '<rootDir>/node_modules/',
+    '<rootDir>/.history/',
+  ],
   cacheDirectory: '.jest/cache',
   transformIgnorePatterns: ['node_modules/@bam.tech/react-native-text-input'],
   setupFiles: ['./src/utils/tests/setup.ts'],
   testEnvironment: 'jsdom',
+  resetMocks: true,
 };
