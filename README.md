@@ -162,6 +162,7 @@ Just run `yarn jest`. You can add `--coverage` to find out how much code the tes
   - [Outside page navigation](./src/utils/tests/documentation.md#outside-page-navigation)
   - [Asynchronous navigation](./src/utils/tests/documentation.md#asynchronous-navigation)
 - [Timers (delay, setTimeout...)](./src/utils/tests/documentation.md#timers)
+- [Rerender page](./src/utils/tests/documentation.md#rerender-page)
 - [User interface](./src/utils/tests/documentation.md#user-interface)
   - [Styling library](./src/utils/tests/documentation.md#styling-library)
   - [Formik form](./src/utils/tests/documentation.md#formik-form)
