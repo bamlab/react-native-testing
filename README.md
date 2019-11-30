@@ -7,6 +7,9 @@
 - [Introduction](#introduction)
 - [Theory](#theory)
 - [Setup](#setup)
+  - [The app](#the-app)
+  - [The tests](#the-tests)
+- [Debugging](#debugging)
 - [Examples](./src/utils/tests/documentation.md#list-of-examples)
 
 ## Introduction
@@ -70,36 +73,33 @@ Typical cases where you can write other types of tests include:
 
 We can separate our tests into 4 different parts:
 
-  - SETUP --> api calls mocks, page rendering
-  - GIVEN --> what the user sees on the page
-  - WHEN --> what the user does
-  - THEN --> what visual feedback the user should expect
+- SETUP --> api calls mocks, page rendering
+- GIVEN --> what the user sees on the page
+- WHEN --> what the user does
+- THEN --> what visual feedback the user should expect
 
 When you want to write a test, you have to ask the questions in the reverse order:
 
-  - THEN -> the end result we want to protect with our test
-    - e.g. I want a modal to show up, I want to be redirected to another page, I want my snapshot to match, I want an amount to be displayed
-  - WHEN -> the furthest action you can easily trigger
-    - e.g. I click on a button, I enter some text, I dispatch a native event
-  - GIVEN -> the state of your components and redux store at the beggining of your test
-    - e.g. my redux store should have a populated order, my user should be logged in
-  - SETUP -> the api calls I need to mock and the components you will need to mount
-    - e.g. redux provider + theme provider + "My Profile" page
+- THEN -> the end result we want to protect with our test
+  - e.g. I want a modal to show up, I want to be redirected to another page, I want my snapshot to match, I want an amount to be displayed
+- WHEN -> the furthest action you can easily trigger
+  - e.g. I click on a button, I enter some text, I dispatch a native event
+- GIVEN -> the state of your components and redux store at the beggining of your test
+  - e.g. my redux store should have a populated order, my user should be logged in
+- SETUP -> the api calls I need to mock and the components you will need to mount
+  - e.g. redux provider + theme provider + "My Profile" page
 
 To find out the different api calls that you'll have to mock for your test, you can open up your simulator along with your debugger. Then execute the feature you want to test and check the api calls that occured.
 
 ## Setup
 
-### Install the app
+### The app
 
-Clone the repo and then, at its root, run
-`yarn`
-or
-`npm i`
+#### Install the app
 
-### Run the app
+Clone the repo and then, at its root, run `yarn` or `npm i`
 
-#### On iOS
+#### Run the app on iOS
 
 At the root of the project:
 
@@ -110,19 +110,13 @@ cd ..
 react-native run-ios
 ```
 
-#### On Android
+#### Run the app on Android
 
-At the root of the project:
+At the root of the project `react-native run-android`
 
-```
-react-native run-android
-```
+### The tests
 
-### Run the tests
-
-Just run `yarn jest`. You can add `--coverage` to find out how much code the tests cover
-
-### Configure your own jest environment
+#### Configure your own jest environment
 
 If you decide to use react-native-testing-library for your project, don't forget to add those lines to your `jest.config.js`:
 
@@ -143,12 +137,25 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 ```
+#### Hide unwanted warnings
+
+TODO:
+
+#### Run the tests
+
+Just run `yarn jest`. You can add `--coverage` to find out how much code the tests cover
+
+## Debugging
+
+- debug function
+- IDE debugging (ex: works well wiht vscode if you have the Jest extention)
 
 ## Examples
 
 - [Data flow](./src/utils/tests/documentation.md#data-flow)
   - [Redux store](./src/utils/tests/documentation.md#redux-store)
   - [Redux saga](./src/utils/tests/documentation.md#redux-saga)
+  - [Graphql / Apollo](./src/utils/tests/documentation.md#graphql-/-apollo)
   - [External api calls with fetch / wretch](./src/utils/tests/documentation.md#external-api-calls-with-fetch-/-wretch)
 - [Navigation](./src/utils/tests/documentation.md#navigation)
   - [Internal navigation](./src/utils/tests/documentation.md#internal-navigation)

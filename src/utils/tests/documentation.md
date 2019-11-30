@@ -5,12 +5,14 @@
 - [Data flow](#data-flow)
   - [Redux store](#redux-store)
   - [Redux saga](#redux-saga)
+  - [Graphql / Apollo](#graphql-/-apollo)
   - [External api calls with fetch / wretch](#external-api-calls-with-fetch-or-wretch)
 - [Navigation](#navigation)
   - [Internal navigation](#internal-navigation)
   - [Outside page navigation](#outside-page-navigation)
   - [Asynchronous navigation](#asynchronous-navigation)
 - [Timers (delay, setTimeout...)](#timers)
+- [Rerender page](#rerender-page)
 - [User interface](#user-interface)
   - [Styling library](#styling-library)
   - [Formik form](#formik-form)
@@ -106,6 +108,12 @@ it('should display succesful message on successful subscription', async () => {
   expect(SuccessMessage).toBeDefined();
 });
 ```
+
+### Graphql / Apollo
+
+Ask Pierre-Louis L.
+
+More details in the future
 
 ### External api calls with fetch or wretch
 
@@ -204,11 +212,15 @@ Files and functions to check out:
 
 ### Outside page navigation
 
-TODO: with navigation from saga with navigateService
+Ask Matthieu A.
+
+More details in the future
 
 ### Asynchronous navigation
 
-TODO: using flushMicrotasksQueue
+Ask Matthieu A.
+
+More details in the future
 
 ---
 
@@ -234,6 +246,14 @@ it('should load movies and display movies properly [using jest timers]', () => {
 You can find the whole test [here](../../pages/Movies/__tests__/Movies.test.tsx)
 
 ---
+
+## Rerender page
+
+Can be needed to force props update, if so, use the refresh function given by the renderPage method
+
+More details in the future
+
+--
 
 ## User interface
 
@@ -410,8 +430,12 @@ The best way to test this, is to check that the disabled property exists on the 
 
 ### Scroll View
 
-TODO: see Antoine Jubin
+Ask Antoine Jubin
+
+More details in the future
 
 ### Native code in general
 
-TODO: By mocking the proper native library with jest
+By mocking the proper native library with jest
+
+More details in the future
