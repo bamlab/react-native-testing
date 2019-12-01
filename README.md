@@ -103,7 +103,7 @@ Clone the repo and then, at its root, run `yarn` or `npm i`
 
 At the root of the project:
 
-```
+```bash
 cd ios
 pod install
 cd ..
@@ -147,10 +147,11 @@ Just run `yarn jest`. You can add `--coverage` to find out how much code the tes
 
 ## Debugging
 
-- debug function
-- IDE debugging (ex: works well wiht vscode if you have the Jest extention)
+- The best way to debug a test is to use your IDE debug features (such as breakpoints). If you use VSCode for example, you can achieve that easily thanks to the jest extension
 
-## Examples
+- Another way to debug your tests is to use the `debug` function given by the `render` method from `react-native-testing-library`. It outputs a snapshot of your component inside your terminal with the current state it is in at the time the debug function is called.
+
+## Test examples
 
 - [Data flow](./src/utils/tests/documentation.md#data-flow)
   - [Redux store](./src/utils/tests/documentation.md#redux-store)
