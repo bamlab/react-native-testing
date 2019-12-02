@@ -140,7 +140,7 @@ beforeEach(() => {
 #### Hide unwanted warnings
 
 To hide unwanted warnings, you can override the console.error function (as well as console.log and
-console.warn). This is done in the [setup file]("./src/utils/tests/setup.ts"). Here it is used for
+console.warn). This is done in the [setup file]("./src/utils/tests/setup.ts") referenced in the [jest config]("./jest.config.js"). Here it is used for
 example to hide errors concerning the `act function`, a problem due to React that they fixed in the
 version 16.9 but still occurs with react native.
 
