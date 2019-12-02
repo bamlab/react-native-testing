@@ -139,7 +139,20 @@ beforeEach(() => {
 ```
 #### Hide unwanted warnings
 
-TODO:
+To hide unwanted warnings, you can override the console.error function (as well as console.log and
+console.warn). This is done in the [setup file]("./src/utils/tests/setup.ts"). Here it is used for
+example to hide errors concerning the `act function`, a problem due to React that they fixed in the
+version 16.9 but still occurs with react native.
+
+```typescript
+export const originalError = console.error;
+console.error = (...args) => {
+  if (/Warning.*not wrapped in act/.test(args[0])) {
+    return;
+  }
+  originalError.call(console, ...args);
+};
+```
 
 #### Run the tests
 
