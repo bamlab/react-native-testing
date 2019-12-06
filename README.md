@@ -163,3 +163,4 @@ beforeEach(() => {
   - [Loading](./src/utils/tests/documentation.md#loading)
   - [Scroll view](./src/utils/tests/documentation.md#scroll-view)
   - [Native code in general](./src/utils/tests/documentation.md#native-code-in-general)
+  - [Touchable Opacity](./src/utils/tests/documentation.md#touchable-opacity)
