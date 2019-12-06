@@ -402,6 +402,12 @@ it('should load movies and display movies properly', async () => {
 });
 ```
 
+### touchable-opacity
+
+If you want to test that a press on a disabled button do not trigger a callback, it's not supported by react-native-testing-library which will call the callback. The issue is [here](https://github.com/callstack/react-native-testing-library/issues/28).
+
+The best way to test this, is to check that the disabled property exists on the Touchable.
+
 ### Scroll View
 
 TODO: see Antoine Jubin
