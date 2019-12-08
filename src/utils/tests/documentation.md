@@ -5,18 +5,21 @@
 - [Data flow](#data-flow)
   - [Redux store](#redux-store)
   - [Redux saga](#redux-saga)
+  - [Graphql / Apollo](#graphql-/-apollo)
   - [External api calls with fetch / wretch](#external-api-calls-with-fetch-or-wretch)
 - [Navigation](#navigation)
   - [Internal navigation](#internal-navigation)
   - [Outside page navigation](#outside-page-navigation)
   - [Asynchronous navigation](#asynchronous-navigation)
 - [Timers (delay, setTimeout...)](#timers)
+- [Rerender page](#rerender-page)
 - [User interface](#user-interface)
   - [Styling library](#styling-library)
   - [Formik form](#formik-form)
   - [Inputs](#inputs)
   - [Components outside the tested page](#components-outside-the-tested-page)
   - [Loading](#loading)
+  - [Disabled button](#disabled-button)
   - [Scroll view](#scroll-view)
   - [Native code in general](#native-code-in-general)
 
@@ -106,6 +109,12 @@ it('should display succesful message on successful subscription', async () => {
   expect(SuccessMessage).toBeDefined();
 });
 ```
+
+### Graphql / Apollo
+
+Ask Pierre-Louis L.
+
+More details in the future
 
 ### External api calls with fetch or wretch
 
@@ -204,11 +213,15 @@ Files and functions to check out:
 
 ### Outside page navigation
 
-TODO: with navigation from saga with navigateService
+Ask Matthieu A.
+
+More details in the future
 
 ### Asynchronous navigation
 
-TODO: using flushMicrotasksQueue
+Ask Matthieu A.
+
+More details in the future
 
 ---
 
@@ -234,6 +247,14 @@ it('should load movies and display movies properly [using jest timers]', () => {
 You can find the whole test [here](../../pages/Movies/__tests__/Movies.test.tsx)
 
 ---
+
+## Rerender page
+
+Can be needed to force props update, if so, use the refresh function given by the renderPage method
+
+More details in the future
+
+--
 
 ## User interface
 
@@ -402,16 +423,22 @@ it('should load movies and display movies properly', async () => {
 });
 ```
 
-### touchable-opacity
+### Disabled button
 
-If you want to test that a press on a disabled button do not trigger a callback, it's not supported by react-native-testing-library which will call the callback. The issue is [here](https://github.com/callstack/react-native-testing-library/issues/28).
+Unfortunately, it is not possible for now to test that a disabled button does not call its onClick prop. There is an issue for it [here](https://github.com/callstack/react-native-testing-library/issues/28).
 
-The best way to test this, is to check that the disabled property exists on the Touchable.
+For now, one of the best way to test it is to check the value of the disabled property on your Button component.
+Another way would be to mock the component TouchableOpacity to ask it not to call onClick if its prop disbaled is set to true. However that would kinda be like rewriting react native and not really testing the code executed when your real user tries to click on a disabled button. That's why we think it's better just to check the disabled prop.
+
 
 ### Scroll View
 
-TODO: see Antoine Jubin
+Ask Antoine Jubin
+
+More details in the future
 
 ### Native code in general
 
-TODO: By mocking the proper native library with jest
+By mocking the proper native library with jest
+
+More details in the future
