@@ -16,7 +16,7 @@
 
 This repo contains a list of examples on how to write integration tests with
 [react-native-testing-library](https://github.com/callstack/react-native-testing-library).
-You can also find in this README some documentation on why integration tests are important and how they can give you more confidence in your tests.
+You can also find in this README some documentation on why integration tests are important and how they can give you more confidence in your code.
 I've written an article about why you should use this library and how to use it [here](https://blog.bam.tech/developper-news/how-to-test-your-react-native-app).
 
 ## Theory
