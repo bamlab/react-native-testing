@@ -140,8 +140,6 @@ Here is how you can mock api calls with fetch mock and some custom helpers and t
   it('should load movies and display movies properly', async () => {
     // SETUP
     mockGetMovies();
-    mockGetMovies();
-    mockGetMovies();
     // ...
     // THEN
     const FirstMovie = await waitForElement(() =>
