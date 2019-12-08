@@ -137,6 +137,7 @@ beforeEach(() => {
   jest.resetAllMocks();
 });
 ```
+
 #### Hide unwanted warnings
 
 To hide unwanted warnings, you can override the console.error function (as well as console.log and
@@ -183,6 +184,6 @@ Just run `yarn jest`. You can add `--coverage` to find out how much code the tes
   - [Inputs](./src/utils/tests/documentation.md#inputs)
   - [Components outside the tested page](./src/utils/tests/documentation.md#components-outside-the-tested-page)
   - [Loading](./src/utils/tests/documentation.md#loading)
+  - [Disabled button](#disabled-button)
   - [Scroll view](./src/utils/tests/documentation.md#scroll-view)
   - [Native code in general](./src/utils/tests/documentation.md#native-code-in-general)
-  - [Touchable Opacity](./src/utils/tests/documentation.md#touchable-opacity)

@@ -19,6 +19,7 @@
   - [Inputs](#inputs)
   - [Components outside the tested page](#components-outside-the-tested-page)
   - [Loading](#loading)
+  - [Disabled button](#disabled-button)
   - [Scroll view](#scroll-view)
   - [Native code in general](#native-code-in-general)
 
@@ -422,11 +423,13 @@ it('should load movies and display movies properly', async () => {
 });
 ```
 
-### touchable-opacity
+### Disabled button
 
-If you want to test that a press on a disabled button do not trigger a callback, it's not supported by react-native-testing-library which will call the callback. The issue is [here](https://github.com/callstack/react-native-testing-library/issues/28).
+Unfortunately, it is not possible for now to test that a disabled button does not call its onClick prop. There is an issue for it [here](https://github.com/callstack/react-native-testing-library/issues/28).
 
-The best way to test this, is to check that the disabled property exists on the Touchable.
+For now, one of the best way to test it is to check the value of the disabled property on your Button component.
+Another way would be to mock the component TouchableOpacity to ask it not to call onClick if its prop disbaled is set to true. However that would kinda be like rewriting react native and not really testing the code executed when your real user tries to click on a disabled button. That's why we think it's better just to check the disabled prop.
+
 
 ### Scroll View
 
