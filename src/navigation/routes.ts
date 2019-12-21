@@ -4,4 +4,5 @@ export enum Routes {
   About = 'About',
   TodoList = 'TodoList',
   Movies = 'Movies',
+  DisabledButton = 'DisabledButton',
 }

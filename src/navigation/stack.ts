@@ -5,6 +5,7 @@ import {Routes} from './routes';
 import {Subscription} from '../pages/Subscription/Subscription';
 import {TodoList} from '../pages/TodoList/TodoList';
 import {Movies} from '../pages/Movies/Movies';
+import {DisabledButton} from '../pages/DisabledButton/DisabledButton';
 
 const routes = {
   [Routes.Home]: {
@@ -35,6 +36,12 @@ const routes = {
     screen: Movies,
     navigationOptions: {
       title: 'Movies',
+    },
+  },
+  [Routes.DisabledButton]: {
+    screen: DisabledButton,
+    navigationOptions: {
+      title: 'DisabledButton',
     },
   },
 };
