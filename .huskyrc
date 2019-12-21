@@ -1,6 +1,6 @@
 {
   "hooks": {
-    "pre-commit": "echo 'toto'",
+    "pre-commit": "echo 'toto' && echo $HUSKY_GIT_PARAMS",
     "pre-push": "lint-committed"
   }
 }
