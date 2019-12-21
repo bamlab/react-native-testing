@@ -1,1 +1,0 @@
-{"file":"/Users/matthieu/projects/TestExamples/src/api/config.ts","mappings":";;AAAa,QAAA,kBAAkB,GAC7B,sDAAsD,CAAC","names":[],"sources":["/Users/matthieu/projects/TestExamples/src/api/config.ts"],"sourcesContent":["export const EMAIL_API_ENDPOINT =\n  'https://fake-newsletter.herokuapp.com/user/subscribe';\n"],"version":3}

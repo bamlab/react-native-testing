@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.js"],"names":["module","exports","require"],"mappings":"AAAA;;AAEAA,MAAM,CAACC,OAAP,GAAiBC,OAAO,CAAC,eAAD,CAAxB","sourcesContent":["'use strict'\n\nmodule.exports = require('./colors.json')\n"]}

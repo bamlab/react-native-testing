@@ -1,4 +1,3 @@
-import React from 'react';
 import {renderWithNavigation} from '../../../utils/tests/helpers';
 import {Routes} from '../../../navigation/routes';
 import {fireEvent, waitForElement} from 'react-native-testing-library';
@@ -14,4 +13,4 @@ describe('[Page] Home', () => {
     );
     expect(AboutTitle).toBeDefined();
   });
-}); 
+});

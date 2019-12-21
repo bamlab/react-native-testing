@@ -1,1 +1,0 @@
-{"file":"/Users/matthieu/projects/TestExamples/src/api/config.ts","mappings":";;AAAa,QAAA,kBAAkB,GAAG,0DAA0D,CAAC","names":[],"sources":["/Users/matthieu/projects/TestExamples/src/api/config.ts"],"sourcesContent":["export const EMAIL_API_ENDPOINT = 'https://staging.inshallah.com/auth/send-validation-email';\n"],"version":3}

@@ -16,6 +16,7 @@ export const Home: FunctionComponent<NavigationScreenProps> = ({
     Routes.Subscription,
     Routes.TodoList,
     Routes.Movies,
+    Routes.DisabledButton,
   ];
 
   return (

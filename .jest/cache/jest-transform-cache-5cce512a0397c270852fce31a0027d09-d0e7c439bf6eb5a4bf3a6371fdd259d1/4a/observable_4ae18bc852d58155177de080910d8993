@@ -1,8 +1,0 @@
-10d9ed44806db8540469a2350f911c49
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.observable = typeof Symbol === 'function' && (typeof Symbol === "function" ? Symbol.observable : "@@observable") || '@@observable';
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIi4uLy4uL3NyYy9pbnRlcm5hbC9zeW1ib2wvb2JzZXJ2YWJsZS50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiOzs7OztBQVVhLE9BQUEsQ0FBQSxVQUFBLEdBQWEsT0FBTyxNQUFQLEtBQWtCLFVBQWxCLG9DQUFnQyxNQUFNLENBQUMsVUFBdkMsc0JBQXFELGNBQWxFIn0=

@@ -1,6 +1,6 @@
-import styled from '../lib/styled-components';
-import { View } from 'react-native';
-import { theme } from '../utils/theme';
+import styled from '../utils/styled-components';
+import {View} from 'react-native';
+import {theme} from '../utils/theme';
 
 export const Container = styled(View)`
   flex: 1;
