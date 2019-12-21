@@ -1,7 +1,7 @@
 import React from 'react';
-import {renderPage, getPropsWithNavigation} from '../../../utils/tests/helpers';
-import {DisabledButton} from '../DisabledButton';
-import {fireEvent} from 'react-native-testing-library';
+import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
+import { DisabledButton } from '../DisabledButton';
+import { fireEvent } from 'react-native-testing-library';
 
 describe('[Page] DisabledButton', () => {
   const props = getPropsWithNavigation();

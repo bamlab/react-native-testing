@@ -1,12 +1,12 @@
 import React from 'react';
-import {fireEvent, waitForElement} from 'react-native-testing-library';
+import { fireEvent, waitForElement } from 'react-native-testing-library';
 import fetchMock from 'fetch-mock';
 import 'jest-styled-components';
 
-import {Subscription} from '../Subscription';
-import {renderPage, getPropsWithNavigation} from '../../../utils/tests/helpers';
-import {EMAIL_API_ENDPOINT} from '../../../api/config';
-import {wording} from '../../../utils/wording';
+import { Subscription } from '../Subscription';
+import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
+import { EMAIL_API_ENDPOINT } from '../../../api/config';
+import { wording } from '../../../utils/wording';
 
 describe('[Page] Home', () => {
   const props = getPropsWithNavigation();
@@ -32,7 +32,7 @@ describe('[Page] Home', () => {
     fireEvent.press(ValidateButton);
     // THEN
     const SuccessMessage = await waitForElement(() =>
-      page.queryByText(wording.subscriptionSuccessful),
+      page.queryByText(wording.subscriptionSuccessful)
     );
     expect(SuccessMessage).toBeDefined();
   });
@@ -48,9 +48,7 @@ describe('[Page] Home', () => {
     fireEvent.changeText(EmailInput, 'hello@bamom');
     fireEvent.press(ValidateButton);
     // THEN
-    const ErrorMessage = await waitForElement(() =>
-      page.queryByText(wording.basicError),
-    );
+    const ErrorMessage = await waitForElement(() => page.queryByText(wording.basicError));
     expect(ErrorMessage).toBeDefined();
   });
 });

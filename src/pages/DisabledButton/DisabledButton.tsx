@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {Button} from '../../components/Button';
-import {Input} from '../../components/StyledComponents';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+import { Button } from '../../components/Button';
+import { Input } from '../../components/StyledComponents';
 import styled from '../../utils/styled-components';
 
 export const DisabledButton = () => {
@@ -12,11 +12,7 @@ export const DisabledButton = () => {
 
   return (
     <Container>
-      <Input
-        value={password}
-        onChangeText={setPassword}
-        placeholder="password"
-      />
+      <Input value={password} onChangeText={setPassword} placeholder="password" />
       <Button disabled={password === ''} title="Confirm" onPress={onConfirm} />
       {isPasswordConfirmed && <Text>Password confirmed</Text>}
     </Container>

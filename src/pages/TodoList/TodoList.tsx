@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
-import {View, Text} from 'react-native';
-import {Container, Card, Input} from '../../components/StyledComponents';
+import React, { useState } from 'react';
+import { View, Text } from 'react-native';
+import { Container, Card, Input } from '../../components/StyledComponents';
 import styled from 'styled-components/native';
-import {Button} from '../../components/Button';
-import {useSelector, useDispatch} from 'react-redux';
-import {todoListSelector} from '../../modules/todos/selectors';
-import {TodoActions} from '../../modules/todos/actions';
-import {wording} from '../../utils/wording';
+import { Button } from '../../components/Button';
+import { useSelector, useDispatch } from 'react-redux';
+import { todoListSelector } from '../../modules/todos/selectors';
+import { TodoActions } from '../../modules/todos/actions';
+import { wording } from '../../utils/wording';
 
 export const TodoList = () => {
   const todos = useSelector(todoListSelector);
