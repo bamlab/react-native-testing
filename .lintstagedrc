@@ -1,0 +1,10 @@
+{
+  "src/**/*.+(js|ts|tsx)": [
+    "ts:check",
+    "eslint"
+  ],
+  "**/*.+(js|json|ts|tsx)": [
+    "prettier --write",
+    "git add"
+  ]
+}
