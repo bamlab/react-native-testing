@@ -6,7 +6,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint src --ext .js,.ts,.tsx --no-ignore --max-warnings=0 && yarn ts:check",
-    "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\""
+    "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
+    "lint-committed": "lint-committed"
   },
   "dependencies": {
     "@bam.tech/react-native-component-text-input": "^1.0.3",
@@ -59,7 +60,7 @@
     "jest-styled-components": "^6.3.3",
     "jest-watch-typeahead": "0.4.2",
     "jetifier": "^1.6.4",
-    "lint-commited": "1.0.0",
+    "lint-committed": "0.0.0-development",
     "metro-react-native-babel-preset": "^0.56.0",
     "patch-package": "^6.1.2",
     "prettier": "^1.16.4",
