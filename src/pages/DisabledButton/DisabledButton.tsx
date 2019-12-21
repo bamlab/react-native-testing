@@ -1,11 +1,14 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
+import {View, Text} from 'react-native';
 import {Button} from '../../components/Button';
 import {Input} from '../../components/StyledComponents';
 import styled from '../../utils/styled-components';
 
 export const DisabledButton = () => {
   const [password, setPassword] = useState('');
+  const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false);
+
+  const onConfirm = () => setIsPasswordConfirmed(true);
 
   return (
     <Container>
@@ -14,7 +17,8 @@ export const DisabledButton = () => {
         onChangeText={setPassword}
         placeholder="password"
       />
-      <Button disabled={password === ''} title="Confirm" />
+      <Button disabled={password === ''} title="Confirm" onPress={onConfirm} />
+      {isPasswordConfirmed && <Text>Password confirmed</Text>}
     </Container>
   );
 };
