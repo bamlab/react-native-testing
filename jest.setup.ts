@@ -1,5 +1,4 @@
-// import '@testing-library/jest-native/extend-expect';
-import fetchMock from 'fetch-mock';
+import '@testing-library/jest-native/extend-expect';
 
 /**
  * Suppress React 16.8 act() warnings globally.
@@ -40,12 +39,12 @@ console.warn = (...args) => {
 /**
  * Mock react-native-gesture-handler to render react navigation components and their animations
  */
-// jest.mock('react-native-gesture-handler', () => {
-//   const View = require('react-native/Libraries/Components/View/View');
-//   return {
-//     State: {},
-//     PanGestureHandler: View,
-//     BaseButton: View,
-//     Directions: {},
-//   };
-// });
+jest.mock('react-native-gesture-handler', () => {
+  const View = require('react-native/Libraries/Components/View/View');
+  return {
+    State: {},
+    PanGestureHandler: View,
+    BaseButton: View,
+    Directions: {},
+  };
+});

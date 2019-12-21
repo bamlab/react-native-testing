@@ -6,6 +6,7 @@
     "isolatedModules": true,
     "jsx": "react",
     "lib": ["es6"],
+    "types": ["jest"],
     "moduleResolution": "node",
     "noEmit": true,
     "strict": true,
