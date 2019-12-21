@@ -1,5 +1,5 @@
 {
   "hooks": {
-    "pre-push": "eslint ."
+    "pre-push": "yarn lint-committed"
   }
 }
