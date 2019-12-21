@@ -51,6 +51,6 @@ describe('[Page] Home', () => {
     const ErrorMessage = await waitForElement(() =>
       page.queryByText(wording.basicError),
     );
-    expect(ErrorMessage).toBeTruthy();
+    expect(ErrorMessage).toBeDefined();
   });
 });
