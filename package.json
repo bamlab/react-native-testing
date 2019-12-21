@@ -55,6 +55,7 @@
     "fetch-mock": "^7.3.3",
     "jest": "^24.9.0",
     "jest-styled-components": "^6.3.3",
+    "jest-watch-typeahead": "0.4.2",
     "jetifier": "^1.6.4",
     "metro-react-native-babel-preset": "^0.56.0",
     "patch-package": "^6.1.2",
