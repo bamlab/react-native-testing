@@ -1,9 +1,0 @@
-b0406071ff72908b3eed6498d98e746a
-'use strict';
-
-var key = '__global_unique_id__';
-
-module.exports = function () {
-  return global[key] = (global[key] || 0) + 1;
-};
-//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbImluZGV4LmpzIl0sIm5hbWVzIjpbImtleSIsIm1vZHVsZSIsImV4cG9ydHMiLCJnbG9iYWwiXSwibWFwcGluZ3MiOiJBQUNBOztBQUVBLElBQUlBLEdBQUcsR0FBRyxzQkFBVjs7QUFFQUMsTUFBTSxDQUFDQyxPQUFQLEdBQWlCLFlBQVc7QUFDMUIsU0FBT0MsTUFBTSxDQUFDSCxHQUFELENBQU4sR0FBYyxDQUFDRyxNQUFNLENBQUNILEdBQUQsQ0FBTixJQUFlLENBQWhCLElBQXFCLENBQTFDO0FBQ0QsQ0FGRCIsInNvdXJjZXNDb250ZW50IjpbIi8vIEBmbG93XG4ndXNlIHN0cmljdCc7XG5cbnZhciBrZXkgPSAnX19nbG9iYWxfdW5pcXVlX2lkX18nO1xuXG5tb2R1bGUuZXhwb3J0cyA9IGZ1bmN0aW9uKCkge1xuICByZXR1cm4gZ2xvYmFsW2tleV0gPSAoZ2xvYmFsW2tleV0gfHwgMCkgKyAxO1xufTtcbiJdfQ==
