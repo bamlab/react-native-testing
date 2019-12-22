@@ -22,7 +22,7 @@ const FullWidthTouchableOpacity = styled.TouchableOpacity`
 const ButtonContainer = styled.View<{ disabled?: boolean }>`
   background-color: ${({ disabled }) => (disabled ? '#ccc' : theme.colors.primary)};
   border-radius: 6;
-  padding-vertical: 8;
+  padding-vertical: 10;
   align-items: center;
   color: white;
   margin-vertical: 2;
