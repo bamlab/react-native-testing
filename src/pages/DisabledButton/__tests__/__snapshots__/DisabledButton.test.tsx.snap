@@ -24,6 +24,7 @@ exports[`[Page] DisabledButton renders correctly 1`] = `
       Array [
         Object {
           "alignSelf": "flex-start",
+          "backgroundColor": "white",
         },
       ]
     }
