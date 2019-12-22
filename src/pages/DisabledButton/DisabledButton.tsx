@@ -8,6 +8,10 @@ export const DisabledButton = () => {
   const [password, setPassword] = useState('');
   const [isPasswordConfirmed, setIsPasswordConfirmed] = useState(false);
 
+
+
+
+  
   const onConfirm = () => setIsPasswordConfirmed(true);
 
   return (
