@@ -6,11 +6,12 @@ import { fireEvent } from 'react-native-testing-library';
 describe('[Page] DisabledButton', () => {
   const props = getPropsWithNavigation();
 
-  it('shows disabled confirm button while password is blank', () => {
+  it('renders correctly', () => {
     const page = renderPage(<DisabledButton {...props} />);
-    const ConfirmButton = page.getByText('Confirm');
-    expect(ConfirmButton).toBeDisabled();
+    expect(page).toMatchSnapshot();
   });
+
+  it('shows disabled confirm button while password is blank', () => {});
 
   it('shows success message when password confirmed', () => {
     // Given

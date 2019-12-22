@@ -1,0 +1,79 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`[Page] DisabledButton renders correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "flexGrow": 1,
+        "justifyContent": "space-around",
+        "paddingBottom": 16,
+        "paddingLeft": 16,
+        "paddingRight": 16,
+        "paddingTop": 16,
+      },
+    ]
+  }
+>
+  <TextInput
+    allowFontScaling={true}
+    onChangeText={[Function]}
+    placeholder="password"
+    rejectResponderTermination={true}
+    style={
+      Array [
+        Object {
+          "alignSelf": "flex-start",
+        },
+      ]
+    }
+    underlineColorAndroid="transparent"
+    value=""
+  />
+  <View
+    accessible={true}
+    focusable={true}
+    isTVSelectable={true}
+    onClick={[Function]}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "opacity": 1,
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#00b0ff",
+            "borderRadius": 6,
+            "color": "white",
+            "marginVertical": 2,
+            "paddingVertical": 8,
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "white",
+            },
+          ]
+        }
+      >
+        Confirm
+      </Text>
+    </View>
+  </View>
+</View>
+`;
