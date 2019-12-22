@@ -1,0 +1,10 @@
+{
+  "src/**/*.+(js|ts|tsx)": [
+    "jest --findRelatedTests",
+  ],
+  "**/*.+(js|json|ts|tsx)": [
+    "prettier --write",
+    "git add",
+    "commit-formatting"
+  ]
+}

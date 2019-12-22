@@ -1,11 +1,11 @@
 import React from 'react';
-import {fireEvent, debug} from 'react-native-testing-library';
+import { fireEvent, debug } from 'react-native-testing-library';
 import 'jest-styled-components';
 
-import {renderPage, getPropsWithNavigation} from '../../../utils/tests/helpers';
-import {wording} from '../../../utils/wording';
-import {About} from '../About';
-import {Routes} from '../../../navigation/routes';
+import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
+import { wording } from '../../../utils/wording';
+import { About } from '../About';
+import { Routes } from '../../../navigation/routes';
 
 describe('[Page] About', () => {
   const props = getPropsWithNavigation();

@@ -1,14 +1,14 @@
-import {put, takeEvery, delay, call, all} from 'redux-saga/effects';
-import {ActionsOfType} from '@martin_hotell/rex-tils';
+import { put, takeEvery, delay, call, all } from 'redux-saga/effects';
+import { ActionsOfType } from '@martin_hotell/rex-tils';
 
-import {MoviesActionTypes} from './types';
-import {TMoviesActionObjectTypes, MoviesActions} from './actions';
-import {addLoader} from '../loading/sagas';
-import {LoaderName} from '../loading/types';
-import {MoviesApi} from '../../api/movies';
+import { MoviesActionTypes } from './types';
+import { TMoviesActionObjectTypes, MoviesActions } from './actions';
+import { addLoader } from '../loading/sagas';
+import { LoaderName } from '../loading/types';
+import { MoviesApi } from '../../api/movies';
 
 function* getMoviesSaga(
-  action: ActionsOfType<TMoviesActionObjectTypes, MoviesActionTypes.GET_MOVIES>,
+  action: ActionsOfType<TMoviesActionObjectTypes, MoviesActionTypes.GET_MOVIES>
 ) {
   try {
     const [movies] = yield all([call(MoviesApi.getMovies), delay(2000)]);
@@ -21,8 +21,5 @@ function* getMoviesSaga(
 }
 
 export function* getMoviesWatcher() {
-  yield takeEvery(
-    MoviesActionTypes.GET_MOVIES,
-    addLoader(getMoviesSaga, LoaderName.Movies),
-  );
+  yield takeEvery(MoviesActionTypes.GET_MOVIES, addLoader(getMoviesSaga, LoaderName.Movies));
 }

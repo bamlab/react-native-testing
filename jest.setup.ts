@@ -29,7 +29,7 @@ console.warn = (...args) => {
   const shouldPrintWarning = warningsToHide.reduce(
     (shouldPrintWarning, warningToHide) =>
       shouldPrintWarning && !warningMessage.includes(warningToHide),
-    true,
+    true
   );
   if (shouldPrintWarning) {
     originalConsoleWarn(...args);

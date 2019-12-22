@@ -1,8 +1,8 @@
 import React from 'react';
-import {renderPage, getPropsWithNavigation} from '../../../utils/tests/helpers';
-import {TodoList} from '../TodoList';
-import {wording} from '../../../utils/wording';
-import {fireEvent, waitForElement} from 'react-native-testing-library';
+import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
+import { TodoList } from '../TodoList';
+import { wording } from '../../../utils/wording';
+import { fireEvent, waitForElement } from 'react-native-testing-library';
 
 describe('[Page] TodoList', () => {
   const initialState = {

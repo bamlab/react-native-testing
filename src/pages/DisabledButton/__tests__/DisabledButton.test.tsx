@@ -1,10 +1,15 @@
 import React from 'react';
-import {renderPage, getPropsWithNavigation} from '../../../utils/tests/helpers';
-import {DisabledButton} from '../DisabledButton';
-import {fireEvent} from 'react-native-testing-library';
+import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
+import { DisabledButton } from '../DisabledButton';
+import { fireEvent } from 'react-native-testing-library';
 
 describe('[Page] DisabledButton', () => {
   const props = getPropsWithNavigation();
+
+  it('renders correctly', () => {
+    const page = renderPage(<DisabledButton {...props} />);
+    expect(page).toMatchSnapshot();
+  });
 
   it('shows disabled confirm button while password is blank', () => {
     const page = renderPage(<DisabledButton {...props} />);

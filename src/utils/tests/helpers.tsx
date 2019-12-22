@@ -1,25 +1,22 @@
-import React, {ReactElement} from 'react';
-import {render} from 'react-native-testing-library';
-import {Provider} from 'react-redux';
-import {NavigationScreenProp} from 'react-navigation';
+import React, { ReactElement } from 'react';
+import { render } from 'react-native-testing-library';
+import { Provider } from 'react-redux';
+import { NavigationScreenProp } from 'react-navigation';
 
-import {Toaster} from '../../components/Toaster';
+import { Toaster } from '../../components/Toaster';
 import watchAll from '../../modules/saga';
-import {ThemeProvider} from 'styled-components';
-import {theme} from '../theme';
-import {IAppState} from '../../modules/types';
-import {createInitialiasedStore, sagaMiddlewareTest} from './mockStore';
-import {storeManager} from '../../modules/storeManager';
-import {createAppContainerWithInitialRoute} from '../../navigation/stack';
+import { ThemeProvider } from 'styled-components';
+import { theme } from '../theme';
+import { IAppState } from '../../modules/types';
+import { createInitialiasedStore, sagaMiddlewareTest } from './mockStore';
+import { storeManager } from '../../modules/storeManager';
+import { createAppContainerWithInitialRoute } from '../../navigation/stack';
 
 /**
  * If you need to have a wrapper around your page, use it in pageContainerComponent (like the Redux Provider)
  * If you need a component rendered outside your page (like a Toaster), do the same
  */
-export const renderPage = (
-  page: ReactElement,
-  initialState?: Partial<IAppState>,
-) => {
+export const renderPage = (page: ReactElement, initialState?: Partial<IAppState>) => {
   storeManager.store = createInitialiasedStore(initialState);
   sagaMiddlewareTest.run(watchAll);
 
@@ -34,12 +31,12 @@ export const renderPage = (
   const pageRendered = render(pageContainerComponent);
   const refresh = () => pageRendered.rerender(pageContainerComponent);
 
-  return {...pageRendered, refresh};
+  return { ...pageRendered, refresh };
 };
 
 export const getPropsWithNavigation = (
   props?: any,
-  navigationPropExtension?: Partial<NavigationScreenProp<{}>>,
+  navigationPropExtension?: Partial<NavigationScreenProp<{}>>
 ) =>
   ({
     ...props,
@@ -52,13 +49,10 @@ export const getPropsWithNavigation = (
 
 export const getMockApiResponse = (status: number, data: any = {}) => ({
   status,
-  body: {data},
+  body: { data },
 });
 
-export const renderWithNavigation = (
-  pageRoute: string,
-  initialState?: IAppState,
-) => {
+export const renderWithNavigation = (pageRoute: string, initialState?: IAppState) => {
   const App = createAppContainerWithInitialRoute(pageRoute);
   storeManager.store = createInitialiasedStore(initialState);
   sagaMiddlewareTest.run(watchAll);
@@ -72,5 +66,5 @@ export const renderWithNavigation = (
   const pageRendered = render(pageContainerComponent);
   const refresh = () => pageRendered.rerender(pageContainerComponent);
 
-  return {...pageRendered, refresh};
+  return { ...pageRendered, refresh };
 };

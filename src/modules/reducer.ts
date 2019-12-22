@@ -1,11 +1,11 @@
-import {ReducersMapObject, combineReducers} from 'redux';
+import { ReducersMapObject, combineReducers } from 'redux';
 
-import {IAppState} from './types';
-import {signupReducer} from './signup/reducer';
-import {toasterReducer} from './toaster/reducer';
-import {todoReducer} from './todos/reducer';
-import {moviesReducer} from './movies/reducer';
-import {loadingReducer} from './loading/reducer';
+import { IAppState } from './types';
+import { signupReducer } from './signup/reducer';
+import { toasterReducer } from './toaster/reducer';
+import { todoReducer } from './todos/reducer';
+import { moviesReducer } from './movies/reducer';
+import { loadingReducer } from './loading/reducer';
 
 const reducers: ReducersMapObject = {
   //@ts-ignore
