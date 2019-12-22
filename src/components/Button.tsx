@@ -8,7 +8,7 @@ interface Props extends TouchableOpacityProps {
 }
 
 export const Button: FunctionComponent<Props> = ({ title, disabled, ...touchableOpacityProps }) => (
-  <FullWidthTouchableOpacity disabled={disabled} {...touchableOpacityProps}>
+  <FullWidthTouchableOpacity  {...touchableOpacityProps}>
     <ButtonContainer disabled={disabled}>
       <ButtonText>{title}</ButtonText>
     </ButtonContainer>
@@ -18,7 +18,7 @@ export const Button: FunctionComponent<Props> = ({ title, disabled, ...touchable
 const FullWidthTouchableOpacity = styled.TouchableOpacity`
   width: 100%;
 
-  
+
 `;
 
 const ButtonContainer = styled.View<{ disabled?: boolean }>`
