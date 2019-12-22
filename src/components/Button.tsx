@@ -5,9 +5,6 @@ import { theme } from '../utils/theme';
 
 interface Props extends TouchableOpacityProps {
   title: string;
-
-
-  
 }
 
 export const Button: FunctionComponent<Props> = ({ title, disabled, ...touchableOpacityProps }) => (
