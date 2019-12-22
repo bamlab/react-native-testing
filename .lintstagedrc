@@ -1,9 +1,10 @@
 {
   "src/**/*.+(js|ts|tsx)": [
-    "eslint"
+    "jest --findRelatedTests",
   ],
   "**/*.+(js|json|ts|tsx)": [
     "prettier --write",
-    "git commit -am 'Format files'"
+    "git add",
+    "git commit -m \"Format files\""
   ]
 }

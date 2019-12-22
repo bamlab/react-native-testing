@@ -1,5 +1,5 @@
 {
   "hooks": {
-    "pre-push": "lint-committed $(git rev-parse --abbrev-ref HEAD)"
+    "pre-push": "lint-committed origin/master"
   }
 }

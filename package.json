@@ -7,7 +7,7 @@
     "test": "jest   ",
     "lint": "eslint src --ext .js,.ts,.tsx --no-ignore --max-warnings=0 && yarn ts:check",
     "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
-    "lint-committed": "lint-committed     "
+    "lint-committed": "lint-committed"
   },
   "dependencies": {
     "@bam.tech/react-native-component-text-input": "^1.0.3",
@@ -48,7 +48,6 @@
     "@typescript-eslint/eslint-plugin": "2.5.0",
     "@typescript-eslint/parser": "2.5.0",
     "babel-jest": "^24.9.0",
-    "committed-git-files": "0.0.1",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.17.3",

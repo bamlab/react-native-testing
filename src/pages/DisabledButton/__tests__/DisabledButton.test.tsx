@@ -12,9 +12,6 @@ describe('[Page] DisabledButton', () => {
     expect(ConfirmButton).toBeDisabled();
   });
 
-
-  
-
   it('shows success message when password confirmed', () => {
     // Given
     const page = renderPage(<DisabledButton {...props} />);
