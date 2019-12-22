@@ -11,7 +11,11 @@ describe('[Page] DisabledButton', () => {
     expect(page).toMatchSnapshot();
   });
 
-  it('shows disabled confirm button while password is blank', () => {});
+  it('shows disabled confirm button while password is blank', () => {
+    const page = renderPage(<DisabledButton {...props} />);
+    const ConfirmButton = page.getByText('Confirm');
+    expect(ConfirmButton).toBeDisabled();
+  });
 
   it('shows success message when password confirmed', () => {
     // Given
