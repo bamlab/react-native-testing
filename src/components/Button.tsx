@@ -20,6 +20,9 @@ const FullWidthTouchableOpacity = styled.TouchableOpacity`
 `;
 
 const ButtonContainer = styled.View<{ disabled?: boolean }>`
+
+
+
   background-color: ${({ disabled }) => (disabled ? '#ccc' : theme.colors.primary)};
   border-radius: 6;
 
