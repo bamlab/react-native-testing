@@ -4,6 +4,7 @@
   ],
   "**/*.+(js|json|ts|tsx)": [
     "prettier --write",
-    "git add"
+    "git add",
+    "git commit -am 'Format files'"
   ]
 }

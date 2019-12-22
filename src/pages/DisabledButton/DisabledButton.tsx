@@ -10,9 +10,6 @@ export const DisabledButton = () => {
 
   const onConfirm = () => setIsPasswordConfirmed(true);
 
-
-
-
   return (
     <Container>
       <Input value={password} onChangeText={setPassword} placeholder="password" />
