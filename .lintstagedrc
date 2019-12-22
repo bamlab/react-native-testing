@@ -5,6 +5,6 @@
   "**/*.+(js|json|ts|tsx)": [
     "prettier --write",
     "git add",
-    "git diff --quiet -- && git diff --staged --quiet -- || git commit -m \"Format files\""
+    "commit-formatting"
   ]
 }
