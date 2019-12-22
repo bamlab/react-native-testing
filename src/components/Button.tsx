@@ -17,12 +17,14 @@ export const Button: FunctionComponent<Props> = ({ title, disabled, ...touchable
 
 const FullWidthTouchableOpacity = styled.TouchableOpacity`
   width: 100%;
+
+  
 `;
 
 const ButtonContainer = styled.View<{ disabled?: boolean }>`
   background-color: ${({ disabled }) => (disabled ? '#ccc' : theme.colors.primary)};
   border-radius: 6;
-  padding-vertical: 10;
+  padding-vertical: 8;
   align-items: center;
   color: white;
   margin-vertical: 2;
