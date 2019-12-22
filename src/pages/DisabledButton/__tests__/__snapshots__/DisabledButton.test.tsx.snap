@@ -57,7 +57,7 @@ exports[`[Page] DisabledButton renders correctly 1`] = `
             "borderRadius": 6,
             "color": "white",
             "marginVertical": 2,
-            "paddingVertical": 8,
+            "paddingVertical": 10,
           },
         ]
       }
