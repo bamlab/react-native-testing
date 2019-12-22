@@ -5,6 +5,6 @@
   "**/*.+(js|json|ts|tsx)": [
     "prettier --write",
     "git add",
-    "git commit -m \"Format code\""
+    "git commit -m \"Format\" || echo "\No files formatted\""
   ]
 }
