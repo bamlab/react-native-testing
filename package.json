@@ -3,11 +3,12 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "react-native start    ",
-    "test": "jest   ",
+    "start": "react-native start",
+    "test": "jest",
     "lint": "eslint src --ext .js,.ts,.tsx --no-ignore --max-warnings=0 && yarn ts:check",
     "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
-    "lint-committed": "lint-committed"
+    "lint-committed": "lint-committed",
+    "commit-formatting": "git commit -m \"Format\" || echo \"No files to format\""
   },
   "dependencies": {
     "@bam.tech/react-native-component-text-input": "^1.0.3",
