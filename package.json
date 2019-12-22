@@ -8,7 +8,7 @@
     "lint": "eslint src --ext .js,.ts,.tsx --no-ignore --max-warnings=0 && yarn ts:check",
     "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
     "lint-committed": "lint-committed",
-    "commit-formatting": "git commit -m \"Format\" || echo \"No files to format\""
+    "commit-formatting": "git commit -m \"Format files\" || echo \"No files to format\""
   },
   "dependencies": {
     "@bam.tech/react-native-component-text-input": "^1.0.3",
