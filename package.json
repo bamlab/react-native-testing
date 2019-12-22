@@ -48,6 +48,7 @@
     "@typescript-eslint/eslint-plugin": "2.5.0",
     "@typescript-eslint/parser": "2.5.0",
     "babel-jest": "^24.9.0",
+    "committed-git-files": "0.0.1",
     "eslint": "^6.3.0",
     "eslint-config-prettier": "^4.1.0",
     "eslint-plugin-import": "^2.17.3",
