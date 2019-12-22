@@ -26,5 +26,5 @@ export const Title = styled.Text`
 
 export const Input = styled.TextInput`
   align-self: flex-start;
-  background-color: white;
+  background-color: blue;
 `;
