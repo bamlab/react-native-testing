@@ -24,7 +24,6 @@ exports[`[Page] DisabledButton renders correctly 1`] = `
       Array [
         Object {
           "alignSelf": "flex-start",
-          "backgroundColor": "white",
         },
       ]
     }
@@ -50,11 +49,12 @@ exports[`[Page] DisabledButton renders correctly 1`] = `
     }
   >
     <View
+      disabled={true}
       style={
         Array [
           Object {
             "alignItems": "center",
-            "backgroundColor": "#00b0ff",
+            "backgroundColor": "#ccc",
             "borderRadius": 6,
             "color": "white",
             "marginVertical": 2,
