@@ -21,4 +21,5 @@ module.exports = {
   watchPlugins: ['jest-watch-typeahead/filename', 'jest-watch-typeahead/testname'],
   testEnvironment: 'jsdom',
   resetMocks: true,
+  projects: ['src/utils/tests/jest.lint.js'],
 };

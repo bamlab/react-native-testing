@@ -4,6 +4,7 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
+    "skipLibCheck": true, // does not check lib typings because there is an issues with jest typings
     "jsx": "react",
     "lib": ["es6"],
     "types": ["jest"],
