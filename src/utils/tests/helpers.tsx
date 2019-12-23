@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { render } from 'react-native-testing-library';
 import { Provider } from 'react-redux';
-import { NavigationScreenProp } from 'react-navigation';
+import { NavigationScreenProp, NavigationRoute, NavigationParams } from 'react-navigation';
 
 import { Toaster } from '../../components/Toaster';
 import watchAll from '../../modules/saga';
@@ -40,11 +40,11 @@ export const getPropsWithNavigation = (
   navigationPropExtension?: Partial<NavigationScreenProp<{}>>
 ) => ({
   ...props,
-  navigation: {
+  navigation: ({
     navigate: jest.fn(),
     goBack: jest.fn(),
     ...navigationPropExtension,
-  },
+  } as unknown) as NavigationScreenProp<NavigationRoute<NavigationParams>, NavigationParams>,
 });
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

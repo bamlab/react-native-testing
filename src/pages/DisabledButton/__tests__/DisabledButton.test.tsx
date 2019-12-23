@@ -1,25 +1,23 @@
 import React from 'react';
-import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
+import { renderPage } from '../../../utils/tests/helpers';
 import { DisabledButton } from '../DisabledButton';
 import { fireEvent } from 'react-native-testing-library';
 
 describe('[Page] DisabledButton', () => {
-  const props = getPropsWithNavigation();
-
   it('renders correctly', () => {
-    const page = renderPage(<DisabledButton {...props} />);
+    const page = renderPage(<DisabledButton />);
     expect(page).toMatchSnapshot();
   });
 
   it('shows disabled confirm button while password is blank', () => {
-    const page = renderPage(<DisabledButton {...props} />);
+    const page = renderPage(<DisabledButton />);
     const ConfirmButton = page.getByText('Confirm');
     expect(ConfirmButton).toBeDisabled();
   });
 
   it('shows success message when password confirmed', () => {
     // Given
-    const page = renderPage(<DisabledButton {...props} />);
+    const page = renderPage(<DisabledButton />);
     const PasswordInput = page.getByPlaceholder('password');
     const ConfirmButton = page.getByText('Confirm');
     // When
