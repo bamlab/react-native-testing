@@ -3,6 +3,6 @@ export enum MoviesActionTypes {
   GET_MOVIES_SUCCESS = 'GET_MOVIES_SUCCESS',
 }
 
-export interface IMoviesState {
+export interface MoviesState {
   movieList?: string[];
 }

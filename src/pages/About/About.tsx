@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 import { Button } from '../../components/Button';
 import { wording } from '../../utils/wording';
-import { Container, Card, Title, Input } from '../../components/StyledComponents';
+import { Container, Card, Title } from '../../components/StyledComponents';
 import { NavigationScreenProps } from 'react-navigation';
 import { Routes } from '../../navigation/routes';
 import { Text } from 'react-native';

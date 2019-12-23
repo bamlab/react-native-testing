@@ -1,3 +1,3 @@
-import { IAppState } from '../types';
+import { AppState } from '../types';
 
-export const todoListSelector = (state: IAppState) => state.todos.todoList;
+export const todoListSelector = (state: AppState) => state.todos.todoList;

@@ -1,13 +1,13 @@
 import { Reducer } from 'redux';
 
 import { TMoviesActionObjectTypes } from './actions';
-import { IMoviesState, MoviesActionTypes } from './types';
+import { MoviesState, MoviesActionTypes } from './types';
 
-const initialMoviesState: IMoviesState = {
+const initialMoviesState: MoviesState = {
   movieList: undefined,
 };
 
-export const moviesReducer: Reducer<IMoviesState, TMoviesActionObjectTypes> = (
+export const moviesReducer: Reducer<MoviesState, TMoviesActionObjectTypes> = (
   state = initialMoviesState,
   action
 ) => {

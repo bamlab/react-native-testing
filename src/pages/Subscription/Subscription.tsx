@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from 'react';
 
 import { Button } from '../../components/Button';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { SignUpActions } from '../../modules/signup/actions';
 import { Formik } from 'formik';
 import { FormikInput } from '../../components/Input';

@@ -4,7 +4,7 @@ export enum ToasterActionTypes {
   ADD_TOAST = 'ADD_TOAST',
 }
 
-export interface IToasterState {
+export interface ToasterState {
   text?: string;
   duration?: number;
   styles?: {

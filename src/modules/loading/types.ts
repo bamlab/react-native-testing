@@ -7,8 +7,8 @@ export enum LoaderName {
   Movies = 'Movies',
 }
 
-export type TLoadingState = { [name in LoaderName]?: boolean };
+export type LoadingState = { [name in LoaderName]?: boolean };
 
-export interface ILoadingProps {
+export interface LoadingProps {
   isLoading?: boolean;
 }

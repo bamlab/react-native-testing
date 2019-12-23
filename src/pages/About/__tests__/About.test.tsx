@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, debug } from 'react-native-testing-library';
+import { fireEvent } from 'react-native-testing-library';
 import 'jest-styled-components';
 
 import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
