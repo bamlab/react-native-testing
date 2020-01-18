@@ -18,6 +18,7 @@ describe('[Page] About', () => {
     // WHEN
     fireEvent.press(NavigateSubscribeButton);
     // THEN
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(props.navigation.navigate).toHaveBeenCalledWith(Routes.Home);
   });
 });
