@@ -6,9 +6,36 @@
 
 ### Custom `render` function
 
-To start testing your app, you will first need your own `render` function (I called mine `renderPage`).
+To start testing your app, you will first need your own `render` function (I called mine `renderPage`) to render the components you want to test. With integration tests, I personnaly like to test page components only.
 
 #### Redux Provider
+
+If you use Redux, you want your page to have access to the redux store and be capable of dispacthing actions to it in your test environment.
+
+Basically, for each test, we create a new real redux store with an initial state.
+This store is passed to the page via a provider wrapping the page in the renderPage method:
+
+```typescript
+export const renderPage = (
+  page: ReactElement,
+  initialState?: Partial<IAppState>,
+) => {
+  storeManager.store = createInitialiasedStore(initialState);
+
+  const pageContainerComponent = (
+    <Provider store={storeManager.store}>
+      {page}
+    </Provider>
+  );
+
+  return render(pageContainerComponent);
+```
+
+Files to check out:
+
+- [this test](../../pages/TodoList/__tests__/TodoList.test.tsx)
+- [renderPage method](./helpers.tsx)
+- [mockStore](./mockStore.ts)
 
 #### Saga initialization
 
