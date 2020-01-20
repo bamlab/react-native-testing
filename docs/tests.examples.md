@@ -138,6 +138,95 @@ export const renderPage = (
 
 #### Navigation
 
+For navigation, you have two options:
+
+1. You can mock the native parts of your navigation library.
+
+   - Pros:
+
+     - it's less tied to your implementation and in your tests,
+     - you can actually check that the header or the tab bar are properly working
+     - you can test that navigation actually works in your tests
+
+   - Cons:
+     - can be quite hard to setup
+
+2. You can simply not render your navigation stack and instead only render the page you want to test. That's what we have been doing so far in the `renderPage` function.
+   - Pros:
+     - no setup required
+   - Cons:
+     - tied to implementation details (if you change navigation lib one day, you'll have to rewrite al your tests)
+     - you can't test your headers or tab bars
+     - you can only test that your `navigation.navigate` function is called with the right parameters
+
+##### Real navigation
+
+Here is the `renderNavigation` function:
+
+```jsx
+export const renderWithNavigation = (pageRoute: string, initialState?: IAppState) => {
+  const App = createAppContainerWithInitialRoute(pageRoute);
+  storeManager.store = createInitialiasedStore(initialState);
+  sagaMiddlewareTest.run(watchAll);
+
+  const pageContainerComponent = (
+    <Provider store={storeManager.store}>
+      <App />
+      <Toaster />
+    </Provider>
+  );
+
+  return render(pageContainerComponent);
+};
+```
+
+As you can see, instead of passing a page component to the `renderWithNavigation` function, we pass it a route name. Then with the `createAppContainerWithInitialRoute` we tell the App to render the proper page:
+
+```typescript
+export const createAppContainerWithInitialRoute = (initialRouteName: string) =>
+  createAppContainer(createStackNavigator(routes, { initialRouteName }));
+```
+
+Files to check out:
+
+- [Jest setup](../jest.setup.ts) where I mock React Native gesture handler
+- [Navigation setup](../src/navigation/stack.ts) where I have the `createAppContainerWithInitialRoute` helper
+- [Home test](../src/pages/Home/__tests__/Home.test.tsx) where I use renderWithNavigation
+
+##### No Navigation
+
+You have already seen the `renderPage` function, you don't have much to do if you don't want to render the navigation. You only have to pass a `navigation` prop to the page you render. To avoid re-writing the navigation prop each time, I use [this helper](../src/utils/tests/helpers.tsx):
+
+```typescript
+export const getPropsWithNavigation = (
+  props?: any,
+  navigationPropExtension?: Partial<NavigationScreenProp<{}>>
+) => ({
+  ...props,
+  navigation: {
+    navigate: jest.fn(),
+    goBack: jest.fn(),
+    ...navigationPropExtension,
+  },
+});
+```
+
+Here is a [test](../src/pages/About/__tests__/About.test.tsx) with fake navigation:
+
+```jsx
+it('should navigate to home page on subscribe button press', () => {
+  // SETUP
+  const props = getPropsWithNavigation();
+  const page = renderPage(<About {...props} />);
+  // GIVEN
+  const NavigateSubscribeButton = page.getByText(wording.subscribe);
+  // WHEN
+  fireEvent.press(NavigateSubscribeButton);
+  // THEN
+  expect(props.navigation.navigate).toHaveBeenCalledWith(Routes.Home);
+});
+```
+
 ### Api Calls
 
 ## Find elements in your DOM
