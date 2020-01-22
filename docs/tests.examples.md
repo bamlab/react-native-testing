@@ -237,18 +237,15 @@ Try to find DOM elements thanks to visual characteristics that a real user would
 
 Here is a list of the element you can try to find in your DOM and the corresping queries you can use:
 
-- Button -> getByText
-- Inputs -> getByPlaceholder or getByDisplayValue
-- Image -> getByA11yLabel
+- Button: `getByText`
+- Inputs: `getByPlaceholder` or `getByDisplayValue`
+- Image: `getByA11yLabel`
 
 If the element you want to find will only appear after a certain asynchronous task has run, you should use [waitForElement](https://callstack.github.io/react-native-testing-library/docs/api).
 
 ## Simulate user interaction
 
-- Press button
-- Write in input
-- Scroll
-- Any other event
+To simulate user interactions, use the `fireEvent` function detailed [here](https://callstack.github.io/react-native-testing-library/docs/api).
 
 ## Expect some (visual) feedback
 
