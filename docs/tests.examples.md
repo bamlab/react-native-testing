@@ -227,13 +227,21 @@ it('should navigate to home page on subscribe button press', () => {
 });
 ```
 
-### Api Calls
+### Server Api Calls
 
 ## Find elements in your DOM
 
-- Buttons --> getByText
-- Input --> getByPlaceholder
-- Loader --> getByTestId
+To find elements in the DOM you need to use the [`getBy*` of `queryBy*` queries](https://callstack.github.io/react-native-testing-library/docs/api-queries). If you need to assert the presence or absence of an element, use the queryBy functions (they return null if you don't find the element). Otherwise use the getBy functions, they throw an error when they don't find the element you're looking for.
+
+Try to find DOM elements thanks to visual characteristics that a real user would see (or if not possible, accessibility criterias). That way, you test will give you more confidence that your user will indeed be capable of interacting with the element. For instance, prefer the use of `getByText` rather than `getByTestID`.
+
+Here is a list of the element you can try to find in your DOM and the corresping queries you can use:
+
+- Button -> getByText
+- Inputs -> getByPlaceholder or getByDisplayValue
+- Image -> getByA11yLabel
+
+If the element you want to find will only appear after a certain asynchronous task has run, you should use [waitForElement](https://callstack.github.io/react-native-testing-library/docs/api).
 
 ## Simulate user interaction
 
@@ -253,7 +261,3 @@ it('should navigate to home page on subscribe button press', () => {
 
 - Need fake timers
 - Need to rerender page
-
-```
-
-```
