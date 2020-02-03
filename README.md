@@ -184,5 +184,5 @@ Just run `yarn jest`. You can add `--coverage` to find out how much code the tes
   - [An element is disabled](./docs/tests.examples.md#an-element-is-disabled)
   - [Specific styling](./docs/tests.examples.md#specific-styling)
 - [Other scenarios](./docs/tests.examples.md#other-scenarios)
-  - [Mock times with jest](./docs/tests.examples.md#mock-times-with-jest)
+  - [Mock timers with jest](./docs/tests.examples.md#mock-timers-with-jest)
 

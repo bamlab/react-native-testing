@@ -19,7 +19,7 @@
     - [An element is disabled](#an-element-is-disabled)
     - [Specific styling](#specific-styling)
   - [Other scenarios](#other-scenarios)
-    - [Mock times with jest](#mock-times-with-jest)
+    - [Mock timers with jest](#mock-timers-with-jest)
 
 ## Introduction
 
@@ -342,7 +342,7 @@ However if you want to test that different styles match what you expect, you can
 
 ## Other scenarios
 
-### Mock times with jest
+### Mock timers with jest
 
 If you have long timers in your app (for animations or api calls for instance) and don't want your tests to take forever, you can use jest fake timers.
 
