@@ -9,6 +9,6 @@ describe('[Page] Home', () => {
     const AboutButton = page.getByText('About');
     fireEvent.press(AboutButton);
     const AboutTitle = await waitForElement(() => page.queryByText(wording.aboutTitle));
-    expect(AboutTitle).toBeDefined();
+    expect(AboutTitle).toBeTruthy();
   });
 });

@@ -106,7 +106,7 @@ it('should display succesful message on successful subscription', async () => {
   const SuccessMessage = await waitForElement(() =>
     page.queryByText(wording.subscriptionSuccessful),
   );
-  expect(SuccessMessage).toBeDefined();
+  expect(SuccessMessage).toBeTruthy();
 });
 ```
 
@@ -145,7 +145,7 @@ Here is how you can mock api calls with fetch mock and some custom helpers and t
     const FirstMovie = await waitForElement(() =>
       page.queryByText(mockPopularMovies[0].title),
     );
-    expect(FirstMovie).toBeDefined();
+    expect(FirstMovie).toBeTruthy();
   });
 });
 ```
@@ -197,7 +197,7 @@ describe('[Page] Home', () => {
     const AboutTitle = await waitForElement(() =>
       page.queryByText(wording.aboutTitle),
     );
-    expect(AboutTitle).toBeDefined();
+    expect(AboutTitle).toBeTruthy();
   });
 });
 ```
@@ -238,7 +238,7 @@ it('should load movies and display movies properly [using jest timers]', () => {
     // no need for await since we use fake timers
     page.queryByText(mockPopularMovies[0].title),
   );
-  expect(FirstMovie).toBeDefined();
+  expect(FirstMovie).toBeTruthy();
 });
 ```
 
@@ -332,7 +332,7 @@ it('should display succesful message on successful subscription', async () => {
   const SuccessMessage = await waitForElement(() =>
     page.queryByText(wording.subscriptionSuccessful),
   );
-  expect(SuccessMessage).toBeDefined();
+  expect(SuccessMessage).toBeTruthy();
 });
 ```
 
@@ -369,7 +369,7 @@ it('should display succesful message on successful subscription', async () => {
   const SuccessMessage = await waitForElement(() =>
     page.queryByText(wording.subscriptionSuccessful),
   );
-  expect(SuccessMessage).toBeDefined();
+  expect(SuccessMessage).toBeTruthy();
 });
 ```
 
@@ -412,12 +412,12 @@ it('should load movies and display movies properly', async () => {
   const page = renderPage(<Movies />);
   // THEN it loads
   const Loader = page.queryByTestId('loader');
-  expect(Loader).toBeDefined();
+  expect(Loader).toBeTruthy();
   // THEN it shows the movies from the external API
   const FirstMovie = await waitForElement(() =>
     page.queryByText(mockPopularMovies[0].title),
   );
-  expect(FirstMovie).toBeDefined();
+  expect(FirstMovie).toBeTruthy();
 });
 ```
 

@@ -28,6 +28,6 @@ describe('[Page] DisabledButton', () => {
     fireEvent.press(ConfirmButton);
     // Then
     const SuccessMessage = page.queryByText('Password confirmed');
-    expect(SuccessMessage).toBeDefined();
+    expect(SuccessMessage).toBeTruthy();
   });
 });

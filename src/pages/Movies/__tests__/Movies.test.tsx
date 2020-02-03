@@ -26,27 +26,12 @@ describe('[Page] Movies', () => {
     const page = renderPage(<Movies />);
     // THEN it loads
     const Loader = page.queryByTestId('loader');
-    expect(Loader).toBeDefined();
+    expect(Loader).toBeTruthy();
     jest.runOnlyPendingTimers(); // don't run all timers here because delay (the redux saga effect) use recursive timers
     // THEN it shows the movies from the external API
     const FirstMovie = waitForElement(() => page.queryByText(mockPopularMovies[0].title));
     const SecondMovie = waitForElement(() => page.queryByText(mockPopularMovies[1].title));
-    expect(FirstMovie).toBeDefined();
-    expect(SecondMovie).toBeDefined();
-  });
-
-  it('should load movies and display movies properly [using real timers]', async () => {
-    // SETUP
-    mockGetMovies();
-    // GIVEN the page renders
-    const page = renderPage(<Movies />);
-    // THEN it loads
-    const Loader = page.queryByTestId('loader');
-    expect(Loader).toBeDefined();
-    // THEN it shows the movies from the external API
-    const FirstMovie = await waitForElement(() => page.queryByText(mockPopularMovies[0].title));
-    const SecondMovie = await waitForElement(() => page.queryByText(mockPopularMovies[1].title));
-    expect(FirstMovie).toBeDefined();
-    expect(SecondMovie).toBeDefined();
+    expect(FirstMovie).toBeTruthy();
+    expect(SecondMovie).toBeTruthy();
   });
 });

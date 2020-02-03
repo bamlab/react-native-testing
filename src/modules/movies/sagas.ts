@@ -1,16 +1,14 @@
 import { put, takeEvery, delay, call, all } from 'redux-saga/effects';
-import { ActionsOfType } from '@martin_hotell/rex-tils';
 
 import { MoviesActionTypes } from './types';
-import { TMoviesActionObjectTypes, MoviesActions } from './actions';
+import { MoviesActions } from './actions';
 import { addLoader } from '../loading/sagas';
 import { LoaderName } from '../loading/types';
 import { MoviesApi } from '../../api/movies';
 
-function* getMoviesSaga(
-  action: ActionsOfType<TMoviesActionObjectTypes, MoviesActionTypes.GET_MOVIES>
-) {
+function* getMoviesSaga() {
   try {
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     const [movies] = yield all([call(MoviesApi.getMovies), delay(2000)]);
     // delay is used here for testing purposes to demonstrate how to use jest timers
     const movieTitles = movies.results.map(movie => movie.title);
