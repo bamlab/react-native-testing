@@ -1,6 +1,28 @@
 # Tests Examples
 
 ## Table of contents
+- [Tests Examples](#tests-examples)
+  - [Table of contents](#table-of-contents)
+  - [Introduction](#introduction)
+  - [Setup your tests](#setup-your-tests)
+    - [Custom `render` function](#custom-render-function)
+      - [Redux Provider](#redux-provider)
+      - [Saga initialization](#saga-initialization)
+      - [Root-level components (eg. Toaster)](#root-level-components-eg-toaster)
+      - [Navigation](#navigation)
+        - [Real navigation](#real-navigation)
+        - [No Navigation](#no-navigation)
+    - [Server Api Calls](#server-api-calls)
+  - [Find elements in your DOM](#find-elements-in-your-dom)
+  - [Simulate user interaction](#simulate-user-interaction)
+  - [Expect some (visual) feedback](#expect-some-visual-feedback)
+    - [Appearance of an element](#appearance-of-an-element)
+    - [An element is disabled](#an-element-is-disabled)
+    - [Specific styling](#specific-styling)
+  - [Other scenarios](#other-scenarios)
+    - [Mock times with jest](#mock-times-with-jest)
+
+## Introduction
 
 A typical integration test looks like this:
 
@@ -46,7 +68,7 @@ Besides that, we also have sagas that are fired at the start of the app. Let's s
 
 To start testing your app, you will first need your own `render` function (I called mine `renderPage`) to render the components you want to test. With integration tests, I personnaly like to test page components only. It's in your `render` function that you will setup Redux, sagas and such.
 
-If you want to dive straight into the code, here is [the file](√) with the renderPage function
+If you want to dive straight into the code, here is [the file](../src/utils/tests/helpers.tsx) with the renderPage function
 
 #### Redux Provider
 
@@ -80,8 +102,8 @@ export const createInitialiasedStore = (initialState?: Partial<IAppState>) =>
 
 Files to check out:
 
-- [this test](../../pages/TodoList/__tests__/TodoList.test.tsx)
-- [mockStore](./mockStore.ts)
+- [this test](../src/pages/TodoList/__tests__/TodoList.test.tsx)
+- [mockStore](../src/utils/tests/mockStore.ts)
 
 #### Saga initialization
 
@@ -100,9 +122,9 @@ export const renderPage = (page: ReactElement, initialState?: Partial<IAppState>
 
 Files to check out:
 
-- [this test](../../pages/Subscription/__tests__/Subscription.test.tsx)
-- [renderPage method](./helpers.tsx)
-- [mockStore](./mockStore.ts)
+- [this test](../src/pages/Subscription/__tests__/Subscription.test.tsx)
+- [renderPage method](../src/utils/tests/helpers.tsx)
+- [mockStore](../src/utils/tests/mockStore.ts)
 
 #### Root-level components (eg. Toaster)
 
@@ -188,7 +210,6 @@ export const createAppContainerWithInitialRoute = (initialRouteName: string) =>
 ```
 
 Files to check out:
-
 - [Jest setup](../jest.setup.ts) where I mock React Native gesture handler
 - [Navigation setup](../src/navigation/stack.ts) where I have the `createAppContainerWithInitialRoute` helper
 - [Home test](../src/pages/Home/__tests__/Home.test.tsx) where I use renderWithNavigation
@@ -314,7 +335,7 @@ However if you want to test that different styles match what you expect, you can
     fireEvent.press(ConfirmButton);
     // Then
     const SuccessMessage = page.queryByText('Password confirmed');
-    expect(SuccessMessage).toBeDefined();
+    expect(SuccessMessage).toBeTruthy();
     expect(page).toMatchSnapshot();
   });
 ```
@@ -322,5 +343,32 @@ However if you want to test that different styles match what you expect, you can
 
 ## Other scenarios
 
-- Need fake timers
-- Need to rerender page
+### Mock times with jest
+
+If you have long timers in your app (for animations or api calls for instance) and don't want your tests to take forever, you can use jest fake timers.
+
+```typescript
+  it('should load movies and display movies properly [using jest timers]', () => {
+    // SETUP
+    jest.useFakeTimers();
+    // we use fake timers to skip the 2 seconds of delay during the API call
+    // thus we don't need to use async / await in this test
+    mockGetMovies();
+    // GIVEN the page renders
+    const page = renderPage(<Movies />);
+    // THEN it loads
+    const Loader = page.queryByTestId('loader');
+    expect(Loader).toBeTruthy();
+    jest.runOnlyPendingTimers(); // don't run all timers here because delay (the redux saga effect) use recursive timers
+    // THEN it shows the movies from the external API
+    const FirstMovie = waitForElement(() => page.queryByText(mockPopularMovies[0].title));
+    const SecondMovie = waitForElement(() => page.queryByText(mockPopularMovies[1].title));
+    expect(FirstMovie).toBeTruthy();
+    expect(SecondMovie).toBeTruthy();
+  });
+```
+
+Files to check out:
+- [the test](../src/pages/Movies/__tests__/Movies.test.tsx)
+- [the tested page](../src/pages/Movies/Movies.tsx)
+- [the saga with the timer to fake](../src/modules/movies/sagas.ts)
