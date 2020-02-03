@@ -249,10 +249,76 @@ To simulate user interactions, use the `fireEvent` function detailed [here](http
 
 ## Expect some (visual) feedback
 
-- Loading
-- Navigation
-- A component appears (waitForElement)
-- A disabled button does not call its onClick
+### Appearance of an element
+
+To check the presence of an element, use the `queryBy*` functions such as `queryByText` used below. Once you have retrieved the element, check its truthiness. This is more explicit than just using a `getBy*` function that will immedialty throw an error if it does not find the element.
+
+```typescript
+  it('should display previous and new todos', async () => {
+    const initialState = {
+    todos: { todoList: ['buy groceries'] },
+  };
+    const newTodoText = 'go running';
+    const page = renderPage(<TodoList />, initialState);
+    // GIVEN 
+    const TodoInput = page.getByPlaceholder(wording.todos.newTodo);
+    const AddTodoButton = page.getByText(wording.todos.add);
+    const FirstTodo = page.queryByText('buy groceries');
+    expect(FirstTodo).toBeTruthy();
+    // WHEN we add a new todo
+    fireEvent.changeText(TodoInput, newTodoText);
+    fireEvent.press(AddTodoButton);
+    // THEN we expect it to appear
+    const NewTodo = await waitForElement(() => page.queryByText(newTodoText));
+    expect(NewTodo).toBeTruthy();
+  });
+```
+
+Files to check out:
+- [the test](../src/pages/TodoList/__tests__/TodoList.test.tsx)
+- [the tested page](../src/pages/TodoList/TodoList.tsx)
+
+### An element is disabled 
+
+Unfortunately, when you render a disabled button, if you fire a press event on it, it will work even though the button is disabled. That's why if you want to check that a button is disabled, you can either look at its `disabled` prop or you can use `toBeDisabled` from [jest-native](https://github.com/testing-library/jest-native). This library is an extension of the jest `expect` function offering you more tools to check specific things on a react native component. Apart from `toBeDisabled`, you also have `toHaveProp` or `toHaveStyle`.
+
+Here is an example to check that a button is disabled:
+
+```typescript
+  it('shows disabled confirm button while password is blank', () => {
+    const page = renderPage(<DisabledButtonPage {...props} />);
+    const ConfirmButton = page.getByText('Confirm');
+    expect(ConfirmButton).toBeDisabled();
+  });
+```
+
+Files to check out:
+- [the test](../src/pages/DisabledButton/__tests__/DisabledButton.test.tsx)
+- [the tested page](../src/pages/DisabledButton/DisabledButton.tsx)
+
+
+### Specific styling
+
+If you want to check a very specific piece of style in your app, you should use [toHaveStyle](https://github.com/testing-library/jest-native#tohavestyle) from the jest-native library (detailed in the paragraph above).
+
+However if you want to test that different styles match what you expect, you can still use a basic snapshot like so:
+```typescript
+    it('shows success message when password confirmed', () => {
+    // Given
+    const page = renderPage(<DisabledButton {...props} />);
+    const PasswordInput = page.getByPlaceholder('password');
+    const ConfirmButton = page.getByText('Confirm');
+    // When
+    fireEvent.changeText(PasswordInput, 'azertyuiop123');
+    expect(ConfirmButton).toBeEnabled();
+    fireEvent.press(ConfirmButton);
+    // Then
+    const SuccessMessage = page.queryByText('Password confirmed');
+    expect(SuccessMessage).toBeDefined();
+    expect(page).toMatchSnapshot();
+  });
+```
+
 
 ## Other scenarios
 
