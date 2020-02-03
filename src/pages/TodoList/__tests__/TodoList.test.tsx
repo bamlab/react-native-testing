@@ -18,12 +18,12 @@ describe('[Page] TodoList', () => {
     const TodoInput = page.getByPlaceholder(wording.todos.newTodo);
     const AddTodoButton = page.getByText(wording.todos.add);
     const FirstTodo = page.queryByText('buy groceries');
-    expect(FirstTodo).toBeDefined();
+    expect(FirstTodo).toBeTruthy();
     // WHEN
     fireEvent.changeText(TodoInput, newTodoText);
     fireEvent.press(AddTodoButton);
     // THEN
     const NewTodo = await waitForElement(() => page.queryByText(newTodoText));
-    expect(NewTodo).toBeDefined();
+    expect(NewTodo).toBeTruthy();
   });
 });

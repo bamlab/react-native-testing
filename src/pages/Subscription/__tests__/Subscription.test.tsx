@@ -34,7 +34,7 @@ describe('[Page] Home', () => {
     const SuccessMessage = await waitForElement(() =>
       page.queryByText(wording.subscriptionSuccessful)
     );
-    expect(SuccessMessage).toBeDefined();
+    expect(SuccessMessage).toBeTruthy();
   });
 
   it('should display error message on failed subscription', async () => {
@@ -49,6 +49,6 @@ describe('[Page] Home', () => {
     fireEvent.press(ValidateButton);
     // THEN
     const ErrorMessage = await waitForElement(() => page.queryByText(wording.basicError));
-    expect(ErrorMessage).toBeDefined();
+    expect(ErrorMessage).toBeTruthy();
   });
 });
