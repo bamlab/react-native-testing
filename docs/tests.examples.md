@@ -1,8 +1,7 @@
 # Tests Examples
 
 ## Table of contents
-- [Tests Examples](#tests-examples)
-  - [Table of contents](#table-of-contents)
+
   - [Introduction](#introduction)
   - [Setup your tests](#setup-your-tests)
     - [Custom `render` function](#custom-render-function)
