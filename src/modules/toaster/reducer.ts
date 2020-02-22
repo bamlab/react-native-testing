@@ -1,10 +1,10 @@
 import { Reducer } from 'redux';
-import { IToasterState, ToasterActionTypes } from './types';
+import { ToasterState, ToasterActionTypes } from './types';
 import { TToasterActionObjectTypes } from './actions';
 
 const initialState = null;
 
-export const toasterReducer: Reducer<IToasterState | null, TToasterActionObjectTypes> = (
+export const toasterReducer: Reducer<ToasterState | null, TToasterActionObjectTypes> = (
   state = initialState,
   action
 ) => {

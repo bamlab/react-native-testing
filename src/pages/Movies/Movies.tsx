@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { View, Text, ActivityIndicator } from 'react-native';
+import { Text, ActivityIndicator } from 'react-native';
 import { Container, Card } from '../../components/StyledComponents';
 import { useSelector, useDispatch } from 'react-redux';
 import { movieListSelector } from '../../modules/movies/selectors';

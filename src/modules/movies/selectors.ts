@@ -1,3 +1,3 @@
-import { IAppState } from '../types';
+import { AppState } from '../types';
 
-export const movieListSelector = (state: IAppState) => state.movies.movieList;
+export const movieListSelector = (state: AppState) => state.movies.movieList;

@@ -19,6 +19,9 @@ module.exports = {
       modules: true,
     },
   },
+  env: {
+    jest: true,
+  },
   rules: {
     '@typescript-eslint/no-parameter-properties': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',

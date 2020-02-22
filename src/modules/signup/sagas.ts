@@ -13,6 +13,7 @@ function* subscribeNewsletterSaga(
 ) {
   try {
     const { email } = action.payload;
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     yield call(SignUpApi.subscribeNewsletter, { email });
     yield put(ToasterActions.showSuccessMessage(wording.subscriptionSuccessful));
   } catch (err) {

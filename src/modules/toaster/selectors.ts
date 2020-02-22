@@ -1,3 +1,3 @@
-import { IAppState } from '../types';
+import { AppState } from '../types';
 
-export const toasterMessageSelector = (state: IAppState) => state.toaster;
+export const toasterMessageSelector = (state: AppState) => state.toaster;

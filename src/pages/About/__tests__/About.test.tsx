@@ -1,5 +1,5 @@
 import React from 'react';
-import { fireEvent, debug } from 'react-native-testing-library';
+import { fireEvent } from 'react-native-testing-library';
 import 'jest-styled-components';
 
 import { renderPage, getPropsWithNavigation } from '../../../utils/tests/helpers';
@@ -18,6 +18,7 @@ describe('[Page] About', () => {
     // WHEN
     fireEvent.press(NavigateSubscribeButton);
     // THEN
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     expect(props.navigation.navigate).toHaveBeenCalledWith(Routes.Home);
   });
 });

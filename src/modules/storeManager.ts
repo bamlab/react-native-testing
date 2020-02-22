@@ -1,9 +1,9 @@
 import { Store as ReduxStore } from 'redux';
 
-import { IAppState } from '../modules/types';
+import { AppState } from '../modules/types';
 
 class StoreManager {
-  private _store?: ReduxStore<IAppState> = undefined;
+  private _store?: ReduxStore<AppState> = undefined;
   private static _instance: StoreManager;
 
   public static getInstance = () => {
@@ -14,7 +14,7 @@ class StoreManager {
     return StoreManager._instance;
   };
 
-  public set store(store: ReduxStore<IAppState>) {
+  public set store(store: ReduxStore<AppState>) {
     this._store = store;
   }
   public get store() {

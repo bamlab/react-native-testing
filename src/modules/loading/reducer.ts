@@ -1,9 +1,9 @@
 import { Reducer } from 'redux';
 
-import { TLoadingState, LoadingActionTypes } from './types';
+import { LoadingState, LoadingActionTypes } from './types';
 import { TLoadingActionObjectTypes } from './actions';
 
-export const loadingReducer: Reducer<TLoadingState, TLoadingActionObjectTypes> = (
+export const loadingReducer: Reducer<LoadingState, TLoadingActionObjectTypes> = (
   state = {},
   action
 ) => {

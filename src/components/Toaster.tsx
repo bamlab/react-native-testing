@@ -1,5 +1,4 @@
 import React, { FunctionComponent } from 'react';
-//@ts-ignore
 import ToasterMessage from 'react-native-toaster';
 import { useSelector } from 'react-redux';
 

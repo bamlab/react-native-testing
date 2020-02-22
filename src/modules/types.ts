@@ -1,11 +1,12 @@
-import { ISignupState } from './signup/types';
-import { IToasterState } from './toaster/types';
-import { ITodoState } from './todos/types';
-import { IMoviesState } from './movies/types';
+import { ToasterState } from './toaster/types';
+import { TodoState } from './todos/types';
+import { MoviesState } from './movies/types';
+import { LoadingState } from './loading/types';
 
-export interface IAppState {
-  signup: ISignupState;
-  toaster: IToasterState;
-  todos: ITodoState;
-  movies: IMoviesState;
+export interface AppState {
+  signup: {};
+  toaster: ToasterState;
+  todos: TodoState;
+  movies: MoviesState;
+  loading: LoadingState;
 }

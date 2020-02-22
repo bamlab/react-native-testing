@@ -1,13 +1,13 @@
 import { Reducer } from 'redux';
 
 import { TTodoActionObjectTypes } from './actions';
-import { ITodoState, TodoActionTypes } from './types';
+import { TodoState, TodoActionTypes } from './types';
 
-const initialTodoState: ITodoState = {
+const initialTodoState: TodoState = {
   todoList: [],
 };
 
-export const todoReducer: Reducer<ITodoState, TTodoActionObjectTypes> = (
+export const todoReducer: Reducer<TodoState, TTodoActionObjectTypes> = (
   state = initialTodoState,
   action
 ) => {

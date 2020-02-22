@@ -11,7 +11,8 @@ function* getMoviesSaga() {
     // eslint-disable-next-line @typescript-eslint/unbound-method
     const [movies] = yield all([call(MoviesApi.getMovies), delay(2000)]);
     // delay is used here for testing purposes to demonstrate how to use jest timers
-    const movieTitles = movies.results.map(movie => movie.title);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const movieTitles = movies.results.map((movie: any) => movie.title);
     yield put(MoviesActions.getMoviesSuccess(movieTitles));
   } catch (err) {
     console.log(err);

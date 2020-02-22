@@ -5,10 +5,17 @@
   "scripts": {
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint src --ext .js,.ts,.tsx --no-ignore --max-warnings=0 && yarn ts:check",
+    "check-types": "tsc --project tsconfig.json",
+    "lint": "eslint src --ext .js,.ts,.tsx --no-ignore --max-warnings=0",
     "format": "prettier --write --ignore-path .gitignore \"**/*.+(js|ts|tsx|json)\"",
+    "validate": "npm-run-all check-types lint test",
     "lint-committed": "lint-committed",
     "commit-formatting": "git commit -m \"Format files\" || echo \"No files to format\""
+  },
+  "jest-runner-eslint": {
+    "clipOptions": {
+      "ignorePath": "./.gitignore"
+    }
   },
   "dependencies": {
     "@bam.tech/react-native-component-text-input": "^1.0.3",
@@ -58,11 +65,13 @@
     "fetch-mock": "^7.3.3",
     "husky": "3.1.0",
     "jest": "^24.9.0",
+    "jest-runner-eslint": "0.7.5",
     "jest-styled-components": "^6.3.3",
     "jest-watch-typeahead": "0.4.2",
     "jetifier": "^1.6.4",
     "lint-committed": "0.0.0-development",
     "metro-react-native-babel-preset": "^0.56.0",
+    "npm-run-all": "4.1.5",
     "patch-package": "^6.1.2",
     "prettier": "^1.16.4",
     "react-dom": "^16.8.6",
