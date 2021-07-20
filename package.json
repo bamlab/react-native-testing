@@ -15,7 +15,7 @@
     "@martin_hotell/rex-tils": "^2.1.1",
     "formik": "^1.5.7",
     "react": "16.9.0",
-    "react-native": "0.61.1",
+    "react-native": "0.62.3",
     "react-native-actionsheet": "^2.4.2",
     "react-native-formik": "^1.7.6",
     "react-native-gesture-handler": "^1.4.1",
